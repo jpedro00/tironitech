@@ -1,155 +1,149 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import "./styles/tironi-home.css";
+import { useMemo, useState, useEffect } from "react";
+import "./styles/tironi-zallpy.css";
 
-const clients = ["Casa", "Multiplier", "NewStore", "Coopermais"];
-const services = [
+const CONTACT_EMAIL = "tironi@tironitech.com";
+const WHATSAPP_NUMBER = "5585999498149";
+
+const trustItems = [
+  { value: "Software", label: "sob medida para operações reais" },
+  { value: "IA", label: "e automação aplicada ao negócio" },
+  { value: "Produto", label: "digital com visão de evolução" },
+  { value: "Parceira", label: "tecnológica de longo prazo" },
+];
+
+const solutions = [
   {
-    title: "Desenvolvimento de Software Sob Medida",
-    text: "Projetamos e construímos plataformas, sistemas internos e aplicações web alinhadas ao fluxo real do seu negócio — com base sólida para evoluir.",
+    title: "Software sob medida",
+    text: "Desenvolvimento de sistemas, plataformas e produtos digitais alinhados à realidade operacional da empresa.",
   },
   {
-    title: "Automação com Inteligência Artificial",
-    text: "Implementamos automações, agentes e integrações com IA para reduzir atrito operacional, acelerar decisões e elevar a qualidade do atendimento.",
+    title: "IA e automação",
+    text: "Automatização de fluxos, inteligência aplicada e ganho de eficiência com mais clareza e controle.",
   },
   {
-    title: "Análise de Dados e Dashboards",
-    text: "Transformamos dados em clareza: indicadores, painéis e relatórios para enxergar operação, gargalos e oportunidades com objetividade.",
+    title: "Modernização tecnológica",
+    text: "Reestruturação de sistemas, processos e experiências digitais para negócios em crescimento.",
   },
   {
-    title: "Modernização de Processos",
-    text: "Reestruturamos sistemas e rotinas para ganhar eficiência, confiabilidade e escala — sem quebrar o que já funciona no seu dia a dia.",
-  },
-  {
-    title: "Consultoria Estratégica",
-    text: "Apoiamos a definição do que construir, como construir e por quê — alinhando tecnologia, viabilidade e resultado esperado.",
+    title: "Dados e operação",
+    text: "Soluções para organização, visibilidade e leitura de indicadores que ajudam na tomada de decisão.",
   },
 ];
 
 const cases = [
   {
-    category: "Software sob medida",
-    title: "Projeto sob medida para Multiplier",
-    text: "Estrutura digital construída para suportar operação, crescimento e evolução contínua do produto com consistência.",
-  },
-  {
     category: "Operação digital",
-    title: "Estrutura tecnológica para NewStore",
-    text: "Base técnica organizada com foco em robustez, performance e uma experiência digital alinhada ao posicionamento.",
+    title: "Estrutura tecnológica para operações mais maduras",
+    text: "Projetos pensados para fortalecer base técnica, experiência e continuidade do crescimento.",
   },
   {
-    category: "Processos e gestão",
-    title: "Solução para Coopermais",
-    text: "Organização de fluxo operacional com mais visibilidade e controle — tecnologia aplicada para reduzir atrito e dar previsibilidade.",
+    category: "Software sob medida",
+    title: "Plataformas alinhadas ao contexto real do cliente",
+    text: "Construção digital com foco em clareza, robustez e aderência ao negócio.",
   },
   {
-    category: "Plataforma e presença",
-    title: "Tecnologia aplicada para Casa",
-    text: "Estrutura institucional e tecnológica com foco em clareza, posicionamento e suporte ao crescimento da operação.",
+    category: "IA aplicada",
+    title: "Automação com mais inteligência e menos atrito",
+    text: "Uso de automação e IA para reduzir esforço manual e tornar a operação mais previsível.",
   },
 ];
 
-const metrics = [
-  { value: "20+", label: "anos de experiência" },
-  { value: "50+", label: "projetos de sucesso" },
-  { value: "99%", label: "satisfação do cliente" },
-  { value: "20+", label: "especialistas qualificados" },
-  { value: "100+", label: "soluções inovadoras" },
+const values = [
+  {
+    title: "Clareza",
+    text: "Projetos bem pensados, boa leitura de negócio e comunicação objetiva.",
+  },
+  {
+    title: "Proximidade",
+    text: "Relacionamento próximo, visão colaborativa e construção junto ao cliente.",
+  },
+  {
+    title: "Estrutura",
+    text: "Tecnologia organizada para sustentar crescimento com mais segurança.",
+  },
+  {
+    title: "Evolução",
+    text: "Soluções feitas para continuar evoluindo, não apenas para resolver o agora.",
+  },
 ];
 
-function Navbar() {
-  const [open, setOpen] = useState(false);
+const insights = [
+  "Como aplicar IA sem perder clareza operacional",
+  "Quando software sob medida realmente faz sentido",
+  "Como modernizar uma operação sem aumentar complexidade",
+];
+
+function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onKeyDown = (e) => {
-      if (e.key === "Escape") setOpen(false);
+    if (!menuOpen) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") setMenuOpen(false);
     };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className="tt-navbar">
-      <div className="tt-container tt-navbar-inner">
-        <a href="#home" className="tt-brand" aria-label="Ir para início">
-          <span className="tt-brand-mark" aria-hidden="true">
-            T
-          </span>
-          <span className="tt-brand-text">Tironi Tech</span>
+    <header className="tt-header">
+      <div className="tt-container tt-header-inner">
+        <a href="#home" className="tt-logo" onClick={closeMenu}>
+          <div className="tt-logo-mark">T</div>
+          <div className="tt-logo-text">
+            <strong>Tironi Tech</strong>
+            <span>Technology & Digital Solutions</span>
+          </div>
         </a>
 
-        <nav className="tt-nav" aria-label="Navegação principal">
-          <a href="#home">Início</a>
-          <a href="#solucoes">Soluções</a>
-          <a href="#cases">Cases</a>
-          <a href="#blog">Blog</a>
-          <a href="#visao">Visão</a>
-          <a href="#contato">Contato</a>
+        <button
+          type="button"
+          className="tt-nav-toggle"
+          aria-expanded={menuOpen}
+          aria-controls="primary-navigation"
+          aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+          onClick={() => setMenuOpen((o) => !o)}
+        >
+          <span aria-hidden="true">{menuOpen ? "×" : "☰"}</span>
+        </button>
+
+        <nav
+          id="primary-navigation"
+          className={`tt-nav${menuOpen ? " tt-nav-open" : ""}`}
+        >
+          <a href="#home" onClick={closeMenu}>
+            Início
+          </a>
+          <a href="#about" onClick={closeMenu}>
+            Sobre
+          </a>
+          <a href="#solutions" onClick={closeMenu}>
+            Soluções
+          </a>
+          <a href="#cases" onClick={closeMenu}>
+            Cases
+          </a>
+          <a href="#insights" onClick={closeMenu}>
+            Insights
+          </a>
+          <a href="#contact" onClick={closeMenu}>
+            Contato
+          </a>
         </nav>
 
-        <div className="tt-navbar-actions">
-          <a href="#contato" className="tt-btn tt-btn-primary tt-hide-sm">
-            Falar com especialista
-          </a>
-          <button
-            type="button"
-            className="tt-icon-btn tt-show-sm"
-            aria-label={open ? "Fechar menu" : "Abrir menu"}
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-          >
-            <span className="tt-burger" aria-hidden="true" />
-          </button>
-        </div>
+        <a className="tt-btn tt-btn-primary tt-header-cta" href="#contact" onClick={closeMenu}>
+          Falar com especialista
+        </a>
       </div>
-
-      {open ? (
-        <div className="tt-mobile-nav" role="dialog" aria-label="Menu">
-          <div
-            className="tt-mobile-nav-backdrop"
-            onClick={() => setOpen(false)}
-          />
-          <div className="tt-mobile-nav-panel">
-            <div className="tt-mobile-nav-head">
-              <div className="tt-brand">
-                <span className="tt-brand-mark" aria-hidden="true">
-                  T
-                </span>
-                <span className="tt-brand-text">Tironi Tech</span>
-              </div>
-              <button
-                type="button"
-                className="tt-icon-btn"
-                aria-label="Fechar menu"
-                onClick={() => setOpen(false)}
-              >
-                ×
-              </button>
-            </div>
-
-            <div className="tt-mobile-nav-links">
-              {[
-                ["Início", "#home"],
-                ["Soluções", "#solucoes"],
-                ["Cases", "#cases"],
-                ["Blog", "#blog"],
-                ["Visão", "#visao"],
-                ["Contato", "#contato"],
-              ].map(([label, href]) => (
-                <a key={href} href={href} onClick={() => setOpen(false)}>
-                  {label}
-                </a>
-              ))}
-            </div>
-
-            <a
-              href="#contato"
-              onClick={() => setOpen(false)}
-              className="tt-btn tt-btn-primary tt-mobile-nav-cta"
-            >
-              Falar com especialista
-            </a>
-          </div>
-        </div>
+      {menuOpen ? (
+        <button
+          type="button"
+          className="tt-nav-backdrop"
+          aria-label="Fechar menu"
+          onClick={closeMenu}
+        />
       ) : null}
     </header>
   );
@@ -158,70 +152,83 @@ function Navbar() {
 function Hero() {
   return (
     <section id="home" className="tt-hero">
+      <div className="tt-hero-gradient tt-hero-gradient-a" />
+      <div className="tt-hero-gradient tt-hero-gradient-b" />
+
       <div className="tt-container tt-hero-grid">
         <div className="tt-hero-copy">
-          <span className="tt-kicker">
-            Software sob medida • IA aplicada • Dados e evolução
-          </span>
+          <span className="tt-kicker">Tecnologia com clareza, estrutura e evolução</span>
+
           <h1>
-            Desenvolvemos software e soluções em IA para empresas que querem
-            <span> crescer com clareza, eficiência e escala.</span>
+            Soluções digitais para empresas que querem crescer com mais confiança.
           </h1>
+
           <p>
-            Da estratégia à entrega, criamos sistemas, automações e experiências
-            digitais com acabamento premium — orientados a operação, velocidade
-            e valor de longo prazo.
+            A Tironi Tech desenvolve software sob medida, automações, soluções com IA
+            e estruturas digitais preparadas para a realidade do negócio.
           </p>
 
           <div className="tt-hero-actions">
-            <a href="#contato" className="tt-btn tt-btn-primary">
+            <a className="tt-btn tt-btn-primary" href="#contact">
               Falar com especialista
             </a>
-            <a href="#cases" className="tt-btn tt-btn-secondary">
-              Ver cases
+            <a className="tt-btn tt-btn-secondary" href="#solutions">
+              Ver soluções
             </a>
           </div>
 
-          <div className="tt-hero-note">
-            Mais de 20 anos apoiando empresas com engenharia de software,
-            modernização e automação inteligente.
+          <div className="tt-hero-mini">
+            <div>
+              <strong>Mais clareza</strong>
+              <span>na construção tecnológica</span>
+            </div>
+            <div>
+              <strong>Mais maturidade</strong>
+              <span>para operações digitais</span>
+            </div>
           </div>
         </div>
 
-        <div className="tt-logo-cloud" aria-label="Clientes e frentes de atuação">
-          {clients.map((client, index) => (
-            <div
-              className={`tt-logo-card tt-logo-card-${index + 1}`}
-              key={client}
-            >
-              {client}
-            </div>
-          ))}
-          <div className="tt-logo-card tt-logo-card-accent">IA</div>
-          <div className="tt-logo-card tt-logo-card-accent-2">Software</div>
-          <div className="tt-logo-card tt-logo-card-accent-3">Dados</div>
+        <div className="tt-hero-visual">
+          <div className="tt-orb" />
+          <div className="tt-visual-card tt-visual-card-main">
+            <span>Parceira tecnológica</span>
+            <h3>Projetos digitais com visão de negócio, design limpo e execução sólida.</h3>
+            <p>
+              Construção digital mais organizada, humana e premium para empresas
+              que precisam evoluir com segurança.
+            </p>
+          </div>
+
+          <div className="tt-visual-card tt-visual-card-small tt-visual-card-a">
+            <strong>Software</strong>
+            <span>Sob medida</span>
+          </div>
+
+          <div className="tt-visual-card tt-visual-card-small tt-visual-card-b">
+            <strong>IA</strong>
+            <span>Automação aplicada</span>
+          </div>
+
+          <div className="tt-visual-card tt-visual-card-small tt-visual-card-c">
+            <strong>Operação</strong>
+            <span>Mais previsibilidade</span>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function TrustStrip() {
+function TrustSection() {
   return (
-    <section className="tt-trust" aria-label="Credibilidade">
+    <section className="tt-section tt-section-tight">
       <div className="tt-container">
-        <div className="tt-trust-header">
-          <h2>Confiança para construir, clareza para evoluir.</h2>
-          <p>
-            Atuamos como parceiro técnico: engenharia, IA aplicada e
-            modernização com cadência, qualidade e visão de negócio.
-          </p>
-        </div>
-
-        <div className="tt-trust-logos" aria-label="Clientes e parceiros">
-          {clients.map((client) => (
-            <div key={client} className="tt-trust-logo">
-              {client}
+        <div className="tt-trust-strip">
+          {trustItems.map((item) => (
+            <div key={item.label} className="tt-trust-item">
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
             </div>
           ))}
         </div>
@@ -230,29 +237,25 @@ function TrustStrip() {
   );
 }
 
-function Services() {
+function AboutSection() {
   return (
-    <section id="solucoes" className="tt-section">
-      <div className="tt-container">
+    <section id="about" className="tt-section">
+      <div className="tt-container tt-about-grid">
         <div className="tt-section-head">
-          <span className="tt-kicker">Soluções</span>
-          <h2>Tecnologia de ponta, aplicada ao que importa.</h2>
+          <span className="tt-kicker">Sobre a Tironi Tech</span>
+          <h2>Tecnologia com leitura de negócio, proximidade e construção consistente.</h2>
           <p>
-            Uma oferta clara e comercial — sem promessas vazias. Foco em
-            software sob medida, automação em IA, dados e modernização com
-            execução madura.
+            A Tironi Tech atua na criação de soluções digitais com foco em clareza,
+            boa estrutura técnica e evolução real. A proposta é simples: construir
+            melhor, com mais organização, mais visão e mais confiança.
           </p>
         </div>
 
-        <div className="tt-services-grid">
-          {services.map((service) => (
-            <article className="tt-card tt-service-card" key={service.title}>
-              <div className="tt-service-badge" aria-hidden="true" />
-              <h3>{service.title}</h3>
-              <p>{service.text}</p>
-              <a className="tt-link" href="#contato">
-                Conversar sobre esta solução
-              </a>
+        <div className="tt-about-cards">
+          {values.map((item) => (
+            <article key={item.title} className="tt-info-card">
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
             </article>
           ))}
         </div>
@@ -261,72 +264,61 @@ function Services() {
   );
 }
 
-function AIShowcase() {
+function SolutionsSection() {
   return (
-    <section className="tt-ai-showcase" aria-label="IA aplicada ao negócio">
-      <div className="tt-container tt-ai-grid">
-        <div>
-          <span className="tt-kicker tt-kicker-light">IA aplicada ao negócio</span>
-          <h2>Automação e inteligência artificial com método.</h2>
+    <section id="solutions" className="tt-section tt-section-soft">
+      <div className="tt-container">
+        <div className="tt-section-head tt-section-head-center">
+          <span className="tt-kicker">Soluções</span>
+          <h2>Uma estrutura de serviços mais clara, elegante e preparada para gerar confiança.</h2>
           <p>
-            Construímos automações, agentes e fluxos inteligentes conectados aos
-            seus sistemas e dados — com governança, segurança e foco em
-            eficiência real.
+            O objetivo não é parecer genérico. É comunicar valor, organização e
+            capacidade real de entrega.
           </p>
-          <ul className="tt-list">
-            <li>Automação de processos repetitivos e operacionais</li>
-            <li>Agentes e fluxos com IA para suporte e produtividade</li>
-            <li>Integrações com sistemas, APIs e bases de dados</li>
-            <li>Experiências digitais mais inteligentes e úteis</li>
-          </ul>
         </div>
 
-        <div className="tt-ai-panel">
-          <div className="tt-ai-panel-card">
-            <span>Fluxos inteligentes</span>
-            <strong>IA + automação + operação</strong>
-          </div>
-          <div className="tt-ai-panel-card">
-            <span>Modernização</span>
-            <strong>Eficiência com menos atrito</strong>
-          </div>
-          <div className="tt-ai-panel-card">
-            <span>Dados e visão</span>
-            <strong>Contexto para decidir melhor</strong>
-          </div>
+        <div className="tt-solutions-grid">
+          {solutions.map((item) => (
+            <article key={item.title} className="tt-solution-card">
+              <div className="tt-solution-icon" />
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-function Cases() {
+function CasesSection() {
   return (
     <section id="cases" className="tt-section">
       <div className="tt-container">
         <div className="tt-section-head">
           <span className="tt-kicker">Cases</span>
-          <h2>Projetos com contexto, clareza e apresentação.</h2>
+          <h2>Projetos apresentados com contexto, clareza e percepção premium.</h2>
           <p>
-            Sem inventar números: mostramos categoria, objetivo e a natureza da
-            entrega — com linguagem institucional e foco em confiança.
+            A forma de apresentar os cases deve transmitir maturidade, organização
+            e confiança comercial.
           </p>
         </div>
 
         <div className="tt-cases-grid">
-          <article className="tt-card tt-case-featured">
-            <span className="tt-case-tag">{cases[0].category}</span>
-            <h3>{cases[0].title}</h3>
-            <p>{cases[0].text}</p>
-            <a className="tt-link" href="#contato">
-              Quero um projeto assim
-            </a>
+          <article className="tt-case-feature">
+            <div className="tt-case-badge">Case em destaque</div>
+            <h3>Estrutura digital para empresas que precisam de mais consistência operacional.</h3>
+            <p>
+              Interfaces, sistemas e fluxos digitais organizados para sustentar
+              crescimento com mais previsibilidade e qualidade percebida.
+            </p>
+            <a href="#contact">Quero uma solução assim</a>
           </article>
 
-          <div className="tt-case-side-grid">
-            {cases.slice(1).map((item) => (
-              <article className="tt-card tt-case-card" key={item.title}>
-                <span className="tt-case-tag">{item.category}</span>
+          <div className="tt-case-list">
+            {cases.map((item) => (
+              <article key={item.title} className="tt-case-card">
+                <span>{item.category}</span>
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
               </article>
@@ -338,96 +330,56 @@ function Cases() {
   );
 }
 
-function Metrics() {
+function MethodSection() {
   return (
-    <section className="tt-metrics" aria-label="Métricas e experiência">
+    <section className="tt-section tt-section-soft">
       <div className="tt-container">
-        <div className="tt-metrics-head">
-          <span className="tt-kicker">Experiência</span>
-          <h2>Capacidade comprovada, entrega consistente.</h2>
+        <div className="tt-section-head tt-section-head-center">
+          <span className="tt-kicker">Como pensamos</span>
+          <h2>Estratégia, estrutura, execução e evolução.</h2>
         </div>
 
-        <div className="tt-metrics-grid">
-          {metrics.map((metric) => (
-            <div key={metric.label} className="tt-metric">
-              <strong>{metric.value}</strong>
-              <span>{metric.label}</span>
-            </div>
-          ))}
+        <div className="tt-method-grid">
+          <article className="tt-method-card">
+            <h3>Entendimento</h3>
+            <p>Leitura de contexto, operação e necessidades reais do projeto.</p>
+          </article>
+
+          <article className="tt-method-card">
+            <h3>Estruturação</h3>
+            <p>Organização da base técnica, da experiência e dos fluxos prioritários.</p>
+          </article>
+
+          <article className="tt-method-card">
+            <h3>Construção</h3>
+            <p>Desenvolvimento com clareza, consistência visual e foco em qualidade.</p>
+          </article>
+
+          <article className="tt-method-card">
+            <h3>Evolução</h3>
+            <p>Melhoria contínua para acompanhar crescimento, maturidade e novas demandas.</p>
+          </article>
         </div>
       </div>
     </section>
   );
 }
 
-function Process() {
+function InsightsSection() {
   return (
-    <section id="visao" className="tt-section">
+    <section id="insights" className="tt-section">
       <div className="tt-container">
         <div className="tt-section-head">
-          <span className="tt-kicker">Como trabalhamos</span>
-          <h2>Estratégia, arquitetura e execução com rigor.</h2>
-          <p>
-            Um processo claro para reduzir risco, aumentar previsibilidade e
-            construir soluções que continuam boas quando o projeto cresce.
-          </p>
+          <span className="tt-kicker">Insights</span>
+          <h2>Conteúdo para reforçar autoridade e visão de negócio.</h2>
         </div>
 
-        <div className="tt-process-grid">
-          {[
-            [
-              "Estratégia",
-              "Mapeamos contexto, objetivo e escopo com clareza — o que resolve hoje e o que precisa escalar amanhã.",
-            ],
-            [
-              "Design e arquitetura",
-              "Organizamos a solução com usabilidade, performance e base técnica sólida para manutenção e evolução.",
-            ],
-            [
-              "Desenvolvimento",
-              "Construímos com engenharia madura: qualidade, testes quando necessário e padrões que facilitam o crescimento.",
-            ],
-            [
-              "Evolução contínua",
-              "Apoiamos melhorias, novas etapas e otimizações — com dados, priorização e visão de produto.",
-            ],
-          ].map(([title, text]) => (
-            <div className="tt-card tt-process-card" key={title}>
-              <h3>{title}</h3>
-              <p>{text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function BlogSection() {
-  return (
-    <section id="blog" className="tt-section tt-blog">
-      <div className="tt-container">
-        <div className="tt-section-head">
-          <span className="tt-kicker">Blog</span>
-          <h2>Autoridade com conteúdo: software, IA e decisão.</h2>
-          <p>
-            Um espaço para consolidar visão: boas práticas, arquitetura,
-            automação e inteligência aplicada — com foco em utilidade real.
-          </p>
-        </div>
-
-        <div className="tt-blog-grid">
-          {[
-            "Como aplicar IA com governança (sem criar caos operacional)",
-            "Quando faz sentido desenvolver software sob medida",
-            "Modernização de sistemas: riscos, atalhos e o que evitar",
-          ].map((title) => (
-            <article key={title} className="tt-card tt-blog-card">
-              <span>Insight</span>
-              <h3>{title}</h3>
-              <a className="tt-link" href="#contato">
-                Falar com a Tironi Tech
-              </a>
+        <div className="tt-insights-grid">
+          {insights.map((item) => (
+            <article key={item} className="tt-insight-card">
+              <span>Artigo</span>
+              <h3>{item}</h3>
+              <a href="#contact">Explorar</a>
             </article>
           ))}
         </div>
@@ -438,33 +390,26 @@ function BlogSection() {
 
 function CTASection() {
   return (
-    <section id="contato" className="tt-cta">
-      <div className="tt-container tt-cta-box">
-        <div>
-          <span className="tt-kicker">Contato</span>
-          <h2>Vamos estruturar a próxima solução da sua empresa.</h2>
-          <p>
-            Conte sua demanda e receba direcionamento técnico com clareza.
-            Software sob medida, automação em IA e modernização com execução
-            premium.
-          </p>
-          <div className="tt-contact-inline" aria-label="Informações de contato">
-            <a href="mailto:tironi@tironitech.com">tironi@tironitech.com</a>
-            <span aria-hidden="true">•</span>
-            <a href="tel:+5585999498149">(85) 99949-8149</a>
+    <section id="contact" className="tt-section">
+      <div className="tt-container">
+        <div className="tt-cta-box">
+          <div className="tt-cta-copy">
+            <span className="tt-kicker">Contato</span>
+            <h2>Vamos construir uma solução digital mais clara, forte e preparada para evoluir.</h2>
+            <p>
+              Fale com a Tironi Tech para discutir software sob medida, IA,
+              automação e modernização tecnológica.
+            </p>
           </div>
-        </div>
 
-        <div className="tt-cta-actions">
-          <a
-            className="tt-btn tt-btn-primary"
-            href="mailto:tironi@tironitech.com"
-          >
-            Enviar email
-          </a>
-          <a className="tt-btn tt-btn-secondary" href="tel:+5585999498149">
-            Ligar agora
-          </a>
+          <div className="tt-cta-actions">
+            <a className="tt-btn tt-btn-primary" href={`mailto:${CONTACT_EMAIL}`}>
+              Enviar email
+            </a>
+            <a className="tt-btn tt-btn-secondary" href="#lead-assistant">
+              Falar no assistente
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -473,41 +418,40 @@ function CTASection() {
 
 function Footer() {
   return (
-    <footer className="tt-footer" aria-label="Rodapé">
+    <footer className="tt-footer">
       <div className="tt-container tt-footer-grid">
         <div>
-          <div className="tt-brand tt-brand-footer">
-            <span className="tt-brand-mark" aria-hidden="true">
-              T
-            </span>
-            <span className="tt-brand-text">Tironi Tech</span>
+          <div className="tt-logo tt-footer-logo">
+            <div className="tt-logo-mark">T</div>
+            <div className="tt-logo-text">
+              <strong>Tironi Tech</strong>
+              <span>Technology & Digital Solutions</span>
+            </div>
           </div>
+
           <p>
-            Desenvolvimento de software sob medida e automação em IA para
-            empresas que querem crescer com confiança, método e acabamento.
+            Soluções digitais com foco em clareza, evolução tecnológica e construção consistente.
           </p>
         </div>
 
         <div>
           <h4>Navegação</h4>
           <a href="#home">Início</a>
-          <a href="#solucoes">Soluções</a>
+          <a href="#about">Sobre</a>
+          <a href="#solutions">Soluções</a>
           <a href="#cases">Cases</a>
-          <a href="#blog">Blog</a>
-          <a href="#visao">Visão</a>
-          <a href="#contato">Contato</a>
+          <a href="#insights">Insights</a>
         </div>
 
         <div>
           <h4>Contato</h4>
-          <a href="mailto:tironi@tironitech.com">tironi@tironitech.com</a>
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer">
+            WhatsApp
+          </a>
           <a href="tel:+5585999498149">(85) 99949-8149</a>
-          <p>Rua Prates, 194 - Bom Retiro, São Paulo - SP, 01121-000</p>
+          <span>Rua Prates, 194 — Bom Retiro, São Paulo — SP, 01121-000</span>
         </div>
-      </div>
-
-      <div className="tt-container tt-footer-bottom">
-        <span>© 2026 Tironi Tech. Todos os direitos reservados.</span>
       </div>
     </footer>
   );
@@ -515,134 +459,102 @@ function Footer() {
 
 function LeadAssistant() {
   const [open, setOpen] = useState(false);
-  const [projectType, setProjectType] = useState("Quero falar com especialista");
+  const [subject, setSubject] = useState("Quero falar com um especialista");
   const [form, setForm] = useState({
     name: "",
     company: "",
     email: "",
   });
-  const titleRef = useRef(null);
-
-  useEffect(() => {
-    if (!open) return;
-    const t = setTimeout(() => titleRef.current?.focus(), 50);
-    return () => clearTimeout(t);
-  }, [open]);
 
   const message = useMemo(() => {
     return `Olá, vim pelo site da Tironi Tech.
-Tipo de projeto: ${projectType}
+Assunto: ${subject}
 Nome: ${form.name || "-"}
 Empresa: ${form.company || "-"}
 Email: ${form.email || "-"}
 
-Quero falar com um especialista e entender os próximos passos.`;
-  }, [form, projectType]);
+Gostaria de falar com um especialista.`;
+  }, [subject, form]);
 
-  const whatsappUrl = `https://wa.me/5585999498149?text=${encodeURIComponent(
-    message
-  )}`;
-  const mailtoUrl = `mailto:tironi@tironitech.com?subject=${encodeURIComponent(
-    "Briefing | Tironi Tech"
-  )}&body=${encodeURIComponent(message)}`;
-  const canProceed = Boolean(form.name.trim() && form.email.trim());
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
   return (
-    <div className={`tt-assistant ${open ? "is-open" : "is-closed"}`}>
+    <div id="lead-assistant" className="tt-assistant">
       {open ? (
-        <div
-          className="tt-assistant-card"
-          role="dialog"
-          aria-label="Assistente de contato"
-        >
-          <div className="tt-assistant-header">
+        <div className="tt-assistant-card">
+          <div className="tt-assistant-head">
             <div>
-              <strong tabIndex={-1} ref={titleRef}>
-                Assistente Tironi
-              </strong>
-              <span>Triagem rápida para direcionar sua demanda</span>
+              <strong>Assistente Tironi</strong>
+              <span>Online agora</span>
             </div>
-            <button onClick={() => setOpen(false)} aria-label="Fechar assistente">
+
+            <button type="button" onClick={() => setOpen(false)} aria-label="Fechar assistente">
               ×
             </button>
           </div>
 
           <div className="tt-assistant-body">
-            <div className="tt-assistant-bubble">
-              Olá! Em poucos passos, eu te levo para a conversa certa.
-            </div>
+            <p className="tt-assistant-message">
+              Posso direcionar sua demanda para o especialista certo com mais rapidez.
+            </p>
 
-            <div className="tt-quick-actions" aria-label="Atalhos de demanda">
+            <div className="tt-assistant-options">
               {[
+                "Quero falar com um especialista",
                 "Quero desenvolver um sistema",
-                "Quero automação com IA",
-                "Quero modernizar um software",
-                "Quero falar com especialista",
+                "Quero IA e automação",
+                "Quero modernizar uma operação",
               ].map((item) => (
                 <button
-                  type="button"
                   key={item}
-                  className={projectType === item ? "active" : ""}
-                  onClick={() => setProjectType(item)}
+                  type="button"
+                  className={subject === item ? "active" : ""}
+                  onClick={() => setSubject(item)}
                 >
                   {item}
                 </button>
               ))}
             </div>
 
-            <div className="tt-form-group" aria-label="Seus dados">
+            <div className="tt-assistant-form">
               <input
                 type="text"
-                placeholder="Seu nome *"
+                placeholder="Seu nome"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                autoComplete="name"
               />
               <input
                 type="text"
                 placeholder="Sua empresa"
                 value={form.company}
                 onChange={(e) => setForm({ ...form, company: e.target.value })}
-                autoComplete="organization"
               />
               <input
                 type="email"
-                placeholder="Seu email *"
+                placeholder="Seu email"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                autoComplete="email"
               />
-              <div className="tt-assistant-hint">
-                * Campos necessários para montar a mensagem.
-              </div>
             </div>
 
             <div className="tt-assistant-actions">
               <a
-                className={`tt-btn tt-btn-primary ${canProceed ? "" : "is-disabled"}`}
-                href={canProceed ? whatsappUrl : undefined}
-                onClick={(e) => {
-                  if (!canProceed) e.preventDefault();
-                }}
+                className="tt-btn tt-btn-primary"
+                href={whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
-                aria-disabled={!canProceed}
               >
                 Falar no WhatsApp
               </a>
-              <a className="tt-btn tt-btn-secondary" href={mailtoUrl}>
-                Enviar briefing por email
+
+              <a className="tt-btn tt-btn-secondary" href={`mailto:${CONTACT_EMAIL}`}>
+                Enviar email
               </a>
             </div>
           </div>
         </div>
       ) : (
-        <button
-          type="button"
-          className="tt-assistant-fab"
-          onClick={() => setOpen(true)}
-          aria-label="Abrir assistente para falar com especialista"
-        >
+        <button type="button" className="tt-assistant-fab" onClick={() => setOpen(true)}>
           Falar com especialista
         </button>
       )}
@@ -653,16 +565,15 @@ Quero falar com um especialista e entender os próximos passos.`;
 export default function App() {
   return (
     <>
-      <Navbar />
+      <Header />
       <main>
         <Hero />
-        <TrustStrip />
-        <Services />
-        <AIShowcase />
-        <Cases />
-        <Metrics />
-        <Process />
-        <BlogSection />
+        <TrustSection />
+        <AboutSection />
+        <SolutionsSection />
+        <CasesSection />
+        <MethodSection />
+        <InsightsSection />
         <CTASection />
       </main>
       <Footer />
