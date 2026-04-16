@@ -1,261 +1,163 @@
-import { useMemo, useState, useEffect } from "react";
-import "./styles/tironi-zallpy.css";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import "./styles/tironi-odois.css";
+import { getText, LANGUAGE_OPTIONS } from "./tironiI18n";
 
 const CONTACT_EMAIL = "tironi@tironitech.com";
 const WHATSAPP_NUMBER = "5585999498149";
 
-const trustItems = [
-  { value: "Software", label: "sob medida para operações reais" },
-  { value: "IA", label: "e automação aplicada ao negócio" },
-  { value: "Produto", label: "digital com visão de evolução" },
-  { value: "Parceira", label: "tecnológica de longo prazo" },
-];
+/** Valores exibidos na seção Destaques da Tironi Tech. */
+const HIGHLIGHT_VALUES = ["20+", "50+", "99%", "20+", "100+"];
 
-const solutions = [
+const CLIENTS = [
   {
-    title: "Software sob medida",
-    text: "Desenvolvimento de sistemas, plataformas e produtos digitais alinhados à realidade operacional da empresa.",
+    name: "Casa do Treinamento",
+    logo: "https://static.wixstatic.com/media/66390a_cf49547989da4c958d61781ae270cf89~mv2.png/v1/fill/w_152,h_56,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Casa-removebg-preview.png",
   },
   {
-    title: "IA e automação",
-    text: "Automatização de fluxos, inteligência aplicada e ganho de eficiência com mais clareza e controle.",
+    name: "Multiplier",
+    logo: "https://static.wixstatic.com/media/66390a_f590687d46c343baa3fd561a42e5abb4~mv2.png/v1/fill/w_136,h_68,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/multi-removebg-preview.png",
   },
   {
-    title: "Modernização tecnológica",
-    text: "Reestruturação de sistemas, processos e experiências digitais para negócios em crescimento.",
+    name: "NewStore",
+    logo: "https://static.wixstatic.com/media/66390a_f4171a1ecc954a2692725c5810dbd393~mv2.png/v1/fill/w_249,h_56,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/newstore_PNG.png",
   },
   {
-    title: "Dados e operação",
-    text: "Soluções para organização, visibilidade e leitura de indicadores que ajudam na tomada de decisão.",
+    name: "Coopermais",
+    logo: "https://static.wixstatic.com/media/66390a_8b6c94ee29fe4e57907cd67518d88c6c~mv2.png/v1/crop/x_25,y_0,w_212,h_73/fill/w_278,h_96,al_c,lg_1,q_85,enc_avif,quality_auto/coopermais_PNG.png",
   },
 ];
 
-const cases = [
-  {
-    category: "Operação digital",
-    title: "Estrutura tecnológica para operações mais maduras",
-    text: "Projetos pensados para fortalecer base técnica, experiência e continuidade do crescimento.",
-  },
-  {
-    category: "Software sob medida",
-    title: "Plataformas alinhadas ao contexto real do cliente",
-    text: "Construção digital com foco em clareza, robustez e aderência ao negócio.",
-  },
-  {
-    category: "IA aplicada",
-    title: "Automação com mais inteligência e menos atrito",
-    text: "Uso de automação e IA para reduzir esforço manual e tornar a operação mais previsível.",
-  },
-];
-
-const values = [
-  {
-    title: "Clareza",
-    text: "Projetos bem pensados, boa leitura de negócio e comunicação objetiva.",
-  },
-  {
-    title: "Proximidade",
-    text: "Relacionamento próximo, visão colaborativa e construção junto ao cliente.",
-  },
-  {
-    title: "Estrutura",
-    text: "Tecnologia organizada para sustentar crescimento com mais segurança.",
-  },
-  {
-    title: "Evolução",
-    text: "Soluções feitas para continuar evoluindo, não apenas para resolver o agora.",
-  },
-];
-
-const insights = [
-  "Como aplicar IA sem perder clareza operacional",
-  "Quando software sob medida realmente faz sentido",
-  "Como modernizar uma operação sem aumentar complexidade",
-];
-
-function Header() {
+function Header({ t, language, setLanguage }) {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (!menuOpen) return;
-    const onKey = (e) => {
-      if (e.key === "Escape") setMenuOpen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [menuOpen]);
-
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className="tt-header">
-      <div className="tt-container tt-header-inner">
-        <a href="#home" className="tt-logo" onClick={closeMenu}>
-          <div className="tt-logo-mark">T</div>
-          <div className="tt-logo-text">
+    <header className="tt2-header">
+      <div className="tt2-container tt2-header-inner">
+        <a href="#inicio" className="tt2-brand" onClick={closeMenu}>
+          <div className="tt2-brand-mark">T</div>
+          <div className="tt2-brand-copy">
             <strong>Tironi Tech</strong>
-            <span>Technology & Digital Solutions</span>
+            <span>{t.brandSubtitle}</span>
           </div>
         </a>
 
         <button
           type="button"
-          className="tt-nav-toggle"
+          className="tt2-nav-toggle"
           aria-expanded={menuOpen}
-          aria-controls="primary-navigation"
+          aria-controls="tt2-primary-nav"
           aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
           onClick={() => setMenuOpen((o) => !o)}
         >
           <span aria-hidden="true">{menuOpen ? "×" : "☰"}</span>
         </button>
 
-        <nav
-          id="primary-navigation"
-          className={`tt-nav${menuOpen ? " tt-nav-open" : ""}`}
-        >
-          <a href="#home" onClick={closeMenu}>
-            Início
+        <nav id="tt2-primary-nav" className={`tt2-nav${menuOpen ? " tt2-nav-open" : ""}`}>
+          <a href="#servicos" onClick={closeMenu}>
+            {t.nav.services}
           </a>
-          <a href="#about" onClick={closeMenu}>
-            Sobre
+          <a href="#clientes" onClick={closeMenu}>
+            {t.nav.clients}
           </a>
-          <a href="#solutions" onClick={closeMenu}>
-            Soluções
+          <a href="#sistemas" onClick={closeMenu}>
+            {t.nav.systems}
           </a>
           <a href="#cases" onClick={closeMenu}>
-            Cases
+            {t.nav.cases}
           </a>
-          <a href="#insights" onClick={closeMenu}>
-            Insights
-          </a>
-          <a href="#contact" onClick={closeMenu}>
-            Contato
+          <a href="#contato" onClick={closeMenu}>
+            {t.nav.contact}
           </a>
         </nav>
 
-        <a className="tt-btn tt-btn-primary tt-header-cta" href="#contact" onClick={closeMenu}>
-          Falar com especialista
-        </a>
+        <div className="tt2-header-actions">
+          <div className="tt2-language-switcher">
+            <select
+              className="tt2-language-select"
+              value={language}
+              onChange={(e) => {
+                setLanguage(e.target.value);
+                closeMenu();
+              }}
+              aria-label="Language"
+            >
+              {LANGUAGE_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <a className="tt2-btn tt2-btn-primary tt2-header-cta" href="#contato" onClick={closeMenu}>
+            {t.nav.talk}
+          </a>
+        </div>
       </div>
       {menuOpen ? (
-        <button
-          type="button"
-          className="tt-nav-backdrop"
-          aria-label="Fechar menu"
-          onClick={closeMenu}
-        />
+        <button type="button" className="tt2-nav-backdrop" aria-label="Fechar menu" onClick={closeMenu} />
       ) : null}
     </header>
   );
 }
 
-function Hero() {
+function Hero({ t }) {
   return (
-    <section id="home" className="tt-hero">
-      <div className="tt-hero-gradient tt-hero-gradient-a" />
-      <div className="tt-hero-gradient tt-hero-gradient-b" />
+    <section id="inicio" className="tt2-hero">
+      <div className="tt2-hero-bg">
+        <div className="tt2-blur tt2-blur-a" />
+        <div className="tt2-blur tt2-blur-b" />
+        <div className="tt2-grid-overlay" />
+      </div>
 
-      <div className="tt-container tt-hero-grid">
-        <div className="tt-hero-copy">
-          <span className="tt-kicker">Tecnologia com clareza, estrutura e evolução</span>
+      <div className="tt2-hero-bg-bubbles" aria-hidden="true">
+        <span className="tt2-bg-bubble tt2-bg-bubble-1" />
+        <span className="tt2-bg-bubble tt2-bg-bubble-2" />
+        <span className="tt2-bg-bubble tt2-bg-bubble-3" />
+        <span className="tt2-bg-bubble tt2-bg-bubble-4" />
+        <span className="tt2-bg-bubble tt2-bg-bubble-5" />
+        <span className="tt2-bg-bubble tt2-bg-bubble-6" />
+        <span className="tt2-bg-bubble tt2-bg-bubble-7" />
+        <span className="tt2-bg-bubble tt2-bg-bubble-8" />
+        <span className="tt2-bg-bubble tt2-bg-bubble-9" />
+        <span className="tt2-bg-bubble tt2-bg-bubble-10" />
+        <span className="tt2-bg-bubble tt2-bg-bubble-11" />
+        <span className="tt2-bg-bubble tt2-bg-bubble-12" />
+      </div>
 
-          <h1>
-            Soluções digitais para empresas que querem crescer com mais confiança.
+      <div className="tt2-container tt2-hero-inner">
+        <div className="tt2-hero-title-wrap">
+          <h1 className="tt2-hero-title">
+            {t.hero.line1}
+            <br />
+            {t.hero.line2Before}
+            <span className="tt2-gradient-text">{t.hero.line2Highlight}</span>
+            <br />
+            {t.hero.line3Before}
+            <span className="tt2-gradient-text">{t.hero.line3Highlight}</span>
           </h1>
-
-          <p>
-            A Tironi Tech desenvolve software sob medida, automações, soluções com IA
-            e estruturas digitais preparadas para a realidade do negócio.
-          </p>
-
-          <div className="tt-hero-actions">
-            <a className="tt-btn tt-btn-primary" href="#contact">
-              Falar com especialista
-            </a>
-            <a className="tt-btn tt-btn-secondary" href="#solutions">
-              Ver soluções
-            </a>
-          </div>
-
-          <div className="tt-hero-mini">
-            <div>
-              <strong>Mais clareza</strong>
-              <span>na construção tecnológica</span>
-            </div>
-            <div>
-              <strong>Mais maturidade</strong>
-              <span>para operações digitais</span>
-            </div>
-          </div>
         </div>
 
-        <div className="tt-hero-visual">
-          <div className="tt-orb" />
-          <div className="tt-visual-card tt-visual-card-main">
-            <span>Parceira tecnológica</span>
-            <h3>Projetos digitais com visão de negócio, design limpo e execução sólida.</h3>
-            <p>
-              Construção digital mais organizada, humana e premium para empresas
-              que precisam evoluir com segurança.
-            </p>
-          </div>
+        <p className="tt2-hero-text">{t.hero.text}</p>
 
-          <div className="tt-visual-card tt-visual-card-small tt-visual-card-a">
-            <strong>Software</strong>
-            <span>Sob medida</span>
-          </div>
-
-          <div className="tt-visual-card tt-visual-card-small tt-visual-card-b">
-            <strong>IA</strong>
-            <span>Automação aplicada</span>
-          </div>
-
-          <div className="tt-visual-card tt-visual-card-small tt-visual-card-c">
-            <strong>Operação</strong>
-            <span>Mais previsibilidade</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TrustSection() {
-  return (
-    <section className="tt-section tt-section-tight">
-      <div className="tt-container">
-        <div className="tt-trust-strip">
-          {trustItems.map((item) => (
-            <div key={item.label} className="tt-trust-item">
-              <strong>{item.value}</strong>
-              <span>{item.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function AboutSection() {
-  return (
-    <section id="about" className="tt-section">
-      <div className="tt-container tt-about-grid">
-        <div className="tt-section-head">
-          <span className="tt-kicker">Sobre a Tironi Tech</span>
-          <h2>Tecnologia com leitura de negócio, proximidade e construção consistente.</h2>
-          <p>
-            A Tironi Tech atua na criação de soluções digitais com foco em clareza,
-            boa estrutura técnica e evolução real. A proposta é simples: construir
-            melhor, com mais organização, mais visão e mais confiança.
-          </p>
+        <div className="tt2-hero-actions">
+          <a href="#contato" className="tt2-btn tt2-btn-primary">
+            {t.hero.primary}
+          </a>
+          <a href="#cases" className="tt2-btn tt2-btn-ghost">
+            {t.hero.secondary}
+          </a>
         </div>
 
-        <div className="tt-about-cards">
-          {values.map((item) => (
-            <article key={item.title} className="tt-info-card">
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
+        <div id="servicos" className="tt2-service-cards">
+          {t.hero.services.map((service) => (
+            <article key={service.title} className="tt2-service-card">
+              <div className="tt2-service-icon">{service.icon}</div>
+              <h3>{service.title}</h3>
+              <strong>{service.subtitle}</strong>
+              <p>{service.text}</p>
             </article>
           ))}
         </div>
@@ -264,25 +166,30 @@ function AboutSection() {
   );
 }
 
-function SolutionsSection() {
+function ClientsSection({ t }) {
   return (
-    <section id="solutions" className="tt-section tt-section-soft">
-      <div className="tt-container">
-        <div className="tt-section-head tt-section-head-center">
-          <span className="tt-kicker">Soluções</span>
-          <h2>Uma estrutura de serviços mais clara, elegante e preparada para gerar confiança.</h2>
-          <p>
-            O objetivo não é parecer genérico. É comunicar valor, organização e
-            capacidade real de entrega.
-          </p>
+    <section id="clientes" className="tt2-section tt2-clients-section">
+      <div className="tt2-container">
+        <div className="tt2-section-head tt2-section-head-center">
+          <span className="tt2-kicker">{t.clients.kicker}</span>
+          <h2>{t.clients.title}</h2>
+          <p>{t.clients.text}</p>
         </div>
 
-        <div className="tt-solutions-grid">
-          {solutions.map((item) => (
-            <article key={item.title} className="tt-solution-card">
-              <div className="tt-solution-icon" />
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
+        <div className="tt2-logo-marquee">
+          <div className="tt2-logo-track">
+            {[...CLIENTS, ...CLIENTS].map((client, index) => (
+              <article className="tt2-logo-card" key={`${client.name}-${index}`}>
+                <img src={client.logo} alt={client.name} loading="lazy" />
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="tt2-clients-grid">
+          {CLIENTS.map((client) => (
+            <article key={client.name} className="tt2-client-grid-card">
+              <img src={client.logo} alt={client.name} loading="lazy" />
             </article>
           ))}
         </div>
@@ -291,34 +198,100 @@ function SolutionsSection() {
   );
 }
 
-function CasesSection() {
+function InteractiveSystemsSection({ t }) {
+  const cards = t.interactive.cards;
+  const dragAreaRef = useRef(null);
+
   return (
-    <section id="cases" className="tt-section">
-      <div className="tt-container">
-        <div className="tt-section-head">
-          <span className="tt-kicker">Cases</span>
-          <h2>Projetos apresentados com contexto, clareza e percepção premium.</h2>
-          <p>
-            A forma de apresentar os cases deve transmitir maturidade, organização
-            e confiança comercial.
-          </p>
+    <section id="sistemas" className="tt2-section tt2-interactive-section">
+      <div className="tt2-container tt2-interactive-layout">
+        <div className="tt2-section-copy">
+          <span className="tt2-kicker">{t.interactive.kicker}</span>
+          <h2>{t.interactive.title}</h2>
+          <p>{t.interactive.text}</p>
+
+          <div className="tt2-capabilities">
+            {t.interactive.chips.map((chip) => (
+              <div key={chip} className="tt2-capability-chip">
+                {chip}
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="tt-cases-grid">
-          <article className="tt-case-feature">
-            <div className="tt-case-badge">Case em destaque</div>
-            <h3>Estrutura digital para empresas que precisam de mais consistência operacional.</h3>
-            <p>
-              Interfaces, sistemas e fluxos digitais organizados para sustentar
-              crescimento com mais previsibilidade e qualidade percebida.
-            </p>
-            <a href="#contact">Quero uma solução assim</a>
+        <div className="tt2-system-visual" ref={dragAreaRef}>
+          {cards.slice(0, 4).map((card, index) => (
+            <motion.div
+              key={`${card.label}-${index}`}
+              className={`tt2-system-card tt2-system-card-${index + 1}`}
+              drag
+              dragConstraints={dragAreaRef}
+              dragElastic={0.16}
+              dragMomentum={false}
+              dragSnapToOrigin
+              whileDrag={{ scale: 1.03, zIndex: 50, cursor: "grabbing" }}
+              whileHover={{ scale: 1.01 }}
+              transition={{ type: "spring", stiffness: 240, damping: 20 }}
+            >
+              <span className="tt2-system-pill">{card.label}</span>
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HighlightsSection({ t }) {
+  return (
+    <section className="tt2-section tt2-section-soft">
+      <div className="tt2-container">
+        <div className="tt2-section-head tt2-section-head-center">
+          <span className="tt2-kicker">{t.highlights.kicker}</span>
+          <h2>{t.highlights.title}</h2>
+          <p>{t.highlights.text}</p>
+        </div>
+
+        <div className="tt2-stats-grid">
+          {t.highlights.labels.map((label, index) => (
+            <article key={label} className="tt2-stat-card">
+              <strong className="tt2-stat-value">{HIGHLIGHT_VALUES[index]}</strong>
+              <span className="tt2-stat-label">{label}</span>
+            </article>
+          ))}
+        </div>
+
+        <p className="tt2-mini-note">{t.highlights.note}</p>
+      </div>
+    </section>
+  );
+}
+
+function CasesSection({ t }) {
+  return (
+    <section id="cases" className="tt2-section">
+      <div className="tt2-container">
+        <div className="tt2-section-head">
+          <span className="tt2-kicker">{t.cases.kicker}</span>
+          <h2>{t.cases.title}</h2>
+          <p>{t.cases.text}</p>
+        </div>
+
+        <div className="tt2-cases-grid">
+          <article className="tt2-case-feature">
+            <div className="tt2-case-gradient" />
+            <span>{t.cases.featureTag}</span>
+            <h3>{t.cases.featureTitle}</h3>
+            <p>{t.cases.featureText}</p>
+            <a href="#contato">{t.cases.featureLink}</a>
           </article>
 
-          <div className="tt-case-list">
-            {cases.map((item) => (
-              <article key={item.title} className="tt-case-card">
-                <span>{item.category}</span>
+          <div className="tt2-case-list">
+            {t.cases.list.map((item) => (
+              <article key={item.title} className="tt2-case-card">
+                <small>{item.tag}</small>
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
               </article>
@@ -330,84 +303,23 @@ function CasesSection() {
   );
 }
 
-function MethodSection() {
+function CTASection({ t }) {
   return (
-    <section className="tt-section tt-section-soft">
-      <div className="tt-container">
-        <div className="tt-section-head tt-section-head-center">
-          <span className="tt-kicker">Como pensamos</span>
-          <h2>Estratégia, estrutura, execução e evolução.</h2>
-        </div>
-
-        <div className="tt-method-grid">
-          <article className="tt-method-card">
-            <h3>Entendimento</h3>
-            <p>Leitura de contexto, operação e necessidades reais do projeto.</p>
-          </article>
-
-          <article className="tt-method-card">
-            <h3>Estruturação</h3>
-            <p>Organização da base técnica, da experiência e dos fluxos prioritários.</p>
-          </article>
-
-          <article className="tt-method-card">
-            <h3>Construção</h3>
-            <p>Desenvolvimento com clareza, consistência visual e foco em qualidade.</p>
-          </article>
-
-          <article className="tt-method-card">
-            <h3>Evolução</h3>
-            <p>Melhoria contínua para acompanhar crescimento, maturidade e novas demandas.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function InsightsSection() {
-  return (
-    <section id="insights" className="tt-section">
-      <div className="tt-container">
-        <div className="tt-section-head">
-          <span className="tt-kicker">Insights</span>
-          <h2>Conteúdo para reforçar autoridade e visão de negócio.</h2>
-        </div>
-
-        <div className="tt-insights-grid">
-          {insights.map((item) => (
-            <article key={item} className="tt-insight-card">
-              <span>Artigo</span>
-              <h3>{item}</h3>
-              <a href="#contact">Explorar</a>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CTASection() {
-  return (
-    <section id="contact" className="tt-section">
-      <div className="tt-container">
-        <div className="tt-cta-box">
-          <div className="tt-cta-copy">
-            <span className="tt-kicker">Contato</span>
-            <h2>Vamos construir uma solução digital mais clara, forte e preparada para evoluir.</h2>
-            <p>
-              Fale com a Tironi Tech para discutir software sob medida, IA,
-              automação e modernização tecnológica.
-            </p>
+    <section id="contato" className="tt2-section">
+      <div className="tt2-container">
+        <div className="tt2-cta-box">
+          <div className="tt2-cta-copy">
+            <span className="tt2-kicker">{t.cta.kicker}</span>
+            <h2>{t.cta.title}</h2>
+            <p>{t.cta.text}</p>
           </div>
 
-          <div className="tt-cta-actions">
-            <a className="tt-btn tt-btn-primary" href={`mailto:${CONTACT_EMAIL}`}>
-              Enviar email
+          <div className="tt2-cta-actions">
+            <a href={`mailto:${CONTACT_EMAIL}`} className="tt2-btn tt2-btn-primary">
+              {t.cta.email}
             </a>
-            <a className="tt-btn tt-btn-secondary" href="#lead-assistant">
-              Falar no assistente
+            <a href="#lead-assistant" className="tt2-btn tt2-btn-ghost">
+              {t.cta.chat}
             </a>
           </div>
         </div>
@@ -416,95 +328,91 @@ function CTASection() {
   );
 }
 
-function Footer() {
+function Footer({ t }) {
   return (
-    <footer className="tt-footer">
-      <div className="tt-container tt-footer-grid">
+    <footer className="tt2-footer">
+      <div className="tt2-container tt2-footer-grid">
         <div>
-          <div className="tt-logo tt-footer-logo">
-            <div className="tt-logo-mark">T</div>
-            <div className="tt-logo-text">
+          <div className="tt2-brand tt2-footer-brand">
+            <div className="tt2-brand-mark">T</div>
+            <div className="tt2-brand-copy">
               <strong>Tironi Tech</strong>
-              <span>Technology & Digital Solutions</span>
+              <span>{t.brandSubtitle}</span>
             </div>
           </div>
-
-          <p>
-            Soluções digitais com foco em clareza, evolução tecnológica e construção consistente.
-          </p>
+          <p>{t.footer.about}</p>
         </div>
 
         <div>
-          <h4>Navegação</h4>
-          <a href="#home">Início</a>
-          <a href="#about">Sobre</a>
-          <a href="#solutions">Soluções</a>
-          <a href="#cases">Cases</a>
-          <a href="#insights">Insights</a>
+          <h4>{t.footer.navTitle}</h4>
+          <a href="#inicio">{t.nav.home}</a>
+          <a href="#servicos">{t.nav.services}</a>
+          <a href="#clientes">{t.nav.clients}</a>
+          <a href="#sistemas">{t.nav.systems}</a>
+          <a href="#cases">{t.nav.cases}</a>
         </div>
 
         <div>
-          <h4>Contato</h4>
+          <h4>{t.footer.contactTitle}</h4>
           <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
           <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer">
             WhatsApp
           </a>
           <a href="tel:+5585999498149">(85) 99949-8149</a>
-          <span>Rua Prates, 194 — Bom Retiro, São Paulo — SP, 01121-000</span>
+          <span>{t.footer.address1}</span>
+          <span>{t.footer.address2}</span>
         </div>
       </div>
     </footer>
   );
 }
 
-function LeadAssistant() {
+function LeadAssistant({ t, language }) {
   const [open, setOpen] = useState(false);
-  const [subject, setSubject] = useState("Quero falar com um especialista");
+  const [subject, setSubject] = useState(() => t.assistant.options[0]);
   const [form, setForm] = useState({
     name: "",
     company: "",
     email: "",
   });
 
-  const message = useMemo(() => {
-    return `Olá, vim pelo site da Tironi Tech.
-Assunto: ${subject}
-Nome: ${form.name || "-"}
-Empresa: ${form.company || "-"}
-Email: ${form.email || "-"}
+  useEffect(() => {
+    setSubject(getText(language).assistant.options[0]);
+  }, [language]);
 
-Gostaria de falar com um especialista.`;
-  }, [subject, form]);
+  const message = useMemo(() => {
+    const a = t.assistant;
+    return `${a.msgHead}
+${a.subjectLabel}: ${subject}
+${a.msgName}: ${form.name || "-"}
+${a.msgCompany}: ${form.company || "-"}
+${a.msgEmail}: ${form.email || "-"}
+
+${a.msgFooter}`;
+  }, [form, subject, t.assistant]);
 
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
   return (
-    <div id="lead-assistant" className="tt-assistant">
+    <div id="lead-assistant" className="tt2-assistant">
       {open ? (
-        <div className="tt-assistant-card">
-          <div className="tt-assistant-head">
+        <div className="tt2-assistant-card">
+          <div className="tt2-assistant-head">
             <div>
-              <strong>Assistente Tironi</strong>
-              <span>Online agora</span>
+              <strong>{t.assistant.title}</strong>
+              <span>{t.assistant.status}</span>
             </div>
 
-            <button type="button" onClick={() => setOpen(false)} aria-label="Fechar assistente">
+            <button type="button" onClick={() => setOpen(false)} aria-label="Close">
               ×
             </button>
           </div>
 
-          <div className="tt-assistant-body">
-            <p className="tt-assistant-message">
-              Posso direcionar sua demanda para o especialista certo com mais rapidez.
-            </p>
+          <div className="tt2-assistant-body">
+            <p>{t.assistant.intro}</p>
 
-            <div className="tt-assistant-options">
-              {[
-                "Quero falar com um especialista",
-                "Quero desenvolver um sistema",
-                "Quero IA e automação",
-                "Quero modernizar uma operação",
-              ].map((item) => (
+            <div className="tt2-assistant-options">
+              {t.assistant.options.map((item) => (
                 <button
                   key={item}
                   type="button"
@@ -516,68 +424,207 @@ Gostaria de falar com um especialista.`;
               ))}
             </div>
 
-            <div className="tt-assistant-form">
+            <div className="tt2-assistant-form">
               <input
                 type="text"
-                placeholder="Seu nome"
+                placeholder={t.assistant.placeholders.name}
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
               />
               <input
                 type="text"
-                placeholder="Sua empresa"
+                placeholder={t.assistant.placeholders.company}
                 value={form.company}
                 onChange={(e) => setForm({ ...form, company: e.target.value })}
               />
               <input
                 type="email"
-                placeholder="Seu email"
+                placeholder={t.assistant.placeholders.email}
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
               />
             </div>
 
-            <div className="tt-assistant-actions">
+            <div className="tt2-assistant-actions">
               <a
-                className="tt-btn tt-btn-primary"
+                className="tt2-btn tt2-btn-primary"
                 href={whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
               >
-                Falar no WhatsApp
+                {t.assistant.whatsapp}
               </a>
 
-              <a className="tt-btn tt-btn-secondary" href={`mailto:${CONTACT_EMAIL}`}>
-                Enviar email
+              <a className="tt2-btn tt2-btn-ghost" href={`mailto:${CONTACT_EMAIL}`}>
+                {t.assistant.email}
               </a>
             </div>
           </div>
         </div>
       ) : (
-        <button type="button" className="tt-assistant-fab" onClick={() => setOpen(true)}>
-          Falar com especialista
+        <button type="button" className="tt2-assistant-fab" onClick={() => setOpen(true)}>
+          {t.assistant.fab}
         </button>
       )}
     </div>
   );
 }
 
-export default function App() {
+function CursorOrb() {
+  const dotRef = useRef(null);
+  const ringRef = useRef(null);
+
+  useEffect(() => {
+    const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (!isDesktop) return;
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let dotX = mouseX;
+    let dotY = mouseY;
+    let ringX = mouseX;
+    let ringY = mouseY;
+    let rafId = 0;
+
+    const interactiveSelector = [
+      "a",
+      "button",
+      "input",
+      "select",
+      "textarea",
+      ".tt2-service-card",
+      ".tt2-float-card",
+      ".tt2-logo-card",
+      ".tt2-client-grid-card",
+      ".tt2-case-card",
+      ".tt2-case-feature",
+      ".tt2-capability-chip",
+      ".tt2-stat-card",
+      ".tt2-btn",
+    ].join(",");
+
+    document.body.classList.remove("tt2-cursor-hidden");
+
+    const animate = () => {
+      dotX += (mouseX - dotX) * 0.34;
+      dotY += (mouseY - dotY) * 0.34;
+      ringX += (mouseX - ringX) * 0.16;
+      ringY += (mouseY - ringY) * 0.16;
+
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
+      }
+
+      if (ringRef.current) {
+        ringRef.current.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+      }
+
+      rafId = window.requestAnimationFrame(animate);
+    };
+
+    const handleMove = (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+
+      const isInteractive = !!event.target.closest(interactiveSelector);
+
+      if (dotRef.current) {
+        dotRef.current.classList.toggle("is-active", isInteractive);
+      }
+
+      if (ringRef.current) {
+        ringRef.current.classList.toggle("is-active", isInteractive);
+      }
+    };
+
+    const handleLeave = () => {
+      document.body.classList.add("tt2-cursor-hidden");
+    };
+
+    const handleEnter = () => {
+      document.body.classList.remove("tt2-cursor-hidden");
+    };
+
+    window.addEventListener("mousemove", handleMove, { passive: true });
+    document.addEventListener("mouseleave", handleLeave);
+    document.addEventListener("mouseenter", handleEnter);
+
+    rafId = window.requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      document.removeEventListener("mouseleave", handleLeave);
+      document.removeEventListener("mouseenter", handleEnter);
+      window.cancelAnimationFrame(rafId);
+      document.body.classList.remove("tt2-cursor-hidden");
+    };
+  }, []);
+
   return (
     <>
-      <Header />
-      <main>
-        <Hero />
-        <TrustSection />
-        <AboutSection />
-        <SolutionsSection />
-        <CasesSection />
-        <MethodSection />
-        <InsightsSection />
-        <CTASection />
-      </main>
-      <Footer />
-      <LeadAssistant />
+      <div ref={ringRef} className="tt2-cursor-ring" aria-hidden="true" />
+      <div ref={dotRef} className="tt2-cursor-dot" aria-hidden="true" />
     </>
+  );
+}
+
+export default function App() {
+  const [language, setLanguage] = useState("pt");
+  const t = getText(language);
+
+  return (
+    <div className="tt2-page">
+      <div className="tt2-global-stars" aria-hidden="true">
+        <span className="tt2-star s1" />
+        <span className="tt2-star s2" />
+        <span className="tt2-star s3" />
+        <span className="tt2-star s4" />
+        <span className="tt2-star s5" />
+        <span className="tt2-star s6" />
+        <span className="tt2-star s7" />
+        <span className="tt2-star s8" />
+        <span className="tt2-star s9" />
+        <span className="tt2-star s10" />
+        <span className="tt2-star s11" />
+        <span className="tt2-star s12" />
+        <span className="tt2-star s13" />
+        <span className="tt2-star s14" />
+        <span className="tt2-star s15" />
+        <span className="tt2-star s16" />
+        <span className="tt2-star s17" />
+        <span className="tt2-star s18" />
+        <span className="tt2-star s19" />
+        <span className="tt2-star s20" />
+        <span className="tt2-star s21" />
+        <span className="tt2-star s22" />
+        <span className="tt2-star s23" />
+        <span className="tt2-star s24" />
+        <span className="tt2-star s25" />
+        <span className="tt2-star s26" />
+        <span className="tt2-star s27" />
+        <span className="tt2-star s28" />
+        <span className="tt2-star s29" />
+        <span className="tt2-star s30" />
+        <span className="tt2-star s31 tt2-star-premium" />
+        <span className="tt2-star s32 tt2-star-premium" />
+        <span className="tt2-star s33 tt2-star-premium" />
+        <span className="tt2-star s34 tt2-star-premium" />
+      </div>
+
+      <div className="tt2-page-inner">
+        <CursorOrb />
+        <Header t={t} language={language} setLanguage={setLanguage} />
+        <main>
+          <Hero t={t} />
+          <ClientsSection t={t} />
+          <InteractiveSystemsSection t={t} />
+          <HighlightsSection t={t} />
+          <CasesSection t={t} />
+          <CTASection t={t} />
+        </main>
+        <Footer t={t} />
+        <LeadAssistant t={t} language={language} />
+      </div>
+    </div>
   );
 }
