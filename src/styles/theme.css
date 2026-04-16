@@ -5,6 +5,28 @@
   z-index: 2;
 }
 
+/* Header logo: remove "purple badge" wrapper, keep symbol only */
+.tt2-header .tt2-brand-mark {
+  width: 42px;
+  height: 42px;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+.tt2-header .tt2-brand-mark img.brand-mark,
+.tt2-header .tt2-brand-mark img {
+  display: block;
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  background: transparent !important;
+  filter: drop-shadow(0 0 8px rgba(90, 120, 255, 0.18));
+}
+
 .tt2-brand-mark img.brand-mark,
 .tt2-brand-mark img {
   width: 100%;
