@@ -300,6 +300,16 @@ img {
   margin-top: 32px;
 }
 
+.tt2-hero-actions.tt2-hero-actions-diagnosis {
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.tt2-hero-actions.tt2-hero-actions-diagnosis .tt2-btn {
+  width: auto;
+}
+
 .tt2-service-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -2209,5 +2219,368 @@ main,
 
   .tt2-system-card-4 {
     top: 534px;
+  }
+}
+
+/* —— Intro premium: overlay de entrada (1x por sessão) —— */
+.tt2-intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background:
+    radial-gradient(circle at 28% 35%, rgba(154, 40, 255, 0.22), transparent 32%),
+    radial-gradient(circle at 72% 42%, rgba(64, 98, 255, 0.18), transparent 34%),
+    linear-gradient(180deg, #05060c 0%, #060814 52%, #05060c 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.tt2-intro-noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.tt2-intro-glow {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+.tt2-intro-glow-1 {
+  width: 340px;
+  height: 340px;
+  background: rgba(149, 64, 255, 0.34);
+}
+
+.tt2-intro-glow-2 {
+  width: 480px;
+  height: 480px;
+  background: rgba(61, 101, 255, 0.18);
+}
+
+.tt2-intro-logo-wrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-direction: column;
+  text-align: center;
+}
+
+.tt2-intro-logo-box {
+  width: 92px;
+  height: 92px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ffffff;
+  background: linear-gradient(135deg, #6e3cff 0%, #b100ff 55%, #4f6bff 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.tt2-intro-brand h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+
+.tt2-intro-brand p {
+  margin: 10px 0 0;
+  font-size: 0.98rem;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.tt2-intro-line {
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  width: min(220px, 50vw);
+  height: 2px;
+  transform: translateX(-50%);
+  transform-origin: center;
+  background: linear-gradient(90deg, transparent, rgba(186, 117, 255, 0.95), transparent);
+  box-shadow: 0 0 20px rgba(145, 70, 255, 0.4);
+}
+
+@media (max-width: 640px) {
+  .tt2-intro-logo-box {
+    width: 78px;
+    height: 78px;
+    border-radius: 20px;
+    font-size: 1.7rem;
+  }
+
+  .tt2-intro-brand p {
+    font-size: 0.9rem;
+  }
+
+  .tt2-intro-line {
+    bottom: 14%;
+  }
+}
+
+/* —— Hero: diagnóstico rápido (substitui CTA primário) —— */
+.tt2-diagnosis-widget {
+  width: 100%;
+  max-width: 640px;
+  margin-top: 18px;
+  padding: 26px;
+  border-radius: 30px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(17, 20, 36, 0.94), rgba(10, 12, 24, 0.9));
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.34),
+    0 0 40px rgba(125, 69, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.tt2-diagnosis-widget::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top left, rgba(149, 67, 255, 0.12), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(76, 101, 255, 0.12), transparent 32%);
+  pointer-events: none;
+}
+
+.tt2-diagnosis-top,
+.tt2-diagnosis-step,
+.tt2-diagnosis-result {
+  position: relative;
+  z-index: 2;
+}
+
+.tt2-diagnosis-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #efe7ff;
+  background: linear-gradient(135deg, rgba(110, 57, 255, 0.7), rgba(140, 87, 255, 0.28));
+  border: 1px solid rgba(190, 150, 255, 0.16);
+}
+
+.tt2-diagnosis-top h3 {
+  margin: 0 0 10px;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.tt2-diagnosis-top p {
+  margin: 0;
+  max-width: 52ch;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+}
+
+.tt2-diagnosis-progress {
+  display: flex;
+  gap: 10px;
+  margin: 22px 0 18px;
+  position: relative;
+  z-index: 2;
+}
+
+.tt2-diagnosis-dot {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+.tt2-diagnosis-dot.is-active,
+.tt2-diagnosis-dot.is-done {
+  background: linear-gradient(90deg, #8f52ff, #4b6fff);
+  box-shadow: 0 0 18px rgba(126, 83, 255, 0.25);
+}
+
+.tt2-diagnosis-step-header {
+  margin-bottom: 18px;
+}
+
+.tt2-diagnosis-step-count {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.tt2-diagnosis-step-header h4,
+.tt2-diagnosis-result h4 {
+  margin: 0;
+  font-size: clamp(1.25rem, 1.7vw, 1.6rem);
+  line-height: 1.12;
+  color: #fff;
+}
+
+.tt2-diagnosis-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.tt2-diagnosis-option {
+  min-height: 64px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tt2-diagnosis-option:hover {
+  transform: translateY(-2px);
+  border-color: rgba(165, 128, 255, 0.26);
+  background: rgba(129, 92, 255, 0.08);
+  box-shadow: 0 0 22px rgba(120, 82, 255, 0.12);
+}
+
+.tt2-diagnosis-actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.tt2-diagnosis-secondary {
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.72);
+  cursor: pointer;
+}
+
+.tt2-diagnosis-secondary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.tt2-diagnosis-result-label {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #caa9ff;
+}
+
+.tt2-diagnosis-result p {
+  margin: 12px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.65;
+}
+
+.tt2-diagnosis-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.tt2-diagnosis-summary span {
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tt2-diagnosis-result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.tt2-diagnosis-primary,
+.tt2-diagnosis-secondary-link,
+.tt2-diagnosis-tertiary-link {
+  min-height: 50px;
+  padding: 0 20px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.tt2-diagnosis-primary {
+  color: #fff;
+  background: linear-gradient(135deg, #7e4eff, #4f6cff);
+  box-shadow: 0 12px 30px rgba(103, 83, 255, 0.28);
+}
+
+.tt2-diagnosis-secondary-link {
+  color: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.tt2-diagnosis-tertiary-link {
+  color: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(161, 0, 255, 0.22);
+  background: rgba(161, 0, 255, 0.06);
+}
+
+.tt2-diagnosis-restart {
+  margin-top: 16px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #bfabff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .tt2-diagnosis-widget {
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .tt2-diagnosis-options {
+    grid-template-columns: 1fr;
+  }
+
+  .tt2-diagnosis-result-actions {
+    flex-direction: column;
+  }
+
+  .tt2-diagnosis-primary,
+  .tt2-diagnosis-secondary-link,
+  .tt2-diagnosis-tertiary-link {
+    width: 100%;
   }
 }
