@@ -7,8 +7,8 @@
 
 /* Header logo: remove "purple badge" wrapper, keep symbol only */
 .tt2-header .tt2-brand-mark {
-  width: 42px;
-  height: 42px;
+  width: 56px;
+  height: 56px;
   background: transparent !important;
   background-color: transparent !important;
   border: none !important;
@@ -20,11 +20,23 @@
 .tt2-header .tt2-brand-mark img.brand-mark,
 .tt2-header .tt2-brand-mark img {
   display: block;
-  width: 42px;
-  height: 42px;
+  width: 56px;
+  height: 56px;
   object-fit: contain;
   background: transparent !important;
   filter: drop-shadow(0 0 8px rgba(90, 120, 255, 0.18));
+}
+
+@media (max-width: 860px) {
+  .tt2-header .tt2-brand-mark {
+    width: 50px;
+    height: 50px;
+  }
+  .tt2-header .tt2-brand-mark img.brand-mark,
+  .tt2-header .tt2-brand-mark img {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 .tt2-brand-mark img.brand-mark,
@@ -40,6 +52,23 @@
 .tt2-intro-logo-box {
   display: grid;
   place-items: center;
+}
+
+/* Intro logo: remove gradient badge box behind symbol */
+.tt2-intro-logo-box {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+.tt2-intro-logo-box .tt2-intro-symbol,
+.tt2-intro-logo-box img,
+.tt2-intro-logo-box svg {
+  display: block;
+  background: transparent !important;
 }
 
 .tt2-intro-symbol {
