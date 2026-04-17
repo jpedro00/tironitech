@@ -1,137 +1,185 @@
-.tt2-intro-overlay {
+/* Intro portada para mobile, inspirada na estética do desktop */
+.site-intro {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background:
-    radial-gradient(circle at 28% 35%, rgba(154, 40, 255, 0.22), transparent 32%),
-    radial-gradient(circle at 72% 42%, rgba(64, 98, 255, 0.18), transparent 34%),
-    linear-gradient(180deg, #05060c 0%, #060814 52%, #05060c 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
 }
 
-.tt2-intro-noise {
+.site-intro__bg {
   position: absolute;
   inset: 0;
-  opacity: 0.08;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 64px 64px;
+  background:
+    radial-gradient(circle at top left, rgba(146, 66, 255, 0.16), transparent 34%),
+    radial-gradient(circle at top right, rgba(44, 97, 255, 0.16), transparent 30%),
+    linear-gradient(180deg, #040611 0%, #050816 55%, #070b18 100%);
 }
 
-.tt2-intro-glow {
+.site-intro__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(144, 112, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(144, 112, 255, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.18;
+}
+
+.site-intro__glow {
   position: absolute;
   border-radius: 999px;
-  filter: blur(70px);
+  filter: blur(28px);
+  animation: introGlowPulse 2.4s ease-in-out infinite;
   pointer-events: none;
 }
 
-.tt2-intro-glow-1 {
-  width: 340px;
-  height: 340px;
-  background: rgba(149, 64, 255, 0.34);
+.site-intro__glow--one {
+  width: 280px;
+  height: 280px;
+  background: rgba(148, 71, 255, 0.28);
 }
 
-.tt2-intro-glow-2 {
-  width: 480px;
-  height: 480px;
-  background: rgba(61, 101, 255, 0.18);
+.site-intro__glow--two {
+  width: 220px;
+  height: 220px;
+  background: rgba(45, 101, 255, 0.2);
+  animation-delay: 0.4s;
 }
 
-.tt2-intro-logo-wrap {
+.site-intro__content {
   position: relative;
   z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  flex-direction: column;
   text-align: center;
+  animation: introRise 0.9s ease;
 }
 
-.tt2-intro-logo-box {
-  width: 92px;
-  height: 92px;
-  border-radius: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  font-weight: 800;
-  color: #ffffff;
-  background: linear-gradient(135deg, #6e3cff 0%, #b100ff 55%, #4f6bff 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-/* Mantém o visual final do desktop (sem "badge" atrás do símbolo) */
-.tt2-intro-logo-box {
-  background: transparent !important;
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  padding: 0 !important;
+.site-intro__logoWrap {
+  margin-inline: auto;
   display: grid;
   place-items: center;
+  background: linear-gradient(135deg, rgba(120, 0, 255, 0.18), rgba(42, 101, 255, 0.12));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.38);
 }
 
-.tt2-intro-symbol {
+.site-intro__logo {
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 12px rgba(119, 97, 255, 0.28));
+}
+
+.site-intro__title {
+  margin: 0;
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.96;
+}
+
+.site-intro__subtitle {
+  margin: 14px 0 0;
+  color: rgba(240, 243, 255, 0.78);
+}
+
+.site-intro.enter {
+  opacity: 1;
+  visibility: visible;
+}
+
+.site-intro.fade {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* DESKTOP (mantido para caso queira reaproveitar no futuro sem afetar o IntroOverlay atual) */
+.site-intro.is-desktop .site-intro__content {
+  padding: 28px;
+}
+
+.site-intro.is-desktop .site-intro__logoWrap {
+  width: 96px;
+  height: 96px;
+  border-radius: 28px;
+  margin-bottom: 18px;
+}
+
+.site-intro.is-desktop .site-intro__logo {
   width: 56px;
   height: 56px;
-  object-fit: contain;
-  filter:
-    drop-shadow(0 0 14px rgba(161, 0, 255, 0.24))
-    drop-shadow(0 0 30px rgba(45, 77, 255, 0.16));
 }
 
-.tt2-intro-brand h2 {
-  margin: 0;
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 0.95;
-  letter-spacing: -0.04em;
-  color: #ffffff;
+.site-intro.is-desktop .site-intro__title {
+  font-size: clamp(2.3rem, 4vw, 4rem);
 }
 
-.tt2-intro-brand p {
-  margin: 10px 0 0;
-  font-size: 0.98rem;
-  color: rgba(255, 255, 255, 0.68);
+.site-intro.is-desktop .site-intro__subtitle {
+  font-size: 1rem;
 }
 
-.tt2-intro-line {
-  position: absolute;
-  bottom: 18%;
-  left: 50%;
-  width: min(220px, 50vw);
-  height: 2px;
-  transform: translateX(-50%);
-  transform-origin: center;
-  background: linear-gradient(90deg, transparent, rgba(186, 117, 255, 0.95), transparent);
-  box-shadow: 0 0 20px rgba(145, 70, 255, 0.4);
+/* MOBILE PORTADO (mais enxuto, proporcional, e encerramento mais rápido) */
+.site-intro.is-mobile .site-intro__content {
+  width: min(90vw, 360px);
+  padding: 18px 14px;
 }
 
-@media (max-width: 640px) {
-  .tt2-intro-logo-box {
-    width: 78px;
-    height: 78px;
-    border-radius: 20px;
-    font-size: 1.7rem;
+.site-intro.is-mobile .site-intro__logoWrap {
+  width: 78px;
+  height: 78px;
+  border-radius: 22px;
+  margin-bottom: 16px;
+}
+
+.site-intro.is-mobile .site-intro__logo {
+  width: 46px;
+  height: 46px;
+}
+
+.site-intro.is-mobile .site-intro__title {
+  font-size: clamp(2rem, 10vw, 2.9rem);
+}
+
+.site-intro.is-mobile .site-intro__subtitle {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  max-width: 26ch;
+  margin-inline: auto;
+}
+
+.site-intro.is-mobile .site-intro__glow--one {
+  width: 220px;
+  height: 220px;
+}
+
+.site-intro.is-mobile .site-intro__glow--two {
+  width: 170px;
+  height: 170px;
+}
+
+@keyframes introRise {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
   }
-
-  .tt2-intro-symbol {
-    width: 48px;
-    height: 48px;
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
+}
 
-  .tt2-intro-brand p {
-    font-size: 0.9rem;
+@keyframes introGlowPulse {
+  0%,
+  100% {
+    transform: scale(0.94);
+    opacity: 0.72;
   }
-
-  .tt2-intro-line {
-    bottom: 14%;
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
   }
 }
 
