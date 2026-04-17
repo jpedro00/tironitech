@@ -1,0 +1,151 @@
+.tt2-intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background:
+    radial-gradient(circle at 28% 35%, rgba(154, 40, 255, 0.22), transparent 32%),
+    radial-gradient(circle at 72% 42%, rgba(64, 98, 255, 0.18), transparent 34%),
+    linear-gradient(180deg, #05060c 0%, #060814 52%, #05060c 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.tt2-intro-noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.tt2-intro-glow {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+.tt2-intro-glow-1 {
+  width: 340px;
+  height: 340px;
+  background: rgba(149, 64, 255, 0.34);
+}
+
+.tt2-intro-glow-2 {
+  width: 480px;
+  height: 480px;
+  background: rgba(61, 101, 255, 0.18);
+}
+
+.tt2-intro-logo-wrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-direction: column;
+  text-align: center;
+}
+
+.tt2-intro-logo-box {
+  width: 92px;
+  height: 92px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ffffff;
+  background: linear-gradient(135deg, #6e3cff 0%, #b100ff 55%, #4f6bff 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Mantém o visual final do desktop (sem "badge" atrás do símbolo) */
+.tt2-intro-logo-box {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  display: grid;
+  place-items: center;
+}
+
+.tt2-intro-symbol {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 14px rgba(161, 0, 255, 0.24))
+    drop-shadow(0 0 30px rgba(45, 77, 255, 0.16));
+}
+
+.tt2-intro-brand h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+
+.tt2-intro-brand p {
+  margin: 10px 0 0;
+  font-size: 0.98rem;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.tt2-intro-line {
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  width: min(220px, 50vw);
+  height: 2px;
+  transform: translateX(-50%);
+  transform-origin: center;
+  background: linear-gradient(90deg, transparent, rgba(186, 117, 255, 0.95), transparent);
+  box-shadow: 0 0 20px rgba(145, 70, 255, 0.4);
+}
+
+@media (max-width: 640px) {
+  .tt2-intro-logo-box {
+    width: 78px;
+    height: 78px;
+    border-radius: 20px;
+    font-size: 1.7rem;
+  }
+
+  .tt2-intro-symbol {
+    width: 48px;
+    height: 48px;
+  }
+
+  .tt2-intro-brand p {
+    font-size: 0.9rem;
+  }
+
+  .tt2-intro-line {
+    bottom: 14%;
+  }
+}
+
+/* Defesa extra: nunca mostrar cursor custom em touch */
+@media (hover: none), (pointer: coarse), (max-width: 767px) {
+  .tt2-cursor-dot,
+  .tt2-cursor-ring {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+
+  * {
+    cursor: auto !important;
+  }
+}
+
