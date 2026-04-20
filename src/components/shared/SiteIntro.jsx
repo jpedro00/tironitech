@@ -21,25 +21,26 @@ export default function SiteIntro({ onFinish, mobile = false }) {
       return;
     }
 
-    const enterTime = mobile ? 1150 : 1400;
-    const finishTime = mobile ? 1850 : 2200;
+    // Duração total exata: 2s (inclui fade).
+    const fadeAtMs = 1300;
+    const hideAtMs = 2000;
 
-    const t1 = setTimeout(() => setPhase("fade"), enterTime);
+    const t1 = setTimeout(() => setPhase("fade"), fadeAtMs);
     const t2 = setTimeout(() => {
       setHidden(true);
       try {
         sessionStorage.setItem(seenKey, "true");
       } catch {
-        // ignore storage errors (private mode, blocked storage)
+        // ignore storage errors
       }
       onFinish?.();
-    }, finishTime);
+    }, hideAtMs);
 
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
     };
-  }, [mobile, onFinish, seenKey, shouldStartVisible]);
+  }, [onFinish, seenKey, shouldStartVisible]);
 
   if (hidden) return null;
 
@@ -53,7 +54,7 @@ export default function SiteIntro({ onFinish, mobile = false }) {
         <div className="site-intro__logoWrap">
           <img
             src="/brand/tironi-symbol.png"
-            alt="Tironi Tech"
+            alt="Tironi Tech símbolo"
             className="site-intro__logo"
             onError={(e) => {
               e.currentTarget.style.display = "none";
