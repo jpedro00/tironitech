@@ -15,3 +15,34 @@ video {
   max-width: 100%;
   height: auto;
 }
+
+/* Cursor: garantir padrão do sistema (sem cursor custom) */
+html,
+body,
+* {
+  cursor: auto !important;
+}
+
+a,
+button,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+label,
+select,
+summary {
+  cursor: pointer !important;
+}
+
+.custom-cursor,
+.cursor-dot,
+.cursor-ring,
+.mouse-follower,
+.mouse-glow,
+.mouse-trail,
+.pointer-glow,
+.spotlight-cursor,
+.tt2-cursor-dot,
+.tt2-cursor-ring {
+  display: none !important;
+}

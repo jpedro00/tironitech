@@ -183,17 +183,5 @@
   }
 }
 
-/* Defesa extra: nunca mostrar cursor custom em touch */
-@media (hover: none), (pointer: coarse), (max-width: 767px) {
-  .tt2-cursor-dot,
-  .tt2-cursor-ring {
-    display: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-  }
-
-  * {
-    cursor: auto !important;
-  }
-}
+/* (Cursor custom removido globalmente em `src/index.css`) */
 

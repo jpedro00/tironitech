@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import "./styles/theme.css";
 
 import IntroOverlay from "./components/IntroOverlay";
@@ -39,95 +39,6 @@ const CLIENTS = [
   },
 ];
 
-function CursorOrb() {
-  const dotRef = useRef(null);
-  const ringRef = useRef(null);
-
-  useEffect(() => {
-    const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    if (!isDesktop) return;
-
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let dotX = mouseX;
-    let dotY = mouseY;
-    let ringX = mouseX;
-    let ringY = mouseY;
-    let rafId = 0;
-
-    const interactiveSelector = [
-      "a",
-      "button",
-      "input",
-      "select",
-      "textarea",
-      ".tt2-service-card",
-      ".tt2-logo-card",
-      ".tt2-client-grid-card",
-      ".tt2-case-card",
-      ".tt2-case-feature",
-      ".tt2-capability-chip",
-      ".tt2-stat-card",
-      ".tt2-btn",
-      ".tt2-featured-card",
-      ".tt2-diagnosis-option",
-    ].join(",");
-
-    document.body.classList.remove("tt2-cursor-hidden");
-
-    const animate = () => {
-      dotX += (mouseX - dotX) * 0.34;
-      dotY += (mouseY - dotY) * 0.34;
-      ringX += (mouseX - ringX) * 0.16;
-      ringY += (mouseY - ringY) * 0.16;
-
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
-      }
-
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
-      }
-
-      rafId = window.requestAnimationFrame(animate);
-    };
-
-    const handleMove = (event) => {
-      mouseX = event.clientX;
-      mouseY = event.clientY;
-
-      const isInteractive = !!event.target.closest(interactiveSelector);
-
-      if (dotRef.current) dotRef.current.classList.toggle("is-active", isInteractive);
-      if (ringRef.current) ringRef.current.classList.toggle("is-active", isInteractive);
-    };
-
-    const handleLeave = () => document.body.classList.add("tt2-cursor-hidden");
-    const handleEnter = () => document.body.classList.remove("tt2-cursor-hidden");
-
-    window.addEventListener("mousemove", handleMove, { passive: true });
-    document.addEventListener("mouseleave", handleLeave);
-    document.addEventListener("mouseenter", handleEnter);
-
-    rafId = window.requestAnimationFrame(animate);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMove);
-      document.removeEventListener("mouseleave", handleLeave);
-      document.removeEventListener("mouseenter", handleEnter);
-      window.cancelAnimationFrame(rafId);
-      document.body.classList.remove("tt2-cursor-hidden");
-    };
-  }, []);
-
-  return (
-    <>
-      <div ref={ringRef} className="tt2-cursor-ring" aria-hidden="true" />
-      <div ref={dotRef} className="tt2-cursor-dot" aria-hidden="true" />
-    </>
-  );
-}
-
 export default function AppRoot() {
   const [language, setLanguage] = useState("pt");
   const t = getSiteText(language);
@@ -138,7 +49,6 @@ export default function AppRoot() {
       <IntroOverlay />
 
       <div className="tt2-page-inner">
-        <CursorOrb />
         <Navbar t={t} language={language} setLanguage={setLanguage} languageOptions={LANGUAGE_OPTIONS} />
 
         <main className="tt2-site-main">
