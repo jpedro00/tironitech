@@ -87,6 +87,23 @@
   color: rgba(240, 243, 255, 0.78);
 }
 
+.site-intro.is-desktop .site-intro__title {
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+}
+
+.site-intro.is-desktop .site-intro__subtitle {
+  font-size: 1.15rem;
+}
+
+.site-intro.is-mobile .site-intro__title {
+  font-size: clamp(2.2rem, 9vw, 3.2rem);
+}
+
+.site-intro.is-mobile .site-intro__subtitle {
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
 .site-intro.enter {
   opacity: 1;
   visibility: visible;

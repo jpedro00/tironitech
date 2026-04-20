@@ -2200,7 +2200,7 @@ main,
 
 .tt2-intro-brand h2 {
   margin: 0;
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
   line-height: 0.95;
   letter-spacing: -0.04em;
   color: #ffffff;
@@ -2208,7 +2208,7 @@ main,
 
 .tt2-intro-brand p {
   margin: 10px 0 0;
-  font-size: 0.98rem;
+  font-size: 1.15rem;
   color: rgba(255, 255, 255, 0.68);
 }
 
@@ -2233,7 +2233,7 @@ main,
   }
 
   .tt2-intro-brand p {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   .tt2-intro-line {
