@@ -127,15 +127,51 @@
 }
 
 .site-intro.is-mobile .site-intro__content {
-  width: min(90vw, 360px);
-  padding: 18px 14px;
+  width: min(92vw, 390px);
+  padding: 16px 18px 22px;
+  text-align: center;
 }
 
 .site-intro.is-mobile .site-intro__logoWrap {
-  width: min(460px, 92vw);
-  height: min(460px, 92vw);
-  border-radius: 22px;
-  margin-bottom: 16px;
+  width: auto;
+  height: auto;
+  margin: 0 auto 18px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+.site-intro.is-mobile .site-intro__logoWrap::before,
+.site-intro.is-mobile .site-intro__logoWrap::after {
+  display: none !important;
+  content: none !important;
+}
+
+.site-intro.is-mobile .site-intro__logo {
+  width: clamp(220px, 58vw, 290px);
+  height: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 10px 28px rgba(122, 77, 255, 0.18));
+}
+
+.site-intro.is-mobile .site-intro__title {
+  margin-top: 4px;
+  margin-bottom: 10px;
+  font-size: clamp(2.2rem, 8vw, 3.2rem);
+  line-height: 0.98;
+}
+
+.site-intro.is-mobile .site-intro__subtitle {
+  max-width: 18ch;
+  margin: 0 auto;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: rgba(240, 243, 255, 0.82);
 }
 
 @keyframes introRise {

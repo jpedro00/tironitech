@@ -21,9 +21,9 @@ export default function SiteIntro({ onFinish, mobile = false }) {
       return;
     }
 
-    // Duração total exata: 2s (inclui fade).
-    const fadeAtMs = 1300;
-    const hideAtMs = 2000;
+    // Mobile um pouco mais longo, desktop intacto.
+    const fadeAtMs = mobile ? 1500 : 1300;
+    const hideAtMs = mobile ? 2450 : 2000;
 
     const t1 = setTimeout(() => setPhase("fade"), fadeAtMs);
     const t2 = setTimeout(() => {
@@ -40,7 +40,7 @@ export default function SiteIntro({ onFinish, mobile = false }) {
       clearTimeout(t1);
       clearTimeout(t2);
     };
-  }, [onFinish, seenKey, shouldStartVisible]);
+  }, [mobile, onFinish, seenKey, shouldStartVisible]);
 
   if (hidden) return null;
 
