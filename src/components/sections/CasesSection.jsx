@@ -9,18 +9,12 @@ export default function CasesSection({ t }) {
         </div>
 
         <div className="tt2-case-list">
-          <article className="tt2-case-card">
-            <h3>Plataformas e Sistemas</h3>
-            <p>Construção com estrutura, desempenho e narrativa premium para maior confiança comercial.</p>
-          </article>
-          <article className="tt2-case-card">
-            <h3>Automação e IA aplicada</h3>
-            <p>Redução de atrito operacional com fluxos inteligentes e integrações consistentes.</p>
-          </article>
-          <article className="tt2-case-card">
-            <h3>Presença digital</h3>
-            <p>Interface, posicionamento e credibilidade com design e tecnologia trabalhando juntos.</p>
-          </article>
+          {t.cases.items.map((item) => (
+            <article key={item.title} className="tt2-case-card">
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>

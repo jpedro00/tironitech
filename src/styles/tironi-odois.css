@@ -325,7 +325,6 @@ img {
 .tt2-cta-box,
 .tt2-assistant-card,
 .tt2-logo-card,
-.tt2-client-grid-card,
 .tt2-float-card {
   border: 1px solid var(--line);
   background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
@@ -485,51 +484,43 @@ img {
   animation-play-state: paused;
 }
 
-.tt2-logo-card,
-.tt2-client-grid-card {
+.tt2-logo-card {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 240px;
   min-height: 108px;
   padding: 18px 24px;
   border-radius: 24px;
   transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
 }
 
-.tt2-logo-card {
-  min-width: 240px;
-}
-
-.tt2-logo-card img,
-.tt2-client-grid-card img {
+.tt2-logo-card img {
   max-height: 56px;
   width: auto;
   object-fit: contain;
+  object-position: center;
   filter: grayscale(1) brightness(0.95);
   opacity: 0.82;
   transition: filter 0.28s ease, opacity 0.28s ease, transform 0.28s ease;
 }
 
-.tt2-logo-card:hover,
-.tt2-client-grid-card:hover {
+.tt2-logo-card:hover {
   transform: translateY(-5px);
   border-color: rgba(161, 0, 255, 0.24);
   box-shadow: 0 26px 70px rgba(161, 0, 255, 0.12);
   background: linear-gradient(180deg, rgba(161,0,255,0.08), rgba(45,77,255,0.06));
 }
 
-.tt2-logo-card:hover img,
-.tt2-client-grid-card:hover img {
+.tt2-logo-card:hover img {
   filter: grayscale(0) brightness(1);
   opacity: 1;
   transform: scale(1.04);
 }
 
-.tt2-clients-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-  margin-top: 22px;
+.tt2-logo-card.is-xnamai img {
+  max-height: 48px;
+  max-width: 170px;
 }
 
 .tt2-interactive-section {
@@ -965,15 +956,6 @@ img {
   margin-top: 14px;
 }
 
-@keyframes tt2Marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 @keyframes tt2Pulse {
   0%,
   100% {
@@ -993,6 +975,15 @@ img {
   }
   50% {
     transform: translateY(-14px);
+  }
+}
+
+@keyframes tt2Marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 
@@ -1072,8 +1063,7 @@ img {
   .tt2-footer-grid,
   .tt2-split,
   .tt2-interactive-layout,
-  .tt2-cases-grid,
-  .tt2-clients-grid {
+  .tt2-cases-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1137,8 +1127,7 @@ img {
 
   .tt2-service-cards,
   .tt2-process-grid,
-  .tt2-reasons-grid,
-  .tt2-clients-grid {
+  .tt2-reasons-grid {
     grid-template-columns: 1fr;
   }
 

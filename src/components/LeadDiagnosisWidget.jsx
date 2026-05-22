@@ -1,130 +1,73 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion as Motion } from "framer-motion";
 
-const steps = [
-  {
-    key: "need",
-    title: "O que você precisa estruturar?",
-    options: [
-      "Software sob medida",
-      "Automação de processos",
-      "IA aplicada",
-      "MVP / Produto digital",
-      "Modernização de sistema",
-    ],
-  },
-  {
-    key: "stage",
-    title: "Em que momento sua operação está?",
-    options: ["Ideia inicial", "Operação já existe", "Sistema atual limita crescimento", "Quero escalar"],
-  },
-  {
-    key: "priority",
-    title: "Qual sua prioridade agora?",
-    options: ["Reduzir retrabalho", "Ganhar velocidade", "Melhorar experiência", "Integrar sistemas", "Vender mais"],
-  },
-];
-
-function buildRecommendation(answers) {
+function buildRecommendation(answers, recommendations) {
   const need = answers.need || "";
   const stage = answers.stage || "";
   const priority = answers.priority || "";
 
-  if (need === "Automação de processos") {
-    return {
-      title: "Diagnóstico recomendado: automação operacional inteligente",
-      description:
-        "Sua operação tem espaço claro para reduzir esforço manual, centralizar fluxos e ganhar escala com mais previsibilidade.",
-    };
-  }
+  if (need === "processAutomation") return recommendations.automation;
+  if (need === "appliedAi") return recommendations.ai;
+  if (need === "mvp" || stage === "initialIdea") return recommendations.mvp;
+  if (need === "modernization" || stage === "systemLimitsGrowth") return recommendations.modernization;
+  if (priority === "integrateSystems") return recommendations.integration;
+  if (priority === "sellMore" || priority === "improveExperience") return recommendations.conversion;
 
-  if (need === "IA aplicada") {
-    return {
-      title: "Diagnóstico recomendado: IA aplicada ao fluxo da operação",
-      description:
-        "O melhor caminho é identificar tarefas repetitivas, atendimento, classificação, análise e suporte à decisão onde IA gera retorno mais rápido.",
-    };
-  }
+  return recommendations.default;
+}
 
-  if (need === "MVP / Produto digital" || stage === "Ideia inicial") {
-    return {
-      title: "Diagnóstico recomendado: MVP com foco em validação",
-      description: "O cenário ideal é desenhar um produto enxuto, validável e pronto para evoluir sem desperdício.",
-    };
-  }
-
-  if (need === "Modernização de sistema" || stage === "Sistema atual limita crescimento") {
-    return {
-      title: "Diagnóstico recomendado: modernização e reestruturação de sistema",
-      description:
-        "Seu contexto indica necessidade de reorganizar arquitetura, performance e experiência para destravar crescimento com segurança.",
-    };
-  }
-
-  if (priority === "Integrar sistemas") {
-    return {
-      title: "Diagnóstico recomendado: integração + painel centralizador",
-      description:
-        "O próximo passo é conectar ferramentas, consolidar dados e criar uma visão operacional mais clara para o negócio.",
-    };
-  }
-
-  if (priority === "Vender mais" || priority === "Melhorar experiência") {
-    return {
-      title: "Diagnóstico recomendado: produto digital orientado à conversão",
-      description:
-        "Seu caso pede uma solução com foco em experiência, clareza de jornada e estrutura tecnológica voltada para crescimento comercial.",
-    };
-  }
-
-  return {
-    title: "Diagnóstico recomendado: solução digital sob medida",
-    description:
-      "Seu cenário indica oportunidade para estruturar uma solução personalizada, alinhada ao momento da operação e aos objetivos do negócio.",
-  };
+function getOptionLabel(steps, key, value) {
+  const step = steps.find((item) => item.key === key);
+  const option = step?.options.find((item) => item.value === value);
+  return option?.label || value || "-";
 }
 
 export default function LeadDiagnosisWidget({
+  t,
   whatsappNumber = "",
   contactEmail = "",
   scheduleHref = "#contato",
 }) {
+  const diagnosis = t.diagnosis;
+  const steps = diagnosis.steps;
   const [answers, setAnswers] = useState({});
   const [stepIndex, setStepIndex] = useState(0);
 
   const currentStep = steps[stepIndex];
   const isComplete = stepIndex >= steps.length;
-  const recommendation = useMemo(() => buildRecommendation(answers), [answers]);
+  const recommendation = useMemo(
+    () => buildRecommendation(answers, diagnosis.recommendations),
+    [answers, diagnosis.recommendations],
+  );
 
   const whatsappHref = useMemo(() => {
-    if (!whatsappNumber) return "#contato";
-    const text = `Olá! Fiz o diagnóstico no site da Tironi Tech.
+    if (!whatsappNumber) return scheduleHref;
+    const text = `${diagnosis.whatsappMessage}
 
-Necessidade: ${answers.need || "-"}
-Estágio: ${answers.stage || "-"}
-Prioridade: ${answers.priority || "-"}
+${diagnosis.labels.need}: ${getOptionLabel(steps, "need", answers.need)}
+${diagnosis.labels.stage}: ${getOptionLabel(steps, "stage", answers.stage)}
+${diagnosis.labels.priority}: ${getOptionLabel(steps, "priority", answers.priority)}
 
-Resultado: ${recommendation.title}`;
+${diagnosis.labels.result}: ${recommendation.title}`;
     return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
-  }, [answers, recommendation.title, whatsappNumber]);
+  }, [answers, diagnosis, recommendation.title, scheduleHref, steps, whatsappNumber]);
 
   const proposalHref = useMemo(() => {
     if (!contactEmail) return scheduleHref;
-    const subject = "Diagnóstico Tironi Tech — Quero uma proposta";
-    const body = `Olá! Fiz o diagnóstico rápido no site da Tironi Tech.
+    const body = `${diagnosis.emailBodyIntro}
 
-Necessidade: ${answers.need || "-"}
-Estágio: ${answers.stage || "-"}
-Prioridade: ${answers.priority || "-"}
+${diagnosis.labels.need}: ${getOptionLabel(steps, "need", answers.need)}
+${diagnosis.labels.stage}: ${getOptionLabel(steps, "stage", answers.stage)}
+${diagnosis.labels.priority}: ${getOptionLabel(steps, "priority", answers.priority)}
 
-Resultado: ${recommendation.title}
+${diagnosis.labels.result}: ${recommendation.title}
 
-Pode me enviar uma proposta inicial?`;
-    return `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  }, [answers, contactEmail, recommendation.title, scheduleHref]);
+${diagnosis.emailBodyFooter}`;
+    return `mailto:${contactEmail}?subject=${encodeURIComponent(diagnosis.emailSubject)}&body=${encodeURIComponent(body)}`;
+  }, [answers, contactEmail, diagnosis, recommendation.title, scheduleHref, steps]);
 
-  function handleSelect(option) {
-    const updated = { ...answers, [currentStep.key]: option };
+  function handleSelect(value) {
+    const updated = { ...answers, [currentStep.key]: value };
     setAnswers(updated);
 
     if (stepIndex < steps.length - 1) {
@@ -150,9 +93,9 @@ Pode me enviar uma proposta inicial?`;
   return (
     <div className="tt2-diagnosis-widget">
       <div className="tt2-diagnosis-top">
-        <span className="tt2-diagnosis-badge">Diagnóstico rápido</span>
-        <h3>Descubra qual caminho digital faz mais sentido para sua operação</h3>
-        <p>Responda 3 etapas rápidas e veja uma direção inicial mais alinhada ao seu momento.</p>
+        <span className="tt2-diagnosis-badge">{diagnosis.badge}</span>
+        <h3>{diagnosis.title}</h3>
+        <p>{diagnosis.description}</p>
       </div>
 
       <div className="tt2-diagnosis-progress" aria-hidden="true">
@@ -180,7 +123,7 @@ Pode me enviar uma proposta inicial?`;
           >
             <div className="tt2-diagnosis-step-header">
               <span className="tt2-diagnosis-step-count">
-                Etapa {stepIndex + 1} / {steps.length}
+                {diagnosis.stepLabel} {stepIndex + 1} / {steps.length}
               </span>
               <h4>{currentStep.title}</h4>
             </div>
@@ -188,12 +131,12 @@ Pode me enviar uma proposta inicial?`;
             <div className="tt2-diagnosis-options">
               {currentStep.options.map((option) => (
                 <button
-                  key={option}
+                  key={option.value}
                   type="button"
                   className="tt2-diagnosis-option"
-                  onClick={() => handleSelect(option)}
+                  onClick={() => handleSelect(option.value)}
                 >
-                  {option}
+                  {option.label}
                 </button>
               ))}
             </div>
@@ -205,7 +148,7 @@ Pode me enviar uma proposta inicial?`;
                 onClick={handleBack}
                 disabled={stepIndex === 0}
               >
-                Voltar
+                {diagnosis.back}
               </button>
             </div>
           </Motion.div>
@@ -218,19 +161,19 @@ Pode me enviar uma proposta inicial?`;
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <span className="tt2-diagnosis-result-label">Resultado inicial</span>
+            <span className="tt2-diagnosis-result-label">{diagnosis.resultLabel}</span>
             <h4>{recommendation.title}</h4>
             <p>{recommendation.description}</p>
 
             <div className="tt2-diagnosis-summary">
-              <span>{answers.need}</span>
-              <span>{answers.stage}</span>
-              <span>{answers.priority}</span>
+              <span>{getOptionLabel(steps, "need", answers.need)}</span>
+              <span>{getOptionLabel(steps, "stage", answers.stage)}</span>
+              <span>{getOptionLabel(steps, "priority", answers.priority)}</span>
             </div>
 
             <div className="tt2-diagnosis-result-actions">
               <a href={scheduleHref} className="tt2-diagnosis-primary">
-                Agendar diagnóstico
+                {diagnosis.schedule}
               </a>
               <a
                 href={whatsappHref}
@@ -238,15 +181,15 @@ Pode me enviar uma proposta inicial?`;
                 rel={whatsappHref.startsWith("http") ? "noreferrer" : undefined}
                 className="tt2-diagnosis-secondary-link"
               >
-                Falar no WhatsApp
+                {diagnosis.whatsapp}
               </a>
               <a href={proposalHref} className="tt2-diagnosis-tertiary-link">
-                Pedir proposta
+                {diagnosis.proposal}
               </a>
             </div>
 
             <button type="button" className="tt2-diagnosis-restart" onClick={handleRestart}>
-              Refazer diagnóstico
+              {diagnosis.restart}
             </button>
           </Motion.div>
         )}
@@ -254,4 +197,3 @@ Pode me enviar uma proposta inicial?`;
     </div>
   );
 }
-

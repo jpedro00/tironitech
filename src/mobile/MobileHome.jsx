@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import SiteIntro from "../components/shared/SiteIntro";
+import { useLanguage } from "../context/LanguageContext";
 
 const projectLinks = {
   signWallet: "https://www.walletsignguard.com",
@@ -29,11 +30,13 @@ function useMobileStylesheet() {
 
 export default function MobileHome() {
   useMobileStylesheet();
+  const { t, language, setLanguage, languageOptions } = useLanguage();
+  const m = t.mobile;
   const [introDone, setIntroDone] = useState(false);
 
   return (
     <>
-      {!introDone && <SiteIntro mobile onFinish={() => setIntroDone(true)} />}
+      {!introDone && <SiteIntro mobile subtitle={t.hero.eyebrow} onFinish={() => setIntroDone(true)} />}
 
       <div className="mobile-site-shell">
         <div className="mobile-bg-glow mobile-bg-glow-left" />
@@ -66,178 +69,143 @@ export default function MobileHome() {
 
             <div className="mobile-brand-copy">
               <strong>Tironi Tech</strong>
-              <span>Tecnologia com clareza, estrutura e evolução</span>
+              <span>{t.hero.eyebrow}</span>
             </div>
           </div>
 
-          <a className="mobile-header-cta" href="#contato">
-            Falar
-          </a>
+          <div className="mobile-header-actions" style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+            <select
+              className="tt2-language-select mobile-language-select"
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              aria-label={t.nav.languageLabel}
+            >
+              {languageOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+
+            <a className="mobile-header-cta" href="#contato">
+              {m.headerCta}
+            </a>
+          </div>
         </header>
 
         <main className="mobile-main">
           <section className="mobile-hero">
-            <span className="mobile-eyebrow">OPERAÇÃO DIGITAL PREMIUM</span>
+            <span className="mobile-eyebrow">{m.hero.eyebrow}</span>
 
-            <h1 className="mobile-hero-title">Transformamos sua operação em produto digital</h1>
+            <h1 className="mobile-hero-title">{m.hero.title}</h1>
 
-            <p className="mobile-hero-text">
-              Desenvolvemos software sob medida, aplicações web, automações e soluções com IA para empresas que querem
-              crescer com mais presença, eficiência e valor.
-            </p>
+            <p className="mobile-hero-text">{m.hero.text}</p>
 
             <div className="mobile-hero-actions">
               <a className="mobile-btn mobile-btn-primary" href="#projetos">
-                Ver projetos
+                {m.hero.primaryCta}
               </a>
               <a className="mobile-btn mobile-btn-secondary" href="#servicos">
-                Nossas soluções
+                {m.hero.secondaryCta}
               </a>
             </div>
           </section>
 
           <section className="mobile-section" id="servicos">
             <div className="mobile-section-head">
-              <span className="mobile-section-tag">SERVIÇOS</span>
-              <h2>Soluções com a mesma linguagem premium do desktop</h2>
-              <p>
-                Mantendo a identidade visual da Tironi Tech, mas com uma estrutura própria para celular, mais leve, clara
-                e portátil.
-              </p>
+              <span className="mobile-section-tag">{m.services.tag}</span>
+              <h2>{m.services.title}</h2>
+              <p>{m.services.description}</p>
             </div>
 
             <div className="mobile-card-stack">
-              <article className="mobile-info-card">
-                <div className="mobile-card-icon">&lt;/&gt;</div>
-                <h3>Sistemas Web</h3>
-                <p>Plataformas escaláveis, portais, painéis administrativos e experiências digitais sob medida.</p>
-              </article>
-
-              <article className="mobile-info-card">
-                <div className="mobile-card-icon">✦</div>
-                <h3>IA &amp; Automação</h3>
-                <p>Fluxos inteligentes, ganho operacional e menos atrito em etapas críticas do negócio.</p>
-              </article>
-
-              <article className="mobile-info-card">
-                <div className="mobile-card-icon">◎</div>
-                <h3>Apps &amp; Produtos</h3>
-                <p>Interfaces modernas, produtos digitais com mais percepção de valor e foco em crescimento.</p>
-              </article>
+              {m.services.items.map((item, index) => (
+                <article key={item.title} className="mobile-info-card">
+                  <div className="mobile-card-icon">{index === 0 ? "</>" : index === 1 ? "✦" : "◎"}</div>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </article>
+              ))}
             </div>
           </section>
 
           <section className="mobile-section" id="destaques">
             <div className="mobile-section-head">
-              <span className="mobile-section-tag">DESTAQUES</span>
-              <h2>Experiência, confiança e execução com linguagem visual forte</h2>
-              <p>Tempo de mercado, clareza comercial, evolução contínua e construção digital com foco em presença premium.</p>
+              <span className="mobile-section-tag">{m.highlights.tag}</span>
+              <h2>{m.highlights.title}</h2>
+              <p>{m.highlights.description}</p>
             </div>
 
             <div className="mobile-highlight-grid">
-              <div className="mobile-highlight-pill">Confiança comercial</div>
-              <div className="mobile-highlight-pill">Tempo de mercado</div>
-              <div className="mobile-highlight-pill">Execução premium</div>
-              <div className="mobile-highlight-pill">Inovação contínua</div>
-              <div className="mobile-highlight-pill">Presença digital forte</div>
-              <div className="mobile-highlight-pill">Mais geração de leads</div>
+              {m.highlights.pills.map((pill) => (
+                <div key={pill} className="mobile-highlight-pill">
+                  {pill}
+                </div>
+              ))}
             </div>
           </section>
 
           <section className="mobile-section" id="projetos">
             <div className="mobile-section-head">
-              <span className="mobile-section-tag">PROJETOS EM DESTAQUE</span>
-              <h2>Cases reais apresentados com mais clareza no mobile</h2>
-              <p>
-                Os projetos abaixo mantêm a hierarquia de informação do desktop, mas com leitura, toque e navegação melhores
-                para celular.
-              </p>
+              <span className="mobile-section-tag">{m.projects.tag}</span>
+              <h2>{m.projects.title}</h2>
+              <p>{m.projects.description}</p>
             </div>
 
             <div className="mobile-projects">
-              <a className="mobile-project-card" href={projectLinks.signWallet} target="_blank" rel="noreferrer">
-                <div className="mobile-project-logo-wrap">
-                  <img
-                    src="/projects/sign-wallet-logo.png"
-                    alt="Sign Wallet"
-                    className="mobile-project-logo"
-                    onError={(e) => {
-                      e.currentTarget.style.display = "none";
-                    }}
-                  />
-                </div>
-                <div className="mobile-project-copy">
-                  <span className="mobile-project-label">Segurança Web3</span>
-                  <h3>Sign Wallet</h3>
-                  <p>
-                    Camada de proteção para interações críticas com carteira, navegação mais segura e leitura de risco com
-                    foco em confiança.
-                  </p>
-                  <strong>Acessar projeto</strong>
-                </div>
-              </a>
-
-              <a className="mobile-project-card" href={projectLinks.deleteActPro} target="_blank" rel="noreferrer">
-                <div className="mobile-project-logo-wrap">
-                  <img
-                    src="/projects/deleteactpro-logo.png"
-                    alt="DeleteActPro"
-                    className="mobile-project-logo"
-                    onError={(e) => {
-                      e.currentTarget.style.display = "none";
-                    }}
-                  />
-                </div>
-                <div className="mobile-project-copy">
-                  <span className="mobile-project-label">Compliance &amp; Privacidade</span>
-                  <h3>DeleteActPro</h3>
-                  <p>
-                    Solução orientada a compliance e privacidade, com narrativa premium para transformar obrigação
-                    regulatória em operação clara.
-                  </p>
-                  <strong>Acessar projeto</strong>
-                </div>
-              </a>
+              {m.projects.items.map((project, index) => (
+                <a
+                  key={project.title}
+                  className="mobile-project-card"
+                  href={index === 0 ? projectLinks.signWallet : projectLinks.deleteActPro}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <div className="mobile-project-logo-wrap">
+                    <img
+                      src={index === 0 ? "/projects/sign-wallet-logo.png" : "/projects/deleteactpro-logo.png"}
+                      alt={project.title}
+                      className="mobile-project-logo"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                      }}
+                    />
+                  </div>
+                  <div className="mobile-project-copy">
+                    <span className="mobile-project-label">{project.label}</span>
+                    <h3>{project.title}</h3>
+                    <p>{project.text}</p>
+                    <strong>{project.cta}</strong>
+                  </div>
+                </a>
+              ))}
             </div>
           </section>
 
           <section className="mobile-section" id="numeros">
             <div className="mobile-section-head">
-              <span className="mobile-section-tag">RESULTADOS</span>
-              <h2>Presença, estrutura e percepção de valor</h2>
+              <span className="mobile-section-tag">{m.stats.tag}</span>
+              <h2>{m.stats.title}</h2>
             </div>
 
             <div className="mobile-stats-grid">
-              <article className="mobile-stat-card">
-                <strong>20+</strong>
-                <span>Anos de experiência</span>
-              </article>
-              <article className="mobile-stat-card">
-                <strong>50+</strong>
-                <span>Projetos de sucesso</span>
-              </article>
-              <article className="mobile-stat-card">
-                <strong>99%</strong>
-                <span>Satisfação do cliente</span>
-              </article>
-              <article className="mobile-stat-card">
-                <strong>100+</strong>
-                <span>Soluções inovadoras</span>
-              </article>
+              {m.stats.items.map((stat) => (
+                <article key={stat.label} className="mobile-stat-card">
+                  <strong>{stat.value}</strong>
+                  <span>{stat.label}</span>
+                </article>
+              ))}
             </div>
           </section>
 
           <section className="mobile-section mobile-cta-section" id="contato">
-            <span className="mobile-section-tag">PRÓXIMO PASSO</span>
-            <h2>Vamos transformar sua operação em presença digital premium</h2>
-            <p>
-              Estrutura, design forte, tecnologia sólida e uma experiência mais clara para gerar confiança desde o primeiro
-              contato.
-            </p>
+            <span className="mobile-section-tag">{m.cta.tag}</span>
+            <h2>{m.cta.title}</h2>
+            <p>{m.cta.description}</p>
 
             <div className="mobile-hero-actions">
               <a className="mobile-btn mobile-btn-primary" href="mailto:contato@tironitech.com">
-                Falar com a Tironi Tech
+                {m.cta.button}
               </a>
             </div>
           </section>
@@ -246,4 +214,3 @@ export default function MobileHome() {
     </>
   );
 }
-

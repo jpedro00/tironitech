@@ -1,0 +1,55 @@
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { getSiteText, LANGUAGE_OPTIONS } from "../content/siteContent";
+
+const STORAGE_KEY = "tironi_lang";
+const VALID_LANGUAGES = new Set(LANGUAGE_OPTIONS.map((option) => option.value));
+
+const LanguageContext = createContext(null);
+
+function readStoredLanguage() {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored && VALID_LANGUAGES.has(stored)) return stored;
+  } catch {
+    // ignore storage errors
+  }
+  return "pt";
+}
+
+export function LanguageProvider({ children }) {
+  const [language, setLanguageState] = useState(readStoredLanguage);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, language);
+    } catch {
+      // ignore storage errors
+    }
+  }, [language]);
+
+  const setLanguage = (nextLanguage) => {
+    if (VALID_LANGUAGES.has(nextLanguage)) {
+      setLanguageState(nextLanguage);
+    }
+  };
+
+  const value = useMemo(
+    () => ({
+      language,
+      setLanguage,
+      t: getSiteText(language),
+      languageOptions: LANGUAGE_OPTIONS,
+    }),
+    [language],
+  );
+
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
+}
+
+export function useLanguage() {
+  const context = useContext(LanguageContext);
+  if (!context) {
+    throw new Error("useLanguage must be used within LanguageProvider");
+  }
+  return context;
+}

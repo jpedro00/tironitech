@@ -1,5 +1,10 @@
 import ResponsiveHome from "./responsive/ResponsiveHome";
+import { LanguageProvider } from "./context/LanguageContext";
 
 export default function App() {
-  return <ResponsiveHome />;
+  return (
+    <LanguageProvider>
+      <ResponsiveHome />
+    </LanguageProvider>
+  );
 }

@@ -1,6 +1,6 @@
 import { LogoMark } from "./Navbar";
 
-export default function Footer({ t, contactEmail, whatsappNumber, language, setLanguage }) {
+export default function Footer({ t, contactEmail, whatsappNumber, language, setLanguage, languageOptions = [] }) {
   return (
     <footer className="tt2-footer">
       <div className="tt2-container tt2-footer-grid">
@@ -17,7 +17,7 @@ export default function Footer({ t, contactEmail, whatsappNumber, language, setL
         </div>
 
         <div>
-          <h4>Navegação</h4>
+          <h4>{t.footer.navTitle}</h4>
           <a href="#inicio">{t.nav.projects}</a>
           <a href="#clientes">{t.nav.clients}</a>
           <a href="#projetos">{t.nav.projects}</a>
@@ -26,16 +26,23 @@ export default function Footer({ t, contactEmail, whatsappNumber, language, setL
         </div>
 
         <div>
-          <h4>Contato</h4>
+          <h4>{t.footer.contactTitle}</h4>
           <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
           <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer">
-            WhatsApp
+            {t.footer.whatsapp}
           </a>
           <div className="tt2-language-switcher" style={{ marginTop: 12 }}>
-            <select className="tt2-language-select" value={language} onChange={(e) => setLanguage(e.target.value)}>
-              <option value="pt">PT-BR</option>
-              <option value="en">EN</option>
-              <option value="es">ES</option>
+            <select
+              className="tt2-language-select"
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              aria-label={t.nav.languageLabel}
+            >
+              {languageOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
             </select>
           </div>
         </div>

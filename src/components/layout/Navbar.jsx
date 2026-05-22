@@ -66,7 +66,7 @@ export default function Navbar({ t, language, setLanguage, languageOptions }) {
           className="tt2-nav-toggle"
           aria-expanded={menuOpen}
           aria-controls="tt2-primary-nav"
-          aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+          aria-label={menuOpen ? t.nav.closeMenu : t.nav.openMenu}
           onClick={() => setMenuOpen((o) => !o)}
         >
           <span aria-hidden="true">{menuOpen ? "×" : "☰"}</span>
@@ -99,7 +99,7 @@ export default function Navbar({ t, language, setLanguage, languageOptions }) {
                 setLanguage(e.target.value);
                 closeMenu();
               }}
-              aria-label="Language"
+              aria-label={t.nav.languageLabel}
             >
               {languageOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -116,7 +116,7 @@ export default function Navbar({ t, language, setLanguage, languageOptions }) {
       </div>
 
       {menuOpen ? (
-        <button type="button" className="tt2-nav-backdrop" aria-label="Fechar menu" onClick={closeMenu} />
+        <button type="button" className="tt2-nav-backdrop" aria-label={t.nav.closeMenu} onClick={closeMenu} />
       ) : null}
     </header>
   );

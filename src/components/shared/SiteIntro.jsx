@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "../../styles/intro.css";
 
-export default function SiteIntro({ onFinish, mobile = false }) {
+export default function SiteIntro({ onFinish, mobile = false, subtitle = "Tecnologia com clareza, estrutura e evolução" }) {
   const seenKey = "tironi_intro_seen";
 
   const shouldStartVisible = useMemo(() => {
@@ -63,7 +63,7 @@ export default function SiteIntro({ onFinish, mobile = false }) {
         </div>
 
         <h1 className="site-intro__title">Tironi Tech</h1>
-        <p className="site-intro__subtitle">Tecnologia com clareza, estrutura e evolução</p>
+        <p className="site-intro__subtitle">{subtitle}</p>
       </div>
     </div>
   );

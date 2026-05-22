@@ -1,5 +1,5 @@
-import { useState } from "react";
 import "./styles/theme.css";
+import { useLanguage } from "./context/LanguageContext";
 
 import IntroOverlay from "./components/IntroOverlay";
 import Navbar from "./components/layout/Navbar";
@@ -15,7 +15,6 @@ import SolutionsSection from "./components/sections/SolutionsSection";
 import CasesSection from "./components/sections/CasesSection";
 import FinalCtaSection from "./components/sections/FinalCtaSection";
 
-import { getSiteText, LANGUAGE_OPTIONS } from "./content/siteContent";
 
 const CONTACT_EMAIL = "tironi@tironitech.com";
 const WHATSAPP_NUMBER = "5585999498149";
@@ -40,8 +39,7 @@ const CLIENTS = [
 ];
 
 export default function AppRoot() {
-  const [language, setLanguage] = useState("pt");
-  const t = getSiteText(language);
+  const { t, language, setLanguage, languageOptions } = useLanguage();
 
   return (
     <div className="tt2-page">
@@ -49,7 +47,7 @@ export default function AppRoot() {
       <IntroOverlay />
 
       <div className="tt2-page-inner">
-        <Navbar t={t} language={language} setLanguage={setLanguage} languageOptions={LANGUAGE_OPTIONS} />
+        <Navbar t={t} language={language} setLanguage={setLanguage} languageOptions={languageOptions} />
 
         <main className="tt2-site-main">
           <HeroSection t={t} />
@@ -62,7 +60,14 @@ export default function AppRoot() {
         </main>
 
         <FloatingLeadButton whatsappNumber={WHATSAPP_NUMBER} label={t.nav.cta} />
-        <Footer t={t} contactEmail={CONTACT_EMAIL} whatsappNumber={WHATSAPP_NUMBER} language={language} setLanguage={setLanguage} />
+        <Footer
+          t={t}
+          contactEmail={CONTACT_EMAIL}
+          whatsappNumber={WHATSAPP_NUMBER}
+          language={language}
+          setLanguage={setLanguage}
+          languageOptions={languageOptions}
+        />
       </div>
     </div>
   );
