@@ -1,10 +1,21 @@
 import { useEffect, useState } from "react";
 import SiteIntro from "../components/shared/SiteIntro";
 import { useLanguage } from "../context/LanguageContext";
+import newstoreSorteiosLogo from "../assets/newstore-sorteios-logo.png";
+
+const CONTACT_WHATSAPP_HREF =
+  "https://wa.me/558599498149?text=Ol%C3%A1,%20vim%20pelo%20site%20da%20TironiTech%20e%20quero%20falar%20sobre%20um%20projeto.";
 
 const projectLinks = {
-  signWallet: "https://www.walletsignguard.com",
+  signWallet: "https://chromewebstore.google.com/detail/crypto-wallet-signguard/dcfiodblpbchbfkopajdpiibgdenfmip",
   deleteActPro: "https://www.deleteactpro.com",
+  newstore: "#contato",
+};
+
+const projectLogos = {
+  signWallet: "/projects/sign-wallet-logo.png",
+  deleteActPro: "/projects/deleteactpro-logo.png",
+  newstore: newstoreSorteiosLogo,
 };
 
 function useMobileStylesheet() {
@@ -87,7 +98,7 @@ export default function MobileHome() {
               ))}
             </select>
 
-            <a className="mobile-header-cta" href="#contato">
+            <a className="mobile-header-cta" href={CONTACT_WHATSAPP_HREF} target="_blank" rel="noreferrer">
               {m.headerCta}
             </a>
           </div>
@@ -153,32 +164,37 @@ export default function MobileHome() {
             </div>
 
             <div className="mobile-projects">
-              {m.projects.items.map((project, index) => (
-                <a
-                  key={project.title}
-                  className="mobile-project-card"
-                  href={index === 0 ? projectLinks.signWallet : projectLinks.deleteActPro}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div className="mobile-project-logo-wrap">
-                    <img
-                      src={index === 0 ? "/projects/sign-wallet-logo.png" : "/projects/deleteactpro-logo.png"}
-                      alt={project.title}
-                      className="mobile-project-logo"
-                      onError={(e) => {
-                        e.currentTarget.style.display = "none";
-                      }}
-                    />
-                  </div>
-                  <div className="mobile-project-copy">
-                    <span className="mobile-project-label">{project.label}</span>
-                    <h3>{project.title}</h3>
-                    <p>{project.text}</p>
-                    <strong>{project.cta}</strong>
-                  </div>
-                </a>
-              ))}
+              {m.projects.items.map((project, index) => {
+                const projectKey = index === 0 ? "signWallet" : index === 1 ? "deleteActPro" : "newstore";
+                const href = projectLinks[projectKey];
+
+                return (
+                  <a
+                    key={project.title}
+                    className="mobile-project-card"
+                    href={href}
+                    target={href.startsWith("http") ? "_blank" : undefined}
+                    rel={href.startsWith("http") ? "noreferrer" : undefined}
+                  >
+                    <div className="mobile-project-logo-wrap">
+                      <img
+                        src={projectLogos[projectKey]}
+                        alt={project.title}
+                        className="mobile-project-logo"
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                        }}
+                      />
+                    </div>
+                    <div className="mobile-project-copy">
+                      <span className="mobile-project-label">{project.label}</span>
+                      <h3>{project.title}</h3>
+                      <p>{project.text}</p>
+                      <strong>{project.cta}</strong>
+                    </div>
+                  </a>
+                );
+              })}
             </div>
           </section>
 

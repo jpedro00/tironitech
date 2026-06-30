@@ -83,6 +83,14 @@ const pt = {
         bullets: ["Automação regulatória", "Estrutura auditável", "Operação escalável", "Posicionamento enterprise"],
         cta: "Conhecer solução",
       },
+      {
+        tag: "Sorteios / Plataforma Digital",
+        title: "Sorteios NewStore",
+        description:
+          "Plataforma digital para gestão de sorteios, reservas, compradores, pagamentos e operação administrativa, com foco em clareza, controle e experiência do usuário.",
+        bullets: ["Gestão de sorteios", "Reservas e compradores", "Painel administrativo", "Operação escalável"],
+        cta: "Conhecer solução",
+      },
     ],
   },
   solutions: {
@@ -282,6 +290,12 @@ const pt = {
           text: "Solução orientada a compliance e privacidade, com narrativa premium para transformar obrigação regulatória em operação clara.",
           cta: "Acessar projeto",
         },
+        {
+          label: "Sorteios / Plataforma Digital",
+          title: "Sorteios NewStore",
+          text: "Plataforma digital para gestão de sorteios, reservas, compradores, pagamentos e operação administrativa, com foco em clareza, controle e experiência do usuário.",
+          cta: "Conhecer solução",
+        },
       ],
     },
     stats: {
@@ -387,6 +401,14 @@ const en = {
         description:
           "Platform oriented to compliance automation for California DROP / SB 362, with ingestion flow, evidence, cascade deletions and audit-ready records.",
         bullets: ["Regulatory automation", "Auditable structure", "Scalable operation", "Enterprise positioning"],
+        cta: "Explore solution",
+      },
+      {
+        tag: "Raffles / Digital Platform",
+        title: "Sorteios NewStore",
+        description:
+          "Digital platform for managing raffles, reservations, buyers, payments and administrative operations, focused on clarity, control and user experience.",
+        bullets: ["Raffle management", "Reservations and buyers", "Admin dashboard", "Scalable operation"],
         cta: "Explore solution",
       },
     ],
@@ -588,6 +610,12 @@ const en = {
           text: "Compliance and privacy-oriented solution with premium narrative to turn regulatory obligation into clear operation.",
           cta: "Open project",
         },
+        {
+          label: "Raffles / Digital Platform",
+          title: "Sorteios NewStore",
+          text: "Digital platform for managing raffles, reservations, buyers, payments and administrative operations, focused on clarity, control and user experience.",
+          cta: "Explore solution",
+        },
       ],
     },
     stats: {
@@ -693,6 +721,14 @@ const es = {
         description:
           "Plataforma orientada a la automatización de compliance para California DROP / SB 362, con flujo de ingestión, evidencias, eliminaciones en cascada y registros preparados para auditoría.",
         bullets: ["Automatización regulatoria", "Estructura auditable", "Operación escalable", "Posicionamiento enterprise"],
+        cta: "Conocer solución",
+      },
+      {
+        tag: "Sorteos / Plataforma Digital",
+        title: "Sorteios NewStore",
+        description:
+          "Plataforma digital para gestionar sorteos, reservas, compradores, pagos y operación administrativa, con foco en claridad, control y experiencia del usuario.",
+        bullets: ["Gestión de sorteos", "Reservas y compradores", "Panel administrativo", "Operación escalable"],
         cta: "Conocer solución",
       },
     ],
@@ -893,6 +929,12 @@ const es = {
           title: "DeleteActPro",
           text: "Solución orientada a compliance y privacidad, con narrativa premium para transformar obligación regulatoria en operación clara.",
           cta: "Acceder al proyecto",
+        },
+        {
+          label: "Sorteos / Plataforma Digital",
+          title: "Sorteios NewStore",
+          text: "Plataforma digital para gestionar sorteos, reservas, compradores, pagos y operación administrativa, con foco en claridad, control y experiencia del usuario.",
+          cta: "Conocer solución",
         },
       ],
     },

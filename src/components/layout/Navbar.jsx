@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+const CONTACT_WHATSAPP_HREF =
+  "https://wa.me/558599498149?text=Ol%C3%A1,%20vim%20pelo%20site%20da%20TironiTech%20e%20quero%20falar%20sobre%20um%20projeto.";
+
 export function LogoMark({ className = "", size = 44, title = "Tironi Tech" }) {
   const [error, setError] = useState(false);
 
@@ -109,7 +112,13 @@ export default function Navbar({ t, language, setLanguage, languageOptions }) {
             </select>
           </div>
 
-          <a className="tt2-btn tt2-btn-primary tt2-header-cta" href="#contato" onClick={closeMenu}>
+          <a
+            className="tt2-btn tt2-btn-primary tt2-header-cta"
+            href={CONTACT_WHATSAPP_HREF}
+            target="_blank"
+            rel="noreferrer"
+            onClick={closeMenu}
+          >
             {t.nav.cta}
           </a>
         </div>

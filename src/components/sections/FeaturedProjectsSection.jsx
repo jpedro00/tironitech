@@ -1,11 +1,16 @@
 import { motion as Motion, useReducedMotion } from "framer-motion";
 import { useMemo, useState } from "react";
+import newstoreSorteiosLogo from "../../assets/newstore-sorteios-logo.png";
+
+const SIGNGUARD_STORE_URL =
+  "https://chromewebstore.google.com/detail/crypto-wallet-signguard/dcfiodblpbchbfkopajdpiibgdenfmip";
 
 function ProjectLogo({ title }) {
   const [error, setError] = useState(false);
 
   const src = useMemo(() => {
     const t = String(title || "").toLowerCase();
+    if (t.includes("newstore") || t.includes("sorteios")) return newstoreSorteiosLogo;
     if (t.includes("deleteactpro")) return "/projects/deleteactpro-logo.png";
     if (t.includes("sign") || t.includes("wallet")) return "/projects/sign-wallet-logo.png";
     return "";
@@ -13,6 +18,7 @@ function ProjectLogo({ title }) {
 
   const fallback = useMemo(() => {
     const t = String(title || "").toLowerCase();
+    if (t.includes("newstore") || t.includes("sorteios")) return "NS";
     if (t.includes("deleteactpro")) return "DA";
     if (t.includes("sign") || t.includes("wallet")) return "SW";
     return "•";
@@ -48,36 +54,44 @@ export default function FeaturedProjectsSection({ t }) {
         </div>
 
         <div className="tt2-featured-grid">
-          {t.featuredProjects.items.map((item, index) => (
-            <Motion.article
-              key={item.title}
-              className="tt2-featured-card"
-              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-              whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.7, delay: 0.05 * index, ease }}
-            >
-              <div className="tt2-featured-top">
-                <span className="tt2-featured-tag">{item.tag}</span>
-                <ProjectLogo title={item.title} />
-              </div>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
+          {t.featuredProjects.items.map((item, index) => {
+            const isSignGuard = item.title === "SignGuard";
 
-              <div className="tt2-featured-bullets">
-                {item.bullets.map((b) => (
-                  <span key={b}>{b}</span>
-                ))}
-              </div>
+            return (
+              <Motion.article
+                key={item.title}
+                className="tt2-featured-card"
+                initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+                whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.7, delay: 0.05 * index, ease }}
+              >
+                <div className="tt2-featured-top">
+                  <span className="tt2-featured-tag">{item.tag}</span>
+                  <ProjectLogo title={item.title} />
+                </div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
 
-              <a className="tt2-featured-cta" href="#contato">
-                {item.cta}
-              </a>
-            </Motion.article>
-          ))}
+                <div className="tt2-featured-bullets">
+                  {item.bullets.map((b) => (
+                    <span key={b}>{b}</span>
+                  ))}
+                </div>
+
+                <a
+                  className="tt2-featured-cta"
+                  href={isSignGuard ? SIGNGUARD_STORE_URL : "#contato"}
+                  target={isSignGuard ? "_blank" : undefined}
+                  rel={isSignGuard ? "noreferrer" : undefined}
+                >
+                  {item.cta}
+                </a>
+              </Motion.article>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
-

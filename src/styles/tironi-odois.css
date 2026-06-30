@@ -1163,17 +1163,36 @@ img {
   padding: 0 16px;
   border-radius: 14px;
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(8, 11, 24, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   outline: none;
   cursor: pointer;
   backdrop-filter: blur(10px);
+  color-scheme: dark;
+  font-weight: 800;
+  text-shadow: none;
 }
 
 .tt2-language-select:hover,
-.tt2-language-select:focus {
-  border-color: rgba(161, 0, 255, 0.35);
-  box-shadow: 0 0 0 4px rgba(161, 0, 255, 0.08);
+.tt2-language-select:focus,
+.tt2-language-select:focus-visible {
+  color: #ffffff;
+  background: rgba(12, 16, 34, 0.98);
+  border-color: rgba(161, 0, 255, 0.5);
+  box-shadow: 0 0 0 4px rgba(161, 0, 255, 0.12);
+}
+
+.tt2-language-select option {
+  color: #ffffff;
+  background: #090d1f;
+  font-weight: 800;
+}
+
+.tt2-language-select option:checked,
+.tt2-language-select option:hover,
+.tt2-language-select option:focus {
+  color: #ffffff;
+  background: #18214a;
 }
 
 .tt2-stats-grid {
