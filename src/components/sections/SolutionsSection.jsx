@@ -1,5 +1,7 @@
 import { motion as Motion, useReducedMotion } from "framer-motion";
 
+const icons = ["01", "02", "03", "04", "05", "06"];
+
 export default function SolutionsSection({ t }) {
   const reduceMotion = useReducedMotion();
   const ease = [0.22, 1, 0.36, 1];
@@ -20,8 +22,9 @@ export default function SolutionsSection({ t }) {
               initial={reduceMotion ? false : { opacity: 0, y: 14 }}
               whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.65, delay: 0.04 * index, ease }}
+              transition={{ duration: 0.55, delay: 0.03 * index, ease }}
             >
+              <span className="tt2-service-icon" aria-hidden="true">{icons[index]}</span>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
             </Motion.article>
@@ -31,4 +34,3 @@ export default function SolutionsSection({ t }) {
     </section>
   );
 }
-

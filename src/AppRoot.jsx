@@ -1,20 +1,21 @@
 import "./styles/theme.css";
 import { useLanguage } from "./context/LanguageContext";
 
-import IntroOverlay from "./components/IntroOverlay";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import FloatingLeadButton from "./components/ui/FloatingLeadButton";
-import StarfieldBackground from "./components/ui/StarfieldBackground";
+import CookieBanner from "./components/shared/CookieBanner";
 
 import HeroSection from "./components/sections/HeroSection";
 import TrustedBySection from "./components/sections/TrustedBySection";
+import ExperienceStatsSection from "./components/sections/ExperienceStatsSection";
 import ExperienceSection from "./components/sections/ExperienceSection";
 import FeaturedProjectsSection from "./components/sections/FeaturedProjectsSection";
 import SolutionsSection from "./components/sections/SolutionsSection";
 import CasesSection from "./components/sections/CasesSection";
+import ProcessSection from "./components/sections/ProcessSection";
+import WhyChooseSection from "./components/sections/WhyChooseSection";
 import FinalCtaSection from "./components/sections/FinalCtaSection";
-
 
 const CONTACT_EMAIL = "tironi@tironitech.com";
 const WHATSAPP_NUMBER = "558599498149";
@@ -43,19 +44,19 @@ export default function AppRoot() {
 
   return (
     <div className="tt2-page">
-      <StarfieldBackground />
-      <IntroOverlay />
-
       <div className="tt2-page-inner">
         <Navbar t={t} language={language} setLanguage={setLanguage} languageOptions={languageOptions} />
 
         <main className="tt2-site-main">
           <HeroSection t={t} />
           <TrustedBySection t={t} clients={CLIENTS} />
+          <ExperienceStatsSection t={t} />
           <ExperienceSection t={t} />
-          <FeaturedProjectsSection t={t} />
           <SolutionsSection t={t} />
+          <FeaturedProjectsSection t={t} />
           <CasesSection t={t} />
+          <ProcessSection t={t} />
+          <WhyChooseSection t={t} />
           <FinalCtaSection t={t} contactEmail={CONTACT_EMAIL} whatsappNumber={WHATSAPP_NUMBER} />
         </main>
 
@@ -68,8 +69,8 @@ export default function AppRoot() {
           setLanguage={setLanguage}
           languageOptions={languageOptions}
         />
+        <CookieBanner t={t} />
       </div>
     </div>
   );
 }
-

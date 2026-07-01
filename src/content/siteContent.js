@@ -1,3 +1,6 @@
+import { corporateOverrides } from "./corporateOverrides";
+import { heroImpactOverrides } from "./heroImpactOverrides";
+
 const pt = {
   nav: {
     services: "Serviços",
@@ -964,6 +967,16 @@ export const siteContent = {
   es,
 };
 
+Object.entries(corporateOverrides).forEach(([language, content]) => {
+  if (!siteContent[language]) return;
+  Object.assign(siteContent[language], content, { cases: content.impact });
+});
+Object.entries(heroImpactOverrides).forEach(([language, content]) => {
+  if (!siteContent[language]) return;
+  if (content.hero) siteContent[language].hero = { ...siteContent[language].hero, ...content.hero };
+  if (content.trustedBy) siteContent[language].trustedBy = { ...siteContent[language].trustedBy, ...content.trustedBy };
+  if (content.experienceProof) siteContent[language].experienceProof = content.experienceProof;
+});
 export const LANGUAGE_OPTIONS = [
   { value: "pt", label: "PT-BR" },
   { value: "en", label: "EN" },
