@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
-import CookieBanner from "../components/shared/CookieBanner";
+import CookieConsent from "../components/shared/CookieConsent";
 import CountUpStat from "../components/shared/CountUpStat";
 import newstoreSorteiosLogo from "../assets/newstore-sorteios-logo.png";
 
@@ -216,7 +216,7 @@ export default function MobileHome() {
         </section>
       </main>
 
-      <CookieBanner t={t} />
+      <CookieConsent t={t} />
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { useLanguage } from "./context/LanguageContext";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import FloatingLeadButton from "./components/ui/FloatingLeadButton";
-import CookieBanner from "./components/shared/CookieBanner";
+import CookieConsent from "./components/shared/CookieConsent";
 
 import HeroSection from "./components/sections/HeroSection";
 import TrustedBySection from "./components/sections/TrustedBySection";
@@ -69,7 +69,7 @@ export default function AppRoot() {
           setLanguage={setLanguage}
           languageOptions={languageOptions}
         />
-        <CookieBanner t={t} />
+        <CookieConsent t={t} />
       </div>
     </div>
   );

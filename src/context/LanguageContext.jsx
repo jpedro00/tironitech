@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { getSiteText, LANGUAGE_OPTIONS } from "../content/siteContent";
+import { COOKIE_CONSENT_UPDATED_EVENT, hasCookieCategoryConsent } from "../utils/cookieConsent";
 
 const STORAGE_KEY = "tironi_lang";
 const VALID_LANGUAGES = new Set(LANGUAGE_OPTIONS.map((option) => option.value));
@@ -7,6 +8,8 @@ const VALID_LANGUAGES = new Set(LANGUAGE_OPTIONS.map((option) => option.value));
 const LanguageContext = createContext(null);
 
 function readStoredLanguage() {
+  if (!hasCookieCategoryConsent("preferences")) return "pt";
+
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored && VALID_LANGUAGES.has(stored)) return stored;
@@ -20,11 +23,28 @@ export function LanguageProvider({ children }) {
   const [language, setLanguageState] = useState(readStoredLanguage);
 
   useEffect(() => {
+    if (!hasCookieCategoryConsent("preferences")) return;
+
     try {
       localStorage.setItem(STORAGE_KEY, language);
     } catch {
       // ignore storage errors
     }
+  }, [language]);
+
+  useEffect(() => {
+    function persistLanguageWhenAllowed(event) {
+      if (!event.detail?.preferences) return;
+
+      try {
+        localStorage.setItem(STORAGE_KEY, language);
+      } catch {
+        // ignore storage errors
+      }
+    }
+
+    window.addEventListener(COOKIE_CONSENT_UPDATED_EVENT, persistLanguageWhenAllowed);
+    return () => window.removeEventListener(COOKIE_CONSENT_UPDATED_EVENT, persistLanguageWhenAllowed);
   }, [language]);
 
   const setLanguage = (nextLanguage) => {
