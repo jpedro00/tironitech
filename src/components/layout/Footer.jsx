@@ -1,4 +1,5 @@
 import { LogoMark } from "./Navbar";
+import { openCookiePreferences } from "../../utils/cookieConsent";
 
 export default function Footer({ t, contactEmail, whatsappNumber, language, setLanguage, languageOptions = [] }) {
   return (
@@ -29,6 +30,10 @@ export default function Footer({ t, contactEmail, whatsappNumber, language, setL
           <h4>{t.footer.contactTitle}</h4>
           <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
           <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer">{t.footer.whatsapp}</a>
+          <button type="button" className="tt2-footer-link-button" onClick={openCookiePreferences}>
+            {t.footer.cookiePreferences || t.cookies?.label || "Preferências de cookies"}
+          </button>
+          <a href="#privacidade">{t.footer.privacy || t.cookies?.privacy || "Política de Privacidade"}</a>
           <div className="tt2-language-switcher" style={{ marginTop: 12 }}>
             <select className="tt2-language-select" value={language} onChange={(e) => setLanguage(e.target.value)} aria-label={t.nav.languageLabel}>
               {languageOptions.map((option) => (

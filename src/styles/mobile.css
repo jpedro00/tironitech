@@ -987,3 +987,50 @@ body { overflow-x: hidden; background: #f7fbff; }
 .mobile-header {
   background: linear-gradient(90deg, #000000 0%, #03070d 18%, #07111c 40%, #0b1f33 64%, #123b5c 84%, #1f7fbd 100%) !important;
 }
+
+/* Mobile cookie consent overrides */
+.tt2-cookie-banner {
+  bottom: 10px;
+  width: calc(100% - 24px);
+  grid-template-columns: 1fr;
+  align-items: stretch;
+  padding: 14px;
+  border-radius: 16px;
+}
+
+.tt2-cookie-actions,
+.tt2-cookie-modal-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+}
+
+.tt2-cookie-actions button,
+.tt2-cookie-modal-actions button {
+  width: 100%;
+}
+
+.tt2-cookie-modal-backdrop {
+  padding: 12px;
+  align-items: end;
+}
+
+.tt2-cookie-modal {
+  max-height: calc(100vh - 24px);
+  padding: 18px;
+  border-radius: 18px;
+}
+
+.tt2-cookie-category {
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+
+.tt2-cookie-toggle {
+  justify-content: space-between;
+  width: 100%;
+}
+
+body.tt2-cookie-banner-visible .tt2-floating-lead {
+  bottom: 236px !important;
+}
