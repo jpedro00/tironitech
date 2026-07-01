@@ -10,7 +10,7 @@ export default function Footer({ t, contactEmail, whatsappNumber, language, setL
               <LogoMark className="brand-mark" size={42} />
             </div>
             <div className="tt2-brand-copy">
-              <strong>Tironi Tech</strong>
+              <strong>TironiTech</strong>
               <span>{t.footer.text}</span>
             </div>
           </div>
@@ -18,8 +18,8 @@ export default function Footer({ t, contactEmail, whatsappNumber, language, setL
 
         <div>
           <h4>{t.footer.navTitle}</h4>
-          <a href="#inicio">{t.nav.projects}</a>
           <a href="#clientes">{t.nav.clients}</a>
+          <a href="#experiencia">{t.experience.eyebrow}</a>
           <a href="#projetos">{t.nav.projects}</a>
           <a href="#solucoes">{t.nav.services}</a>
           <a href="#contato">{t.nav.contact}</a>
@@ -28,20 +28,11 @@ export default function Footer({ t, contactEmail, whatsappNumber, language, setL
         <div>
           <h4>{t.footer.contactTitle}</h4>
           <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
-          <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer">
-            {t.footer.whatsapp}
-          </a>
+          <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer">{t.footer.whatsapp}</a>
           <div className="tt2-language-switcher" style={{ marginTop: 12 }}>
-            <select
-              className="tt2-language-select"
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-              aria-label={t.nav.languageLabel}
-            >
+            <select className="tt2-language-select" value={language} onChange={(e) => setLanguage(e.target.value)} aria-label={t.nav.languageLabel}>
               {languageOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
+                <option key={option.value} value={option.value}>{option.label}</option>
               ))}
             </select>
           </div>
@@ -50,4 +41,3 @@ export default function Footer({ t, contactEmail, whatsappNumber, language, setL
     </footer>
   );
 }
-

@@ -9,28 +9,26 @@ function withXnamai(clients = []) {
 }
 
 export default function TrustedBySection({ t, clients }) {
-  const allClients = withXnamai(clients);
+  const logoClients = withXnamai(clients);
+  const repeatedItems = [...logoClients, ...logoClients, ...logoClients];
 
   return (
     <section id="clientes" className="tt2-section tt2-clients-section">
       <div className="tt2-container">
         <div className="tt2-section-head tt2-section-head-center">
-          <span className="tt2-kicker">{t.trustedBy.title}</span>
+          <span className="tt2-kicker">{t.nav.clients}</span>
           <h2>{t.trustedBy.title}</h2>
           <p>{t.trustedBy.description}</p>
         </div>
+      </div>
 
-        <div className="tt2-logo-marquee">
-          <div className="tt2-logo-track">
-            {[...allClients, ...allClients].map((client, index) => (
-              <article
-                className={`tt2-logo-card${client.name === "XNAMAI" ? " is-xnamai" : ""}`}
-                key={`${client.name}-${index}`}
-              >
-                <img src={client.logo} alt={client.name} loading="lazy" />
-              </article>
-            ))}
-          </div>
+      <div className="tt2-logo-marquee tt2-project-marquee" aria-label={t.trustedBy.title}>
+        <div className="tt2-logo-track">
+          {repeatedItems.map((client, index) => (
+            <article className={`tt2-logo-card tt2-marquee-card${client.name === "XNAMAI" ? " is-dark" : ""}`} key={`${client.name}-${index}`}>
+              <img src={client.logo} alt={client.name} loading="lazy" />
+            </article>
+          ))}
         </div>
       </div>
     </section>

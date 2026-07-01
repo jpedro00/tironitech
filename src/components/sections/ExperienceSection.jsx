@@ -1,17 +1,11 @@
-import { useRef } from "react";
-import { motion as Motion, useReducedMotion } from "framer-motion";
-
 export default function ExperienceSection({ t }) {
-  const dragAreaRef = useRef(null);
-  const reduceMotion = useReducedMotion();
-
   return (
-    <section className="tt2-section tt2-interactive-section" id="experiencia">
-      <div className="tt2-container tt2-experience-layout">
+    <section className="tt2-section tt2-about-section" id="experiencia">
+      <div className="tt2-container tt2-about-layout">
         <div className="tt2-section-copy">
-          <span className="tt2-kicker">{t.experience.eyebrow}</span>
-          <h2>{t.experience.title}</h2>
-          <p>{t.experience.description}</p>
+          <span className="tt2-kicker">{t.about.eyebrow}</span>
+          <h2>{t.about.title}</h2>
+          <p>{t.about.description}</p>
 
           <div className="tt2-capabilities">
             {t.experience.pills.map((pill) => (
@@ -22,28 +16,33 @@ export default function ExperienceSection({ t }) {
           </div>
         </div>
 
-        <div className="tt2-system-visual" ref={dragAreaRef}>
-          {t.experience.cards.slice(0, 4).map((card, index) => (
-            <Motion.div
-              key={`${card.tag}-${index}`}
-              className={`tt2-system-card tt2-system-card-${index + 1}`}
-              drag={!reduceMotion}
-              dragConstraints={dragAreaRef}
-              dragElastic={0.16}
-              dragMomentum={false}
-              dragSnapToOrigin
-              whileDrag={{ scale: 1.03, zIndex: 50, cursor: "grabbing" }}
-              whileHover={{ scale: 1.01 }}
-              transition={{ type: "spring", stiffness: 240, damping: 20 }}
-            >
-              <span className="tt2-system-pill">{card.tag}</span>
+        <div className="tt2-about-card-grid">
+          {t.about.items.map((item) => (
+            <article key={item.title} className="tt2-about-card">
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div className="tt2-container tt2-method-band">
+        <div className="tt2-section-head tt2-section-head-center">
+          <span className="tt2-kicker">{t.experience.eyebrow}</span>
+          <h2>{t.experience.title}</h2>
+          <p>{t.experience.description}</p>
+        </div>
+
+        <div className="tt2-method-cards">
+          {t.experience.cards.map((card) => (
+            <article key={card.title} className="tt2-method-card">
+              <span>{card.tag}</span>
               <h3>{card.title}</h3>
               <p>{card.text}</p>
-            </Motion.div>
+            </article>
           ))}
         </div>
       </div>
     </section>
   );
 }
-
