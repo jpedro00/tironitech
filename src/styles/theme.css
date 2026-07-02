@@ -1,4 +1,4 @@
-﻿@import "./tironi-odois.css";
+@import "./tironi-odois.css";
 
 .tt2-site-main {
   position: relative;
@@ -3082,5 +3082,110 @@ body.tt2-cookie-banner-visible .tt2-floating-lead {
   .tt2-legal-modal-body p {
     font-size: 0.95rem;
     line-height: 1.62;
+  }
+}
+/* Tironi public legal pages */
+.tt2-legal-page-shell {
+  background: linear-gradient(180deg, #f8fbff 0%, #eef7ff 52%, #ffffff 100%);
+}
+
+.tt2-legal-page-main {
+  padding: 84px 20px 96px;
+}
+
+.tt2-legal-page-card {
+  width: min(940px, 100%);
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 54px);
+  border-radius: 22px;
+  color: #102033;
+  background: #ffffff;
+  border: 1px solid #cfe8fb;
+  box-shadow: 0 24px 70px rgba(16, 66, 110, 0.12);
+}
+
+.tt2-legal-page-updated {
+  margin: 24px 0 10px;
+  color: #0f5f9f;
+  font-size: 0.9rem;
+  font-weight: 850;
+}
+
+.tt2-legal-page-card h1 {
+  margin: 0;
+  color: #0b1f33;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.tt2-legal-page-content {
+  margin-top: 26px;
+}
+
+.tt2-legal-page-content p {
+  margin: 0;
+  color: #24445f;
+  font-size: clamp(1rem, 2vw, 1.08rem);
+  line-height: 1.78;
+}
+
+.tt2-legal-page-content p + p {
+  margin-top: 18px;
+}
+
+.tt2-legal-page-content .tt2-legal-contact {
+  color: #0b66b3;
+  font-weight: 850;
+}
+
+.tt2-legal-back-link {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border-radius: 999px;
+  color: #0b66b3;
+  background: #eef7ff;
+  border: 1px solid #cfe8fb;
+  text-decoration: none;
+  font-weight: 850;
+}
+
+.tt2-legal-back-link:hover {
+  background: #dff0ff;
+}
+
+.tt2-legal-back-link:focus-visible {
+  outline: 3px solid rgba(57, 169, 239, 0.35);
+  outline-offset: 3px;
+}
+
+.tt2-legal-back-link-bottom {
+  margin-top: 30px;
+}
+
+@media (max-width: 720px) {
+  .tt2-legal-page-main {
+    padding: 46px 16px 64px;
+  }
+
+  .tt2-legal-page-card {
+    padding: 24px 18px;
+    border-radius: 18px;
+  }
+
+  .tt2-legal-page-updated {
+    margin-top: 20px;
+  }
+
+  .tt2-legal-page-content {
+    margin-top: 22px;
+  }
+
+  .tt2-legal-page-content p {
+    font-size: 0.98rem;
+    line-height: 1.66;
   }
 }

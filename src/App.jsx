@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/react';
 import { useEffect, useState } from "react";
 import ResponsiveHome from "./responsive/ResponsiveHome";
+import LegalPolicyPage from "./components/pages/LegalPolicyPage";
 import { LanguageProvider } from "./context/LanguageContext";
 import { COOKIE_CONSENT_UPDATED_EVENT, getStoredCookieConsent } from "./utils/cookieConsent";
 
@@ -20,10 +21,24 @@ function ConsentAwareAnalytics() {
   return analyticsAllowed ? <Analytics /> : null;
 }
 
+function AppContent() {
+  const pathname = typeof window !== "undefined" ? window.location.pathname : "/";
+
+  if (pathname === "/politica-privacidade") {
+    return <LegalPolicyPage policy="privacy" />;
+  }
+
+  if (pathname === "/politica-cookies") {
+    return <LegalPolicyPage policy="cookies" />;
+  }
+
+  return <ResponsiveHome />;
+}
+
 export default function App() {
   return (
     <LanguageProvider>
-      <ResponsiveHome />
+      <AppContent />
       <ConsentAwareAnalytics />
     </LanguageProvider>
   );

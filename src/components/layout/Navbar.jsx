@@ -32,13 +32,14 @@ export function LogoMark({ className = "", size = 44, title = "TironiTech" }) {
 export default function Navbar({ t, language, setLanguage, languageOptions }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const closeMenu = () => setMenuOpen(false);
-  const brandTagline = t.brandTagline || "Tecnologia com clareza, estrutura e evolução";
+  const brandTagline = t.brandTagline || "Tecnologia com clareza, estrutura e evoluÃ§Ã£o";
   const structureLabel = { pt: "Estrutura", en: "Structure", es: "Estructura" }[language] || "Estrutura";
+  const sectionHrefPrefix = typeof window !== "undefined" && window.location.pathname !== "/" ? "/" : "";
 
   return (
     <header className="tt2-header">
       <div className="tt2-container tt2-header-inner">
-        <a href="#inicio" className="tt2-brand" onClick={closeMenu}>
+        <a href={`${sectionHrefPrefix}#inicio`} className="tt2-brand" onClick={closeMenu}>
           <div className="tt2-brand-mark" aria-hidden="true">
             <LogoMark className="brand-mark" size={46} />
           </div>
@@ -56,15 +57,15 @@ export default function Navbar({ t, language, setLanguage, languageOptions }) {
           aria-label={menuOpen ? t.nav.closeMenu : t.nav.openMenu}
           onClick={() => setMenuOpen((open) => !open)}
         >
-          <span aria-hidden="true">{menuOpen ? "×" : "☰"}</span>
+          <span aria-hidden="true">{menuOpen ? "Ã—" : "â˜°"}</span>
         </button>
 
         <nav id="tt2-primary-nav" className={`tt2-nav${menuOpen ? " tt2-nav-open" : ""}`}>
-          <a href="#clientes" onClick={closeMenu}>{t.nav.clients}</a>
-          <a href="#experiencia" onClick={closeMenu}>{structureLabel}</a>
-          <a href="#projetos" onClick={closeMenu}>{t.nav.projects}</a>
-          <a href="#solucoes" onClick={closeMenu}>{t.nav.services}</a>
-          <a href="#contato" onClick={closeMenu}>{t.nav.contact}</a>
+          <a href={`${sectionHrefPrefix}#clientes`} onClick={closeMenu}>{t.nav.clients}</a>
+          <a href={`${sectionHrefPrefix}#experiencia`} onClick={closeMenu}>{structureLabel}</a>
+          <a href={`${sectionHrefPrefix}#projetos`} onClick={closeMenu}>{t.nav.projects}</a>
+          <a href={`${sectionHrefPrefix}#solucoes`} onClick={closeMenu}>{t.nav.services}</a>
+          <a href={`${sectionHrefPrefix}#contato`} onClick={closeMenu}>{t.nav.contact}</a>
         </nav>
 
         <div className="tt2-header-actions">
