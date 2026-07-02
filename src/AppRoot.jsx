@@ -4,6 +4,7 @@ import { useLanguage } from "./context/LanguageContext";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import FloatingLeadButton from "./components/ui/FloatingLeadButton";
+import FloatingWhatsAppButton from "./components/ui/FloatingWhatsAppButton";
 import CookieConsent from "./components/shared/CookieConsent";
 
 import HeroSection from "./components/sections/HeroSection";
@@ -61,6 +62,7 @@ export default function AppRoot() {
         </main>
 
         <FloatingLeadButton whatsappNumber={WHATSAPP_NUMBER} label={t.nav.cta} />
+        <FloatingWhatsAppButton />
         <Footer
           t={t}
           contactEmail={CONTACT_EMAIL}

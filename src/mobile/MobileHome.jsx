@@ -1,8 +1,13 @@
-import { useEffect } from "react";
+﻿import { useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import CookieConsent from "../components/shared/CookieConsent";
 import CountUpStat from "../components/shared/CountUpStat";
+import FloatingWhatsAppButton from "../components/ui/FloatingWhatsAppButton";
+import Footer from "../components/layout/Footer";
 import newstoreSorteiosLogo from "../assets/newstore-sorteios-logo.png";
+
+const CONTACT_EMAIL = "tironi@tironitech.com";
+const WHATSAPP_NUMBER = "558599498149";
 
 const CONTACT_WHATSAPP_HREF =
   "https://wa.me/558599498149?text=Ol%C3%A1,%20vim%20pelo%20site%20da%20TironiTech%20e%20quero%20falar%20sobre%20um%20projeto.";
@@ -72,7 +77,7 @@ export default function MobileHome() {
           </div>
           <div className="mobile-brand-copy">
             <strong>TironiTech</strong>
-            <span>{t.brandTagline || "Tecnologia com clareza, estrutura e evolução"}</span>
+            <span>{t.brandTagline || "Tecnologia com clareza, estrutura e evoluÃ§Ã£o"}</span>
           </div>
         </a>
 
@@ -216,6 +221,16 @@ export default function MobileHome() {
         </section>
       </main>
 
+      <Footer
+        t={t}
+        contactEmail={CONTACT_EMAIL}
+        whatsappNumber={WHATSAPP_NUMBER}
+        language={language}
+        setLanguage={setLanguage}
+        languageOptions={languageOptions}
+      />
+
+      <FloatingWhatsAppButton />
       <CookieConsent t={t} />
     </div>
   );
