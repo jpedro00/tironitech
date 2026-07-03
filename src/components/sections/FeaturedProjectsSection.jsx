@@ -2,8 +2,8 @@ import { motion as Motion, useReducedMotion } from "framer-motion";
 import { useMemo, useState } from "react";
 import newstoreSorteiosLogo from "../../assets/newstore-sorteios-logo.png";
 
-const SIGNGUARD_STORE_URL =
-  "https://chromewebstore.google.com/detail/crypto-wallet-signguard/dcfiodblpbchbfkopajdpiibgdenfmip";
+const SIGNGUARD_URL = "https://www.walletsignguard.com/";
+const DELETEACTPRO_URL = "https://www.deleteactpro.com/";
 
 function ProjectLogo({ title }) {
   const [error, setError] = useState(false);
@@ -56,6 +56,7 @@ export default function FeaturedProjectsSection({ t }) {
         <div className="tt2-featured-grid">
           {t.featuredProjects.items.map((item, index) => {
             const isSignGuard = item.title === "SignGuard";
+            const isDeleteActPro = item.title === "DeleteActPro";
 
             return (
               <Motion.article
@@ -81,9 +82,9 @@ export default function FeaturedProjectsSection({ t }) {
 
                 <a
                   className="tt2-featured-cta"
-                  href={isSignGuard ? SIGNGUARD_STORE_URL : "#contato"}
-                  target={isSignGuard ? "_blank" : undefined}
-                  rel={isSignGuard ? "noreferrer" : undefined}
+                  href={isSignGuard ? SIGNGUARD_URL : isDeleteActPro ? DELETEACTPRO_URL : "#contato"}
+                  target={isSignGuard || isDeleteActPro ? "_blank" : undefined}
+                  rel={isSignGuard || isDeleteActPro ? "noreferrer" : undefined}
                 >
                   {item.cta}
                 </a>

@@ -1,4 +1,4 @@
-﻿import { useEffect } from "react";
+import { useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import CookieConsent from "../components/shared/CookieConsent";
 import CountUpStat from "../components/shared/CountUpStat";
@@ -32,11 +32,10 @@ const mobileMarqueeLogos = [
   { name: "XNAMAI", logo: "/assets/clients/xnamai.png" },
 ];
 const projectLinks = {
-  SignGuard: "https://chromewebstore.google.com/detail/crypto-wallet-signguard/dcfiodblpbchbfkopajdpiibgdenfmip",
-  DeleteActPro: "https://www.deleteactpro.com",
+  SignGuard: "https://www.walletsignguard.com/",
+  DeleteActPro: "https://www.deleteactpro.com/",
   "Sorteios NewStore": "#contato",
 };
-
 const projectLogos = {
   SignGuard: "/projects/sign-wallet-logo.png",
   DeleteActPro: "/projects/deleteactpro-logo.png",
@@ -77,7 +76,7 @@ export default function MobileHome() {
           </div>
           <div className="mobile-brand-copy">
             <strong>TironiTech</strong>
-            <span>{t.brandTagline || "Tecnologia com clareza, estrutura e evoluÃ§Ã£o"}</span>
+            <span>{t.brandTagline || "Tecnologia com clareza, estrutura e evolução"}</span>
           </div>
         </a>
 
