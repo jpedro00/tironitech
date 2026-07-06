@@ -1,7 +1,10 @@
 import { useState } from "react";
+import {
+  DEFAULT_WHATSAPP_URL,
+  reportWhatsAppConversionAndRedirect,
+} from "../../utils/googleAdsConversion";
 
-const CONTACT_WHATSAPP_HREF =
-  "https://wa.me/558599498149?text=Ol%C3%A1,%20vim%20pelo%20site%20da%20TironiTech%20e%20quero%20falar%20sobre%20um%20projeto.";
+const CONTACT_WHATSAPP_HREF = DEFAULT_WHATSAPP_URL;
 
 export function LogoMark({ className = "", size = 44, title = "TironiTech" }) {
   const [error, setError] = useState(false);
@@ -85,7 +88,17 @@ export default function Navbar({ t, language, setLanguage, languageOptions }) {
             </select>
           </div>
 
-          <a className="tt2-btn tt2-btn-primary tt2-header-cta" href={CONTACT_WHATSAPP_HREF} target="_blank" rel="noreferrer" onClick={closeMenu}>
+          <a
+            className="tt2-btn tt2-btn-primary tt2-header-cta"
+            href={CONTACT_WHATSAPP_HREF}
+            target="_blank"
+            rel="noreferrer"
+            onClick={(event) => {
+              event.preventDefault();
+              closeMenu();
+              reportWhatsAppConversionAndRedirect(CONTACT_WHATSAPP_HREF);
+            }}
+          >
             {t.nav.cta}
           </a>
         </div>

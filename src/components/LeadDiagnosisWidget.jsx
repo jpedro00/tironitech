@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion as Motion } from "framer-motion";
+import { reportWhatsAppConversionAndRedirect } from "../utils/googleAdsConversion";
 
 function buildRecommendation(answers, recommendations) {
   const need = answers.need || "";
@@ -180,6 +181,11 @@ ${diagnosis.emailBodyFooter}`;
                 target={whatsappHref.startsWith("http") ? "_blank" : undefined}
                 rel={whatsappHref.startsWith("http") ? "noreferrer" : undefined}
                 className="tt2-diagnosis-secondary-link"
+                onClick={(event) => {
+                  if (!whatsappHref.startsWith("https://wa.me/558599498149")) return;
+                  event.preventDefault();
+                  reportWhatsAppConversionAndRedirect(whatsappHref);
+                }}
               >
                 {diagnosis.whatsapp}
               </a>

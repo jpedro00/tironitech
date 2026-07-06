@@ -5,12 +5,15 @@ import CountUpStat from "../components/shared/CountUpStat";
 import FloatingWhatsAppButton from "../components/ui/FloatingWhatsAppButton";
 import Footer from "../components/layout/Footer";
 import newstoreSorteiosLogo from "../assets/newstore-sorteios-logo.png";
+import {
+  DEFAULT_WHATSAPP_URL,
+  reportWhatsAppConversionAndRedirect,
+} from "../utils/googleAdsConversion";
 
 const CONTACT_EMAIL = "tironi@tironitech.com";
 const WHATSAPP_NUMBER = "558599498149";
 
-const CONTACT_WHATSAPP_HREF =
-  "https://wa.me/558599498149?text=Ol%C3%A1,%20vim%20pelo%20site%20da%20TironiTech%20e%20quero%20falar%20sobre%20um%20projeto.";
+const CONTACT_WHATSAPP_HREF = DEFAULT_WHATSAPP_URL;
 
 const mobileMarqueeLogos = [
   {
@@ -86,7 +89,18 @@ export default function MobileHome() {
               <option key={option.value} value={option.value}>{option.label}</option>
             ))}
           </select>
-          <a className="mobile-header-cta" href={CONTACT_WHATSAPP_HREF} target="_blank" rel="noreferrer">{t.nav.cta}</a>
+          <a
+            className="mobile-header-cta"
+            href={CONTACT_WHATSAPP_HREF}
+            target="_blank"
+            rel="noreferrer"
+            onClick={(event) => {
+              event.preventDefault();
+              reportWhatsAppConversionAndRedirect(CONTACT_WHATSAPP_HREF);
+            }}
+          >
+            {t.nav.cta}
+          </a>
         </div>
       </header>
 
@@ -215,7 +229,18 @@ export default function MobileHome() {
           <h2>{t.finalCta.title}</h2>
           <p>{t.finalCta.description}</p>
           <div className="mobile-hero-actions">
-            <a className="mobile-btn mobile-btn-primary" href={CONTACT_WHATSAPP_HREF} target="_blank" rel="noreferrer">{t.nav.cta}</a>
+            <a
+              className="mobile-btn mobile-btn-primary"
+              href={CONTACT_WHATSAPP_HREF}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(event) => {
+                event.preventDefault();
+                reportWhatsAppConversionAndRedirect(CONTACT_WHATSAPP_HREF);
+              }}
+            >
+              {t.nav.cta}
+            </a>
           </div>
         </section>
       </main>

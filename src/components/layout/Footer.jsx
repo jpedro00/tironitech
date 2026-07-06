@@ -1,6 +1,7 @@
 import { LogoMark } from "./Navbar";
 import { getLegalCopy } from "../../content/legalPolicies";
 import { openCookiePreferences } from "../../utils/cookieConsent";
+import { reportWhatsAppConversionAndRedirect } from "../../utils/googleAdsConversion";
 
 export default function Footer({ t, contactEmail, whatsappNumber, language, setLanguage, languageOptions = [] }) {
   const legalCopy = getLegalCopy(language);
@@ -34,7 +35,19 @@ export default function Footer({ t, contactEmail, whatsappNumber, language, setL
         <div>
           <h4>{t.footer.contactTitle}</h4>
           <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
-          <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer">{t.footer.whatsapp}</a>
+          <a
+            href={`https://wa.me/${whatsappNumber}`}
+            target="_blank"
+            rel="noreferrer"
+            onClick={(event) => {
+              const href = `https://wa.me/${whatsappNumber}`;
+              if (!href.startsWith("https://wa.me/558599498149")) return;
+              event.preventDefault();
+              reportWhatsAppConversionAndRedirect(href);
+            }}
+          >
+            {t.footer.whatsapp}
+          </a>
           <div className="tt2-footer-legal-links" aria-label="Links legais">
             <button type="button" className="tt2-footer-link-button" onClick={openCookiePreferences}>
               {legalCopy.cookiePreferences}

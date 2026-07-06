@@ -1,5 +1,9 @@
-﻿const WHATSAPP_LEAD_HREF =
-  "https://wa.me/558599498149?text=Ol%C3%A1,%20vim%20pelo%20site%20da%20TironiTech%20e%20quero%20falar%20sobre%20um%20projeto.";
+import {
+  DEFAULT_WHATSAPP_URL,
+  reportWhatsAppConversionAndRedirect,
+} from "../../utils/googleAdsConversion";
+
+const WHATSAPP_LEAD_HREF = DEFAULT_WHATSAPP_URL;
 
 export default function FloatingWhatsAppButton() {
   return (
@@ -9,6 +13,10 @@ export default function FloatingWhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar com a TironiTech no WhatsApp"
+      onClick={(event) => {
+        event.preventDefault();
+        reportWhatsAppConversionAndRedirect(WHATSAPP_LEAD_HREF);
+      }}
     >
       <svg className="tt2-floating-whatsapp-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
         <path
