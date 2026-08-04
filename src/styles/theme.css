@@ -3192,10 +3192,41 @@ body.tt2-cookie-banner-visible .tt2-floating-lead {
 
 /* Compensate only for the Ziquita artwork's internal canvas margins. */
 .tt2-marquee-card.is-ziquita img {
-  width: 186px !important;
-  height: 64px !important;
-  max-width: 186px !important;
-  max-height: 64px !important;
+  width: 210px !important;
+  height: 76px !important;
+  max-width: 210px !important;
+  max-height: 76px !important;
   object-fit: contain !important;
   object-position: center !important;
+}
+
+/* Keep the header identity integrated with the navbar, without a badge around the symbol. */
+.tt2-header .tt2-brand {
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.tt2-header .tt2-brand-mark {
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+.tt2-header .tt2-brand-mark img,
+.tt2-header .tt2-brand-mark img.brand-mark {
+  width: 48px !important;
+  height: 48px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+.tt2-header .tt2-brand-copy {
+  justify-content: center !important;
+  gap: 3px !important;
 }

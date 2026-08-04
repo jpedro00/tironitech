@@ -35,7 +35,7 @@ export function LogoMark({ className = "", size = 44, title = "TironiTech" }) {
 export default function Navbar({ t, language, setLanguage, languageOptions }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const closeMenu = () => setMenuOpen(false);
-  const brandTagline = t.brandTagline || "Tecnologia com clareza, estrutura e evoluÃ§Ã£o";
+  const brandTagline = t.brandTagline || "Tecnologia com clareza, estrutura e evolução";
   const structureLabel = { pt: "Estrutura", en: "Structure", es: "Estructura" }[language] || "Estrutura";
   const sectionHrefPrefix = typeof window !== "undefined" && window.location.pathname !== "/" ? "/" : "";
 

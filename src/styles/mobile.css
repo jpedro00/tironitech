@@ -1706,10 +1706,40 @@ body.tt2-cookie-banner-visible .tt2-floating-lead {
 
 /* Compensate only for the Ziquita artwork's internal canvas margins. */
 .mobile-marquee-track span.is-ziquita img {
-  width: 132px !important;
-  height: 47px !important;
-  max-width: 132px !important;
-  max-height: 47px !important;
+  width: 150px !important;
+  height: 55px !important;
+  max-width: 150px !important;
+  max-height: 55px !important;
   object-fit: contain !important;
   object-position: center !important;
+}
+
+/* Keep the mobile identity clean and aligned, without a badge around the symbol. */
+.mobile-brand {
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.mobile-brand-mark {
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+.mobile-brand-mark img {
+  width: 40px !important;
+  height: 40px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+.mobile-brand-copy {
+  justify-content: center !important;
+  gap: 2px !important;
 }
