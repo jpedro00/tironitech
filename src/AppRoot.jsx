@@ -38,6 +38,14 @@ const CLIENTS = [
     name: "Coopermais",
     logo: "https://static.wixstatic.com/media/66390a_8b6c94ee29fe4e57907cd67518d88c6c~mv2.png/v1/crop/x_25,y_0,w_212,h_73/fill/w_278,h_96,al_c,lg_1,q_85,enc_avif,quality_auto/coopermais_PNG.png",
   },
+  {
+    name: "EUTEC",
+    logo: "/assets/clients/eutec.png",
+  },
+  {
+    name: "Ziquita Agro-Paraná",
+    logo: "/assets/clients/ziquita-agro-parana.png",
+  },
 ];
 
 export default function AppRoot() {
