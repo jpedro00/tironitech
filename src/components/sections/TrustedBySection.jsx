@@ -25,7 +25,10 @@ export default function TrustedBySection({ t, clients }) {
       <div className="tt2-logo-marquee tt2-project-marquee" aria-label={t.trustedBy.title}>
         <div className="tt2-logo-track">
           {repeatedItems.map((client, index) => (
-            <article className={`tt2-logo-card tt2-marquee-card${client.name === "XNAMAI" ? " is-dark" : ""}`} key={`${client.name}-${index}`}>
+            <article
+              className={`tt2-logo-card tt2-marquee-card${client.name === "XNAMAI" ? " is-dark" : ""}${client.name === "Ziquita Agro-Paraná" ? " is-ziquita" : ""}`}
+              key={`${client.name}-${index}`}
+            >
               <img src={client.logo} alt={client.name} loading="lazy" />
             </article>
           ))}

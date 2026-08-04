@@ -3189,3 +3189,13 @@ body.tt2-cookie-banner-visible .tt2-floating-lead {
     line-height: 1.66;
   }
 }
+
+/* Compensate only for the Ziquita artwork's internal canvas margins. */
+.tt2-marquee-card.is-ziquita img {
+  width: 186px !important;
+  height: 64px !important;
+  max-width: 186px !important;
+  max-height: 64px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}

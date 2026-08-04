@@ -126,7 +126,10 @@ export default function MobileHome() {
           <div className="mobile-marquee" aria-label={t.trustedBy.title}>
             <div className="mobile-marquee-track">
               {[...mobileMarqueeLogos, ...mobileMarqueeLogos, ...mobileMarqueeLogos].map((client, index) => (
-                <span key={`${client.name}-${index}`} className={client.name === "XNAMAI" ? "is-dark" : undefined}>
+                <span
+                  key={`${client.name}-${index}`}
+                  className={`${client.name === "XNAMAI" ? "is-dark" : ""}${client.name === "Ziquita Agro-Paraná" ? " is-ziquita" : ""}`.trim() || undefined}
+                >
                   <img src={client.logo} alt={client.name} loading="lazy" />
                 </span>
               ))}

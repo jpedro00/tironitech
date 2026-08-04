@@ -1703,3 +1703,13 @@ body.tt2-cookie-banner-visible .tt2-floating-lead {
   color: #0b66b3;
   font-weight: 850;
 }
+
+/* Compensate only for the Ziquita artwork's internal canvas margins. */
+.mobile-marquee-track span.is-ziquita img {
+  width: 132px !important;
+  height: 47px !important;
+  max-width: 132px !important;
+  max-height: 47px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}
