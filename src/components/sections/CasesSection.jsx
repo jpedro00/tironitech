@@ -1,8 +1,18 @@
+import { motion as Motion, useReducedMotion } from "framer-motion";
+
 export default function CasesSection({ t }) {
+  const reduceMotion = useReducedMotion();
   const impact = t.impact || t.cases;
 
   return (
-    <section className="tt2-section tt2-impact-section" id="impacto">
+    <Motion.section
+      className="tt2-section tt2-impact-section"
+      id="impacto"
+      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="tt2-container">
         <div className="tt2-section-head tt2-section-head-center">
           <span className="tt2-kicker">{impact.eyebrow}</span>
@@ -19,6 +29,6 @@ export default function CasesSection({ t }) {
           ))}
         </div>
       </div>
-    </section>
+    </Motion.section>
   );
 }

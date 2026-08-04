@@ -45,8 +45,8 @@
   height: 100%;
   object-fit: contain;
   filter:
-    drop-shadow(0 0 12px rgba(161, 0, 255, 0.22))
-    drop-shadow(0 0 28px rgba(45, 77, 255, 0.16));
+    drop-shadow(0 0 12px rgba(20, 121, 201, 0.32))
+    drop-shadow(0 0 28px rgba(47, 158, 232, 0.2));
 }
 
 .tt2-intro-logo-box {
@@ -75,19 +75,19 @@
 }
 
 .tt2-intro-symbol {
-  width: min(78vw, 520px) !important;
-  max-width: 520px;
+  width: min(88vw, 66vh, 760px) !important;
+  max-width: 760px;
   height: auto !important;
   object-fit: contain;
   filter:
-    drop-shadow(0 0 14px rgba(161, 0, 255, 0.24))
-    drop-shadow(0 0 30px rgba(45, 77, 255, 0.16));
+    drop-shadow(0 0 14px rgba(20, 121, 201, 0.28))
+    drop-shadow(0 0 30px rgba(47, 158, 232, 0.16));
 }
 
 @media (max-width: 768px) {
   .tt2-intro-symbol {
-    width: min(86vw, 380px) !important;
-    max-width: 380px;
+    width: min(92vw, 60vh, 460px) !important;
+    max-width: 460px;
   }
 }
 
@@ -103,8 +103,8 @@
   height: 40px;
   object-fit: contain;
   filter:
-    drop-shadow(0 0 16px rgba(161, 0, 255, 0.16))
-    drop-shadow(0 0 26px rgba(45, 77, 255, 0.12));
+    drop-shadow(0 0 16px rgba(20, 121, 201, 0.16))
+    drop-shadow(0 0 26px rgba(47, 158, 232, 0.12));
 }
 
 .tt2-project-logo-fallback {
@@ -433,7 +433,6 @@ body {
   border: 1px solid rgba(22, 119, 200, 0.2) !important;
   box-shadow: 0 16px 34px rgba(22, 119, 200, 0.22) !important;
 }
-
 .tt2-btn-ghost {
   color: #0f5f9f !important;
   background: #ffffff !important;
@@ -488,7 +487,6 @@ body {
 }
 
 .tt2-hero-bg,
-.tt2-hero-bg-bubbles,
 .tt2-grid-overlay,
 .tt2-blur,
 .tt2-hero-title-wrap::after {
@@ -3230,3 +3228,190 @@ body.tt2-cookie-banner-visible .tt2-floating-lead {
   justify-content: center !important;
   gap: 3px !important;
 }
+
+/* ===== Intro azul/branco — bloco final, vence a cascata do odois ===== */
+
+.tt2-intro-overlay {
+  background:
+    radial-gradient(circle at 30% 34%, rgba(20, 121, 201, 0.14), transparent 34%),
+    radial-gradient(circle at 72% 42%, rgba(124, 199, 244, 0.2), transparent 36%),
+    linear-gradient(180deg, #ffffff 0%, #f7fbff 55%, #eef7ff 100%);
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.tt2-intro-noise {
+  opacity: 1;
+  background-image:
+    linear-gradient(rgba(20, 121, 201, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 121, 201, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(circle at 50% 45%, #000 0%, transparent 72%);
+}
+
+.tt2-intro-glow-1 {
+  top: 18%;
+  left: 22%;
+  background: rgba(20, 121, 201, 0.26);
+}
+
+.tt2-intro-glow-2 {
+  bottom: 14%;
+  right: 16%;
+  background: rgba(124, 199, 244, 0.34);
+}
+
+.tt2-intro-logo-wrap,
+.tt2-intro-logo-box,
+.tt2-intro-logo-box img,
+.tt2-intro-symbol {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.tt2-intro-logo-box {
+  position: relative;
+  overflow: visible; /* overflow: hidden recorta o símbolo */
+}
+
+.tt2-intro-symbol {
+  filter:
+    drop-shadow(0 0 18px rgba(20, 121, 201, 0.38))
+    drop-shadow(0 0 40px rgba(47, 158, 232, 0.22));
+}
+
+.tt2-intro-symbol-shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: normal; /* overlay é o que gera o retângulo */
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0) 42%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(255, 255, 255, 0) 58%
+  );
+  /* o brilho fica confinado ao desenho do símbolo, nunca a um retângulo */
+  -webkit-mask-image: url("/brand/tironi-symbol.png");
+  mask-image: url("/brand/tironi-symbol.png");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+.tt2-intro-brand h2 {
+  display: flex;
+  justify-content: center;
+  gap: 0.01em;
+  margin: 0;
+  color: #102033;
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.tt2-intro-letter {
+  display: inline-block;
+}
+
+.tt2-intro-brand p {
+  margin: 10px 0 0;
+  color: #5a6b7d;
+  font-size: clamp(0.9rem, 1.4vw, 1.02rem);
+  letter-spacing: 0.01em;
+}
+
+.tt2-intro-line {
+  position: static;
+  width: min(320px, 60vw);
+  height: 2px;
+  transform-origin: left center;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(20, 121, 201, 0), #1479c9 35%, #7cc7f4 100%);
+  box-shadow: 0 0 14px rgba(20, 121, 201, 0.45);
+}
+
+.tt2-intro-ticker {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 42px;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.tt2-intro-ticker-track {
+  display: flex;
+  gap: 42px;
+  width: max-content;
+  color: #2f9ee8;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  white-space: nowrap;
+  animation: tt2IntroTicker 18s linear infinite;
+}
+
+.tt2-intro-ticker-track span::after {
+  content: "·";
+  margin-left: 42px;
+  opacity: 0.5;
+}
+
+@keyframes tt2IntroTicker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.333%); }
+}
+
+/* Estrelas e bolhas legadas: mortas no tema azul/branco */
+.tt2-global-stars,
+.tt2-star,
+.tt2-hero-bg-bubbles {
+  display: none !important;
+}
+
+/* LEDs azuis e micro-interações */
+.tt2-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 16px 34px rgba(22, 119, 200, 0.22),
+    0 0 28px rgba(20, 121, 201, 0.32) !important;
+}
+
+.tt2-hero-badge {
+  animation: tt2BadgePulse 3.2s ease-in-out infinite;
+}
+
+@keyframes tt2BadgePulse {
+  0%, 100% {
+    border-color: #cfe8fb;
+    box-shadow: 0 0 0 rgba(20, 121, 201, 0);
+  }
+  50% {
+    border-color: rgba(20, 121, 201, 0.55);
+    box-shadow: 0 0 14px rgba(20, 121, 201, 0.16);
+  }
+}
+
+.tt2-featured-card:hover,
+.tt2-service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 45px rgba(21, 92, 143, 0.14) !important;
+  border-color: rgba(47, 158, 232, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tt2-intro-ticker-track,
+  .tt2-hero-badge {
+    animation: none;
+  }
+}
+
+/* ===== Fim do bloco da intro ===== */

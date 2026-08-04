@@ -1,6 +1,17 @@
+import { motion as Motion, useReducedMotion } from "framer-motion";
+
 export default function ExperienceSection({ t }) {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <section className="tt2-section tt2-about-section" id="experiencia">
+    <Motion.section
+      className="tt2-section tt2-about-section"
+      id="experiencia"
+      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="tt2-container tt2-about-layout">
         <div className="tt2-section-copy">
           <span className="tt2-kicker">{t.about.eyebrow}</span>
@@ -43,6 +54,6 @@ export default function ExperienceSection({ t }) {
           ))}
         </div>
       </div>
-    </section>
+    </Motion.section>
   );
 }

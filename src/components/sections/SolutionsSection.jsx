@@ -7,7 +7,14 @@ export default function SolutionsSection({ t }) {
   const ease = [0.22, 1, 0.36, 1];
 
   return (
-    <section id="solucoes" className="tt2-section tt2-services-section">
+    <Motion.section
+      id="solucoes"
+      className="tt2-section tt2-services-section"
+      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease }}
+    >
       <div className="tt2-container">
         <div className="tt2-section-head tt2-section-head-center">
           <span className="tt2-kicker">{t.solutions.eyebrow}</span>
@@ -31,6 +38,6 @@ export default function SolutionsSection({ t }) {
           ))}
         </div>
       </div>
-    </section>
+    </Motion.section>
   );
 }

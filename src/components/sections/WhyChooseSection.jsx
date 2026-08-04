@@ -1,6 +1,16 @@
+import { motion as Motion, useReducedMotion } from "framer-motion";
+
 export default function WhyChooseSection({ t }) {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <section className="tt2-section tt2-why-section">
+    <Motion.section
+      className="tt2-section tt2-why-section"
+      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="tt2-container tt2-why-layout">
         <div className="tt2-section-copy">
           <span className="tt2-kicker">{t.whyChoose.eyebrow}</span>
@@ -16,6 +26,6 @@ export default function WhyChooseSection({ t }) {
           ))}
         </div>
       </div>
-    </section>
+    </Motion.section>
   );
 }

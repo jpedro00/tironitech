@@ -1,4 +1,4 @@
-﻿import { motion as Motion, useReducedMotion } from "framer-motion";
+import { motion as Motion, useReducedMotion } from "framer-motion";
 
 export default function HeroSection({ t }) {
   const reduceMotion = useReducedMotion();

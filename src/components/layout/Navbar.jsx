@@ -60,7 +60,7 @@ export default function Navbar({ t, language, setLanguage, languageOptions }) {
           aria-label={menuOpen ? t.nav.closeMenu : t.nav.openMenu}
           onClick={() => setMenuOpen((open) => !open)}
         >
-          <span aria-hidden="true">{menuOpen ? "Ã—" : "â˜°"}</span>
+          <span aria-hidden="true">{menuOpen ? "×" : "☰"}</span>
         </button>
 
         <nav id="tt2-primary-nav" className={`tt2-nav${menuOpen ? " tt2-nav-open" : ""}`}>

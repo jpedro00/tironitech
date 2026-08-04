@@ -1,3 +1,5 @@
+import { motion as Motion, useReducedMotion } from "framer-motion";
+
 const XNAMAI_CLIENT = {
   name: "XNAMAI",
   logo: "/assets/clients/xnamai.png",
@@ -9,11 +11,19 @@ function withXnamai(clients = []) {
 }
 
 export default function TrustedBySection({ t, clients }) {
+  const reduceMotion = useReducedMotion();
   const logoClients = withXnamai(clients);
   const repeatedItems = [...logoClients, ...logoClients, ...logoClients];
 
   return (
-    <section id="clientes" className="tt2-section tt2-clients-section">
+    <Motion.section
+      id="clientes"
+      className="tt2-section tt2-clients-section"
+      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="tt2-container">
         <div className="tt2-section-head tt2-section-head-center">
           <span className="tt2-kicker">{t.nav.clients}</span>
@@ -34,6 +44,6 @@ export default function TrustedBySection({ t, clients }) {
           ))}
         </div>
       </div>
-    </section>
+    </Motion.section>
   );
 }
