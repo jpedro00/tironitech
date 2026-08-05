@@ -874,6 +874,28 @@ body {
   color: rgba(255, 255, 255, 0.7);
 }
 
+/* .tt2-footer-brand é flex e .tt2-brand-copy é um item dele: sem
+   min-width:0, o item flex usa min-width:auto (o tamanho do texto sem
+   quebra), o que empurra a coluna além da largura do card no mobile. */
+.tt2-footer-brand {
+  min-width: 0;
+}
+
+.tt2-footer .tt2-brand-copy,
+.tt2-footer .tt2-brand-copy span {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+/* E-mails/links longos podem quebrar em qualquer ponto; nomes como
+   "TironiTech" (fora deste seletor) continuam intactos. */
+.tt2-footer a {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
 .tt2-floating-lead {
   right: max(18px, env(safe-area-inset-right, 0px));
   bottom: max(18px, env(safe-area-inset-bottom, 0px));
@@ -3254,10 +3276,17 @@ body.tt2-cookie-banner-visible .tt2-floating-lead {
 /* ===== Intro azul/branco — bloco final, vence a cascata do odois ===== */
 
 .tt2-intro-overlay {
-  width: 100vw;
-  height: 100vh;
-  height: 100svh;
-  height: 100dvh;
+  /* NÃO dar height/width explícito aqui: com position:fixed + inset:0 (base
+     em tironi-odois.css), top/right/bottom/left já valem 0 sempre — isso
+     por si só cobre a viewport visual inteira, imune a barra de endereço
+     dinâmica. Um height explícito (vh/svh/dvh, em qualquer combinação)
+     sobre-restringe a caixa: bottom:0 passa a ser ignorado e a base do
+     overlay vira "top + height", que pode ficar acima do rodapé real da
+     tela — exatamente a faixa descoberta relatada. min-height:100% (não
+     height) age só como cinto de segurança, sem entrar na restrição. */
+  height: auto;
+  min-height: 100%;
+  width: auto;
   margin: 0;
   border: 0;
   z-index: 99999;

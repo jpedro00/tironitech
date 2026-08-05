@@ -1560,6 +1560,13 @@ body.tt2-cookie-banner-visible .tt2-floating-lead {
   background: linear-gradient(180deg, #07111c 0%, #0b2034 100%);
 }
 
+/* 92px fixo não acompanha a safe area: em telas com home indicator o
+   WhatsApp flutuante sobe (bottom: max(16px, safe-area)) e a folga real
+   encolhe até quase sumir. Soma a safe-area por cima da folga existente. */
+.mobile-site-shell .tt2-footer {
+  padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+}
+
 .mobile-site-shell .tt2-footer-grid {
   display: grid;
   grid-template-columns: 1fr;
