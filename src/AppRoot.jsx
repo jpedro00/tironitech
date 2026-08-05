@@ -1,7 +1,6 @@
 import "./styles/theme.css";
 import { useLanguage } from "./context/LanguageContext";
 
-import IntroOverlay from "./components/IntroOverlay";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import FloatingLeadButton from "./components/ui/FloatingLeadButton";
@@ -54,7 +53,6 @@ export default function AppRoot() {
 
   return (
     <div className="tt2-page">
-      <IntroOverlay />
       <div className="tt2-page-inner">
         <Navbar t={t} language={language} setLanguage={setLanguage} languageOptions={languageOptions} />
 

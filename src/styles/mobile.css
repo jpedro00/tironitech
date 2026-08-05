@@ -384,12 +384,17 @@ body { overflow-x: hidden; background: #f7fbff; }
   animation: tt2MobileMarquee 26s linear infinite;
 }
 
-.mobile-marquee:hover .mobile-marquee-track {
-  animation-play-state: paused;
+/* Pausar no hover é comportamento exclusivo de mouse: em touch, :hover pode
+   "grudar" após o toque (sem mouseleave para limpar), travando a esteira. */
+@media (hover: hover) and (pointer: fine) {
+  .mobile-marquee:hover .mobile-marquee-track {
+    animation-play-state: paused;
+  }
 }
 
 .mobile-marquee-track span {
   min-width: max-content;
+  flex-shrink: 0;
   padding: 13px 15px;
   border-radius: 999px;
   color: #123653;
@@ -402,7 +407,7 @@ body { overflow-x: hidden; background: #f7fbff; }
 
 @keyframes tt2MobileMarquee {
   from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  to { transform: translateX(-33.3333%); }
 }
 
 @media (prefers-reduced-motion: reduce) {
