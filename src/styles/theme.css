@@ -1,5 +1,11 @@
 @import "./tironi-odois.css";
 
+/* Evita que o iOS Safari aumente o tamanho do texto sozinho ao girar a tela. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 .tt2-site-main {
   position: relative;
   z-index: 2;
@@ -75,7 +81,7 @@
 }
 
 .tt2-intro-symbol {
-  width: min(88vw, 66vh, 760px) !important;
+  width: min(88vw, 66dvh, 760px) !important;
   max-width: 760px;
   height: auto !important;
   object-fit: contain;
@@ -86,8 +92,17 @@
 
 @media (max-width: 768px) {
   .tt2-intro-symbol {
-    width: min(92vw, 60vh, 460px) !important;
+    width: min(92vw, 60dvh, 460px) !important;
     max-width: 460px;
+  }
+}
+
+/* Paisagem baixa (ex.: 844x390): o teto em dvh some para não estourar a
+   altura disponível quando símbolo + nome + tagline competem por pouco
+   espaço vertical — mesma regra fluida, só com um teto menor. */
+@media (orientation: landscape) and (max-height: 480px) {
+  .tt2-intro-symbol {
+    width: min(88vw, 40dvh, 760px) !important;
   }
 }
 
@@ -152,8 +167,8 @@
 
 .tt2-floating-lead {
   position: fixed;
-  right: 18px;
-  bottom: 18px;
+  right: max(18px, env(safe-area-inset-right, 0px));
+  bottom: max(18px, env(safe-area-inset-bottom, 0px));
   z-index: 1200;
   min-height: 56px;
   padding: 0 20px;
@@ -860,8 +875,8 @@ body {
 }
 
 .tt2-floating-lead {
-  right: 18px;
-  bottom: 18px;
+  right: max(18px, env(safe-area-inset-right, 0px));
+  bottom: max(18px, env(safe-area-inset-bottom, 0px));
 }
 
 .tt2-cookie-banner {
@@ -2196,8 +2211,8 @@ canvas {
   }
 
   .tt2-floating-lead {
-    right: 12px !important;
-    bottom: 12px !important;
+    right: max(12px, env(safe-area-inset-right, 0px)) !important;
+    bottom: max(12px, env(safe-area-inset-bottom, 0px)) !important;
     min-height: 44px !important;
     padding: 0 12px !important;
     font-size: 0.88rem !important;
@@ -3239,16 +3254,28 @@ body.tt2-cookie-banner-visible .tt2-floating-lead {
 /* ===== Intro azul/branco — bloco final, vence a cascata do odois ===== */
 
 .tt2-intro-overlay {
-  width: 100%;
-  min-height: 100vh;
-  min-height: 100svh;
+  width: 100vw;
+  height: 100vh;
+  height: 100svh;
   height: 100dvh;
+  margin: 0;
+  border: 0;
   z-index: 99999;
   background:
     radial-gradient(circle at 30% 34%, rgba(20, 121, 201, 0.14), transparent 34%),
     radial-gradient(circle at 72% 42%, rgba(124, 199, 244, 0.2), transparent 36%),
     linear-gradient(180deg, #ffffff 0%, #f7fbff 55%, #eef7ff 100%);
   flex-direction: column;
+}
+
+/* O fundo (acima) ocupa 100% da viewport; a safe area entra só no
+   conteúdo, para não sobrar borda descoberta ao redor do overlay. */
+.tt2-intro-logo-wrap {
+  box-sizing: border-box;
+  padding-top: max(16px, env(safe-area-inset-top, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
 }
 
 .tt2-intro-noise {
@@ -3352,7 +3379,7 @@ body.tt2-cookie-banner-visible .tt2-floating-lead {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 42px;
+  bottom: max(42px, calc(24px + env(safe-area-inset-bottom, 0px)));
   overflow: hidden;
   pointer-events: none;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);

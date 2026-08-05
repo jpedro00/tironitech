@@ -48,8 +48,8 @@ summary {
 }
 .tt2-floating-whatsapp {
   position: fixed;
-  left: 24px;
-  bottom: 24px;
+  left: max(24px, env(safe-area-inset-left, 0px));
+  bottom: max(24px, env(safe-area-inset-bottom, 0px));
   z-index: 1190;
   width: 62px;
   height: 62px;
@@ -163,8 +163,8 @@ body.tt2-cookie-banner-visible .tt2-floating-whatsapp {
 
 @media (max-width: 720px) {
   .tt2-floating-whatsapp {
-    left: 16px;
-    bottom: 16px;
+    left: max(16px, env(safe-area-inset-left, 0px));
+    bottom: max(16px, env(safe-area-inset-bottom, 0px));
     width: 56px;
     height: 56px;
   }
