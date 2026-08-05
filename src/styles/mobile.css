@@ -376,13 +376,18 @@ body { overflow-x: hidden; background: #f7fbff; }
   margin: 18px -16px 0;
   padding: 6px 0;
   touch-action: pan-y;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
 }
 
+/* O espaçamento fica no card (margin-right), não em gap no track: com gap,
+   1/3 da largura total não corresponde a uma sequência exata (21 itens têm
+   20 gaps, e 20 não é divisível por 3) e o loop dá um salto de ~3px a cada
+   volta. Com margem por item, translateX(-33.3333%) fecha exato. */
 .mobile-marquee-track {
   display: flex;
   flex-wrap: nowrap;
-  gap: 10px;
+  gap: 0;
   width: max-content;
   will-change: transform;
   backface-visibility: hidden;
@@ -390,6 +395,10 @@ body { overflow-x: hidden; background: #f7fbff; }
   transform: translate3d(0, 0, 0);
   animation: tt2MobileMarquee 26s linear infinite;
   -webkit-animation: tt2MobileMarquee 26s linear infinite;
+}
+
+.mobile-marquee-track > span {
+  margin-right: 10px;
 }
 
 /* Pausar no hover é comportamento exclusivo de mouse: em touch, :hover pode
@@ -1273,9 +1282,13 @@ body.tt2-cookie-banner-visible .tt2-floating-lead {
 }
 
 .mobile-marquee-track {
-  gap: 10px !important;
+  gap: 0 !important;
   animation-duration: 34s !important;
   will-change: transform;
+}
+
+.mobile-marquee-track > span {
+  margin-right: 10px !important;
 }
 
 .mobile-marquee-track span,
