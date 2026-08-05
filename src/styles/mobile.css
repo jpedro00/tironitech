@@ -371,17 +371,25 @@ body { overflow-x: hidden; background: #f7fbff; }
 }
 
 .mobile-marquee {
+  position: relative;
   overflow: hidden;
   margin: 18px -16px 0;
   padding: 6px 0;
+  touch-action: pan-y;
   mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
 }
 
 .mobile-marquee-track {
   display: flex;
+  flex-wrap: nowrap;
   gap: 10px;
   width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
   animation: tt2MobileMarquee 26s linear infinite;
+  -webkit-animation: tt2MobileMarquee 26s linear infinite;
 }
 
 /* Pausar no hover é comportamento exclusivo de mouse: em touch, :hover pode
@@ -394,7 +402,7 @@ body { overflow-x: hidden; background: #f7fbff; }
 
 .mobile-marquee-track span {
   min-width: max-content;
-  flex-shrink: 0;
+  flex: 0 0 auto;
   padding: 13px 15px;
   border-radius: 999px;
   color: #123653;
@@ -406,15 +414,13 @@ body { overflow-x: hidden; background: #f7fbff; }
 }
 
 @keyframes tt2MobileMarquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-33.3333%); }
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-33.3333%, 0, 0); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .mobile-marquee-track {
-    animation: none !important;
-    transform: none !important;
-  }
+@-webkit-keyframes tt2MobileMarquee {
+  from { -webkit-transform: translate3d(0, 0, 0); }
+  to { -webkit-transform: translate3d(-33.3333%, 0, 0); }
 }
 
 @media (max-width: 390px) {
@@ -1772,4 +1778,15 @@ body.tt2-cookie-banner-visible .tt2-floating-lead {
 
 .tt2-cookie-banner {
   bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+/* Mobile pass 2026-08 (2): reduced motion nunca pode zerar a animação da
+   esteira (isso a travava por completo em qualquer aparelho com a
+   preferência ativada) — só desacelera. Precisa vir por último e com
+   !important para vencer o "animation-duration: 34s !important" acima. */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-marquee-track {
+    animation-duration: 60s !important;
+    -webkit-animation-duration: 60s !important;
+  }
 }

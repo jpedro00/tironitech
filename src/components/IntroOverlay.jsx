@@ -1,8 +1,8 @@
 import { AnimatePresence, motion as Motion, useReducedMotion } from "framer-motion";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { LogoMark } from "./layout/Navbar";
 
-const SEEN_KEY = "tironi_intro_seen";
+const SEEN_KEY = "tironi_intro_seen_v2";
 const BRAND = "TironiTech";
 const TAGLINE = "Tecnologia com clareza, estrutura e evolução";
 const TICKER = ["SOFTWARE SOB MEDIDA", "AUTOMAÇÃO", "IA", "INTEGRAÇÕES", "CLOUD"];
@@ -12,25 +12,38 @@ const EASE_WIPE = [0.76, 0, 0.24, 1];
 /* Duração total da abertura (entrada + permanência + saída/revelação). */
 const INTRO_TOTAL_DURATION_MS = 4000;
 const INTRO_EXIT_MS = 750;
-const REDUCED_MS = 600;
+const INTRO_EXIT_REDUCED_MS = 400;
+
+function safeSessionGet(key) {
+  try {
+    return window.sessionStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function safeSessionSet(key, value) {
+  try {
+    window.sessionStorage.setItem(key, value);
+  } catch {
+    // Armazenamento bloqueado (modo privado, política do navegador etc.):
+    // a abertura deve continuar funcionando mesmo sem persistir a marca.
+  }
+}
 
 export default function IntroOverlay() {
   const reduceMotion = useReducedMotion();
-  const [visible, setVisible] = useState(() => {
-    try {
-      return !sessionStorage.getItem(SEEN_KEY);
-    } catch {
-      return false;
-    }
-  });
+  // Falha ao ler o storage não pode esconder a abertura: só pula quando o
+  // valor lido for exatamente a marca de "já visto".
+  const [visible, setVisible] = useState(() => safeSessionGet(SEEN_KEY) !== "true");
+  const completedRef = useRef(false);
 
   const dismiss = useCallback(() => {
+    if (completedRef.current) return;
+    completedRef.current = true;
+
     setVisible(false);
-    try {
-      sessionStorage.setItem(SEEN_KEY, "true");
-    } catch {
-      // storage bloqueado (modo privado) — segue sem persistir
-    }
+    safeSessionSet(SEEN_KEY, "true");
   }, []);
 
   useEffect(() => {
@@ -39,29 +52,19 @@ export default function IntroOverlay() {
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    const timer = setTimeout(
-      dismiss,
-      reduceMotion ? REDUCED_MS : INTRO_TOTAL_DURATION_MS - INTRO_EXIT_MS
-    );
-    const onKeyDown = (event) => {
-      if (event.key === "Escape") dismiss();
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-    window.addEventListener("wheel", dismiss, { passive: true });
-    window.addEventListener("touchmove", dismiss, { passive: true });
+    const exitMs = reduceMotion ? INTRO_EXIT_REDUCED_MS : INTRO_EXIT_MS;
+    // Garantia de finalização: a abertura termina apenas pela sua própria
+    // linha do tempo, nunca por clique, toque ou gesto do usuário.
+    const timer = window.setTimeout(dismiss, INTRO_TOTAL_DURATION_MS - exitMs);
 
     return () => {
-      clearTimeout(timer);
-      window.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("wheel", dismiss);
-      window.removeEventListener("touchmove", dismiss);
+      window.clearTimeout(timer);
       document.body.style.overflow = previousOverflow;
     };
   }, [visible, reduceMotion, dismiss]);
 
   const exitTransition = reduceMotion
-    ? { opacity: 0, transition: { duration: 0.35 } }
+    ? { opacity: 0, transition: { duration: INTRO_EXIT_REDUCED_MS / 1000 } }
     : { y: "-100%", transition: { duration: INTRO_EXIT_MS / 1000, ease: EASE_WIPE } };
 
   return (
@@ -70,7 +73,6 @@ export default function IntroOverlay() {
         <Motion.div
           className="tt2-intro-overlay"
           role="presentation"
-          onClick={dismiss}
           initial={{ opacity: 1 }}
           exit={exitTransition}
         >
