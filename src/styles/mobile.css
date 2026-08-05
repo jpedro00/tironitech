@@ -1743,3 +1743,28 @@ body.tt2-cookie-banner-visible .tt2-floating-lead {
   justify-content: center !important;
   gap: 2px !important;
 }
+
+/* Mobile pass 2026-08: touch targets, CTA overflow (label ES) and safe areas */
+.mobile-language-select {
+  height: 40px !important;
+  min-height: 40px !important;
+}
+
+.mobile-header-cta {
+  display: inline-block !important;
+  min-height: 40px !important;
+  line-height: 40px !important;
+  max-width: min(30vw, 150px) !important;
+  padding: 0 10px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.tt2-floating-whatsapp {
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+.tt2-cookie-banner {
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
+}

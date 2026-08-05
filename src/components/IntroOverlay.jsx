@@ -9,7 +9,9 @@ const TICKER = ["SOFTWARE SOB MEDIDA", "AUTOMAÇÃO", "IA", "INTEGRAÇÕES", "CL
 
 const EASE = [0.22, 1, 0.36, 1];
 const EASE_WIPE = [0.76, 0, 0.24, 1];
-const FULL_MS = 2800;
+/* Duração total da abertura (entrada + permanência + saída/revelação). */
+const INTRO_TOTAL_DURATION_MS = 4000;
+const INTRO_EXIT_MS = 750;
 const REDUCED_MS = 600;
 
 export default function IntroOverlay() {
@@ -37,7 +39,10 @@ export default function IntroOverlay() {
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    const timer = setTimeout(dismiss, reduceMotion ? REDUCED_MS : FULL_MS);
+    const timer = setTimeout(
+      dismiss,
+      reduceMotion ? REDUCED_MS : INTRO_TOTAL_DURATION_MS - INTRO_EXIT_MS
+    );
     const onKeyDown = (event) => {
       if (event.key === "Escape") dismiss();
     };
@@ -57,7 +62,7 @@ export default function IntroOverlay() {
 
   const exitTransition = reduceMotion
     ? { opacity: 0, transition: { duration: 0.35 } }
-    : { y: "-100%", transition: { duration: 0.75, ease: EASE_WIPE } };
+    : { y: "-100%", transition: { duration: INTRO_EXIT_MS / 1000, ease: EASE_WIPE } };
 
   return (
     <AnimatePresence>
@@ -104,7 +109,7 @@ export default function IntroOverlay() {
                   aria-hidden="true"
                   initial={{ x: "-140%" }}
                   animate={{ x: "140%" }}
-                  transition={{ duration: 0.9, delay: 0.6, ease: EASE }}
+                  transition={{ duration: 1, delay: 0.7, ease: EASE }}
                 />
               )}
             </div>
@@ -118,7 +123,7 @@ export default function IntroOverlay() {
                     aria-hidden="true"
                     initial={reduceMotion ? false : { opacity: 0, y: 12 }}
                     animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-                    transition={{ duration: 0.45, delay: 1.2 + index * 0.035, ease: EASE }}
+                    transition={{ duration: 0.45, delay: 1.5 + index * 0.035, ease: EASE }}
                   >
                     {char}
                   </Motion.span>
@@ -128,7 +133,7 @@ export default function IntroOverlay() {
               <Motion.p
                 initial={reduceMotion ? false : { opacity: 0, y: 8 }}
                 animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.45, ease: EASE }}
+                transition={{ duration: 0.6, delay: 1.75, ease: EASE }}
               >
                 {TAGLINE}
               </Motion.p>
@@ -138,7 +143,7 @@ export default function IntroOverlay() {
               className="tt2-intro-line"
               initial={reduceMotion ? false : { scaleX: 0, opacity: 0 }}
               animate={reduceMotion ? undefined : { scaleX: 1, opacity: 1 }}
-              transition={{ duration: 0.7, delay: 1.35, ease: EASE }}
+              transition={{ duration: 0.7, delay: 1.65, ease: EASE }}
             />
           </Motion.div>
 
@@ -148,7 +153,7 @@ export default function IntroOverlay() {
               aria-hidden="true"
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.55 }}
-              transition={{ duration: 0.6, delay: 1.8, ease: EASE }}
+              transition={{ duration: 0.6, delay: 2.1, ease: EASE }}
             >
               <div className="tt2-intro-ticker-track">
                 {[...TICKER, ...TICKER, ...TICKER].map((term, index) => (
