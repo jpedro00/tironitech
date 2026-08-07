@@ -35,6 +35,7 @@ const mobileMarqueeLogos = [
   { name: "EUTEC", logo: "/assets/clients/eutec.png" },
   { name: "Ziquita Agro-Paraná", logo: "/assets/clients/ziquita-agro-parana.png" },
   { name: "XNAMAI", logo: "/assets/clients/xnamai.png" },
+  { name: "Instituto Potala", logo: "/assets/clients/instituto-potala.avif" },
 ];
 const projectLinks = {
   SignGuard: "https://www.walletsignguard.com/",

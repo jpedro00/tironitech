@@ -46,6 +46,10 @@ const CLIENTS = [
     name: "Ziquita Agro-Paraná",
     logo: "/assets/clients/ziquita-agro-parana.png",
   },
+  {
+    name: "Instituto Potala",
+    logo: "/assets/clients/instituto-potala.avif",
+  },
 ];
 
 export default function AppRoot() {
